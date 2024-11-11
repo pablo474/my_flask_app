@@ -1,11 +1,14 @@
 /* Video background styling */
 video {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
     min-width: 100%;
     min-height: 100%;
     z-index: -1;
+    transform: translate(-50%, -50%);
     object-fit: cover;
 }
 
