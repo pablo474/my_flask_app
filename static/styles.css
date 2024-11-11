@@ -1,7 +1,4 @@
-body {
-    font-family: 'Roboto', sans-serif;
-}
-/* Video background styling */
+/* Estilo para el video de fondo */
 video {
     position: fixed;
     top: 50%;
@@ -15,7 +12,12 @@ video {
     object-fit: cover;
 }
 
-/* Bubble styling */
+/* Fuente global */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Estilo de la burbuja de contraseña */
 .bubble {
     background-color: white;
     border: 2px solid black;
@@ -26,7 +28,7 @@ video {
     text-align: center;
 }
 
-/* Styling for form elements */
+/* Estilo para los campos del formulario */
 form {
     margin-bottom: 10px;
 }
@@ -47,8 +49,19 @@ button {
     cursor: pointer;
 }
 
+/* Estilo para los iconos de redes sociales */
+.social-icons {
+    margin-top: 20px;
+    text-align: center;
+}
+
 .social-icons a {
-    display: inline-block;
-    margin: 0 5px;
     color: purple;
+    font-size: 24px;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #ff0000; /* Cambia el color al pasar el cursor */
 }
