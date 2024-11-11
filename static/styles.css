@@ -1,159 +1,48 @@
-/* Configuración del video de fondo */
-.background-video {
+/* Video background styling */
+video {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Coloca el video detrás del contenido */
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
 }
 
-.background-video video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cubre toda el área sin distorsionar */
-}
-
-/* Fondo de la página */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: #1a1a1a; 
-    background-color: #000; /* Color de fondo de respaldo si el video no se carga */
-}
-
-/* Contenedor principal */
-.container {
-    text-align: center;
-    max-width: 400px;
+/* Bubble styling */
+.bubble {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para el contenido */
-    border-radius: 10px;
+    width: 300px;
+    margin: 50px auto;
+    text-align: center;
 }
 
-/* Bocadillo estilo cómic */
-.comic-bubble {
-    position: relative;
-    background-color: #ffffff;
-    border: 2px solid #000;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px 0;
-    display: inline-block;
-    max-width: 300px;
-    box-shadow: 3px 3px 0px #000;
+/* Styling for form elements */
+form {
+    margin-bottom: 10px;
 }
 
-.comic-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 30px;
-    width: 0;
-    height: 0;
-    border: 10px solid;
-    border-color: #ffffff transparent transparent transparent;
-    border-width: 10px 10px 0 0;
-    box-shadow: -2px 2px 0px #000;
-    transform: rotate(45deg);
-}
-
-/* Formulario de contraseña dentro del bocadillo */
-.input-group {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #000;
-    padding-bottom: 10px;
-}
-
-.input-group input[type="password"] {
-    background: none;
-    border: none;
-    color: #1a1a1a;
-    font-size: 16px;
-    width: 70%;
+input[type="password"],
+input[type="email"],
+input[type="text"] {
+    margin: 5px 0;
     padding: 5px;
-    outline: none;
+    width: calc(100% - 20px);
 }
 
-.input-group button {
-    background-color: #1a1a1a;
-    color: #ffffff;
+button {
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
-    text-transform: uppercase;
-}
-
-/* Botón de lista de espera */
-#join-waitlist-btn {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    padding: 15px 30px;
-    border: none;
-    margin-top: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* Texto adicional */
-.small-password-text {
-    display: block;
-    margin-top: 10px;
-    font-size: 12px;
-    color: #333;
-}
-
-/* Formulario de lista de espera oculto */
-.join-waitlist-div {
-    display: none;
-    margin-top: 20px;
-}
-
-.join-waitlist-div input {
-    background: none;
-    border: 1px solid #1a1a1a;
-    color: #1a1a1a;
-    font-size: 16px;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.join-waitlist-div button {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-    text-transform: uppercase;
-}
-
-/* Iconos de redes sociales */
-.social-icons {
-    margin-top: 20px;
 }
 
 .social-icons a {
-    color: #1a1a1a;
-    font-size: 24px;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-icons a:hover {
-    color: #555; /* Cambia de color al pasar el ratón por encima */
+    display: inline-block;
+    margin: 0 5px;
+    color: purple;
 }
