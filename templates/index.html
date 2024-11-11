@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonko Waitlist</title>
+    <!-- Enlace a tu archivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Video de fondo -->
     <video src="{{ url_for('static', filename='Animacioin-intro-devilvinyl_2a-parte.mp4') }}" autoplay muted loop></video>
     
+    <!-- Burbuja de la contraseña -->
     <div class="bubble">
         <form method="post" action="/subscribe" id="login_form">
             <input type="password" name="password" id="password" placeholder="Password">
@@ -17,6 +24,7 @@
         <button id="join-waitlist-btn">Join waitlist for password</button>
         <span>**Drops are only accessible with password**</span>
         
+        <!-- Formulario para la lista de espera -->
         <div class="join-waitlist-div" style="display: none;">
             <form id="email_signup" action="/subscribe" method="POST">
                 <input type="email" name="email" placeholder="E-Mail">
@@ -26,13 +34,15 @@
             </form>
         </div>
         
+        <!-- Iconos de redes sociales -->
         <div class="social-icons">
-            <a href="https://www.instagram.com/yonko_alter" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/yonko_alter" target="_blank">YouTube</a>
-            <a href="https://open.spotify.com/user/yonko_alter" target="_blank">Spotify</a>
+            <a href="https://www.instagram.com/yonko_alter" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/yonko_alter" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://open.spotify.com/user/yonko_alter" target="_blank"><i class="fab fa-spotify"></i></a>
         </div>
     </div>
 
+    <!-- Script para mostrar el formulario de espera al hacer clic en el botón -->
     <script>
         document.getElementById("join-waitlist-btn").onclick = function () {
             document.querySelector(".join-waitlist-div").style.display = "block";
