@@ -92,7 +92,7 @@ span {
 /* Ajustes para dispositivos móviles */
 @media (max-width: 600px) {
     .bubble {
-        width: 90%;
+        width: 85%; /* Ajuste del ancho en dispositivos móviles */
         padding: 15px;
     }
     input[type="password"],
