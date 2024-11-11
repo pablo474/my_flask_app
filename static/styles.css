@@ -15,6 +15,11 @@ video {
 /* Fuente global */
 body {
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
 /* Estilo de la burbuja de contraseña */
@@ -24,34 +29,13 @@ body {
     border-radius: 10px;
     padding: 20px;
     width: 300px;
-    margin: 50px auto;
+    margin: 0 auto;
     text-align: center;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
-/* Triángulo para el bocadillo de estilo cómic */
-.bubble::after {
-    content: "";
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: white transparent transparent transparent;
-}
-
-/* Bordes alrededor del triángulo del bocadillo */
-.bubble::before {
-    content: "";
-    position: absolute;
-    bottom: -17px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 12px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Ajuste de espacio entre elementos */
 }
 
 /* Estilo para los campos de entrada */
@@ -75,6 +59,17 @@ button {
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
+}
+
+/* Ajuste de espacio entre el botón Enter y Join Waitlist */
+#join-waitlist-btn {
+    margin-top: 20px; /* Aumenta la distancia */
+}
+
+/* Ajuste de espacio entre Join Waitlist y el texto Drops */
+span {
+    margin-top: 15px; /* Aumenta la distancia */
+    display: block;
 }
 
 /* Estilo para los iconos de redes sociales */
