@@ -26,27 +26,55 @@ body {
     width: 300px;
     margin: 50px auto;
     text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-/* Estilo para los campos del formulario */
-form {
-    margin-bottom: 10px;
+/* Triángulo para el bocadillo de estilo cómic */
+.bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
 }
 
+/* Bordes alrededor del triángulo del bocadillo */
+.bubble::before {
+    content: "";
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 12px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+/* Estilo para los campos de entrada */
 input[type="password"],
 input[type="email"],
 input[type="text"] {
-    margin: 5px 0;
-    padding: 5px;
+    margin: 10px 0;
+    padding: 10px;
     width: calc(100% - 20px);
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
+/* Botón de envío */
 button {
-    padding: 5px 10px;
+    padding: 8px 15px;
     background-color: black;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 /* Estilo para los iconos de redes sociales */
@@ -64,4 +92,20 @@ button {
 
 .social-icons a:hover {
     color: #ff0000; /* Cambia el color al pasar el cursor */
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 600px) {
+    .bubble {
+        width: 90%;
+        padding: 15px;
+    }
+    input[type="password"],
+    input[type="email"],
+    input[type="text"] {
+        font-size: 12px;
+    }
+    .social-icons a {
+        font-size: 20px;
+    }
 }
