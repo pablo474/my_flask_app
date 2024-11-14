@@ -6,7 +6,10 @@ app = Flask(__name__)
 
 # Conexión a PostgreSQL
 DATABASE_URL = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(DATABASE_URL)
+try:
+    conn = psycopg2.connect(DATABASE_URL)
+except Exception as e:
+    print("Error connecting to the database:", e)
 
 @app.route('/')
 def index():
