@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify, render_template
-import json
+import psycopg2
 import os
 
 app = Flask(__name__)
 
-# Ruta del archivo JSON
-EMAILS_JSON_FILE = 'emails.json'
+# Conexión a PostgreSQL
+DATABASE_URL = os.getenv('DATABASE_URL')
+conn = psycopg2.connect(DATABASE_URL)
 
 @app.route('/')
 def index():
@@ -17,19 +18,11 @@ def registrar_email():
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
 
-    # Cargar los correos existentes del archivo JSON
-    if os.path.exists(EMAILS_JSON_FILE):
-        with open(EMAILS_JSON_FILE, 'r') as file:
-            data = json.load(file)
-    else:
-        data = []
-
-    # Añadir el nuevo correo
-    data.append({"email": email, "nombre": first_name, "apellido": last_name})
-
-    # Guardar en el archivo JSON
-    with open(EMAILS_JSON_FILE, 'w') as file:
-        json.dump(data, file, indent=4)
+    # Insertar en la base de datos
+    with conn.cursor() as cursor:
+        cursor.execute("INSERT INTO emails (email, nombre, apellido) VALUES (%s, %s, %s)",
+                       (email, first_name, last_name))
+        conn.commit()
 
     return jsonify({"status": "éxito", "message": "Correo registrado con éxito"}), 200
 
