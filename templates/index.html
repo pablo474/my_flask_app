@@ -1,40 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yonko Waitlist</title>
-    <!-- Enlace a tu archivo CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome para los iconos -->
+    <title>Registro de Correo</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Video de fondo -->
-    <video src="{{ url_for('static', filename='Animacioin-intro-devilvinyl_2a-parte.mp4') }}" autoplay muted loop></video>
-    
-    <!-- Burbuja de la contraseña -->
     <div class="bubble">
-        <form method="post" action="/subscribe" id="login_form">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <button type="submit">Enter</button>
+        <form id="email_signup" action="/registrar_email" method="POST">
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+
+            <button type="button" id="join-waitlist-btn">Unirse a la lista de espera</button>
+            <span>**Los lanzamientos solo son accesibles con contraseña**</span>
+            
+            <input type="email" name="email" id="email" placeholder="Correo electrónico" maxlength="256" required>
+            <input type="text" name="first_name" id="first_name" placeholder="Nombre" maxlength="256">
+            <input type="text" name="last_name" id="last_name" placeholder="Apellido" maxlength="256">
+            <button type="submit" id="submit-newsletter">Enviar</button>
         </form>
-        <button id="join-waitlist-btn">Join waitlist for password</button>
-        <span>**Drops are only accessible with password**</span>
-        
-        <!-- Formulario para la lista de espera -->
-        <div class="join-waitlist-div" style="display: none;">
-            <form id="email_signup" action="/subscribe" method="POST">
-                <input type="email" name="email" placeholder="E-Mail">
-                <input type="text" name="first_name" placeholder="First name">
-                <input type="text" name="last_name" placeholder="Last name">
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        
-        <!-- Iconos de redes sociales -->
+
         <div class="social-icons">
             <a href="https://www.instagram.com/alter_yonko/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://www.youtube.com/@yonkoalter" target="_blank"><i class="fab fa-youtube"></i></a>
@@ -42,11 +29,24 @@
         </div>
     </div>
 
-    <!-- Script para mostrar el formulario de espera al hacer clic en el botón -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById("join-waitlist-btn").onclick = function () {
-            document.querySelector(".join-waitlist-div").style.display = "block";
-        };
+        $('#email_signup').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/registrar_email',
+                data: $(this).serialize(),
+                success: function (response) {
+                    alert(response.message);
+                    $('#email_signup')[0].reset(); // Resetear el formulario
+                },
+                error: function () {
+                    alert('Hubo un error al registrar el correo. Intenta nuevamente.');
+                }
+            });
+        });
     </script>
 </body>
 </html>
