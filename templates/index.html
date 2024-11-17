@@ -3,50 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Correo</title>
+    <title>Yonko Web</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Icono del sitio -->
+    <link rel="shortcut icon" href="Capa13.png" type="image/png">
+
+    <!-- Meta para redes sociales -->
+    <meta property="og:title" content="Yonko Web">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="nombreyonkogif.gif">
+    <meta property="og:description" content="Explora mi contenido creativo">
+    <meta name="theme-color" content="#FFD59F">
 </head>
 <body>
-    <div class="bubble">
-        <form id="email_signup" action="/registrar_email" method="POST">
-            <input type="password" name="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
+    <!-- Fondo -->
+    <div class="background"></div>
 
-            <button type="button" id="join-waitlist-btn">Unirse a la lista de espera</button>
-            <span>**Los lanzamientos solo son accesibles con contraseña**</span>
-            
-            <input type="email" name="email" id="email" placeholder="Correo electrónico" maxlength="256" required>
-            <input type="text" name="first_name" id="first_name" placeholder="Nombre" maxlength="256">
-            <input type="text" name="last_name" id="last_name" placeholder="Apellido" maxlength="256">
-            <button type="submit" id="submit-newsletter">Enviar</button>
-        </form>
+    <!-- Título animado -->
+    <header>
+        <img src="nombreyonkogif.gif" alt="Yonko Título" class="title-animation">
+    </header>
 
-        <div class="social-icons">
-            <a href="https://www.instagram.com/alter_yonko/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.youtube.com/@yonkoalter" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://open.spotify.com/playlist/102yCUJEDKujObCziSLvM6?si=o35EB72lTSm_1p80EeU0Dg" target="_blank"><i class="fab fa-spotify"></i></a>
+    <!-- Animación del personaje -->
+    <section class="character-section">
+        <img src="personajepequeño1gif.gif" alt="Personaje Animado" class="character-animation">
+    </section>
+
+    <!-- Botones principales -->
+    <section class="buttons-section">
+        <div class="button">
+            <a href="/animation">
+                <img src="yonkonews.png" alt="Animation" class="button-img">
+                <img src="yonkonews2.png" alt="Animation Hover" class="button-img-hover">
+            </a>
         </div>
-    </div>
+        <div class="button">
+            <a href="/storyboard">
+                <img src="webYonkoshitOption.png" alt="Storyboard" class="button-img">
+                <img src="webYonkoshitOption2.png" alt="Storyboard Hover" class="button-img-hover">
+            </a>
+        </div>
+    </section>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $('#email_signup').submit(function (e) {
-            e.preventDefault();
-
-            $.ajax({
-                type: 'POST',
-                url: '/registrar_email',
-                data: $(this).serialize(),
-                success: function (response) {
-                    alert(response.message);
-                    $('#email_signup')[0].reset(); // Resetear el formulario
-                },
-                error: function () {
-                    alert('Hubo un error al registrar el correo. Intenta nuevamente.');
-                }
-            });
-        });
-    </script>
+    <!-- Íconos sociales -->
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/channel/UCPFJ7rf5pssOt2DtYKJhnZA" target="_blank">
+                <img src="Capa13.png" alt="YouTube">
+            </a>
+            <a href="https://open.spotify.com/user/yonko_alter" target="_blank">
+                <img src="Capa15.png" alt="Spotify">
+            </a>
+        </div>
+    </footer>
 </body>
 </html>
