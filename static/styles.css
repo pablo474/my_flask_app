@@ -1,106 +1,104 @@
-/* Estilo para el video de fondo */
-video {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    z-index: -1;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-
-/* Fuente global */
-body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+/* General */
+body, html {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #FFD59F;
+    overflow-x: hidden;
+    cursor: url('Capa18.png'), auto;
 }
 
-/* Estilo de la burbuja de contraseña */
-.bubble {
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
+}
+
+header {
     text-align: center;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+}
+
+.title-animation {
+    width: 80%;
+    max-width: 800px;
+    height: auto;
+}
+
+.character-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.character-animation {
+    width: 50%;
+    max-width: 400px;
+    height: auto;
+}
+
+/* Botones principales */
+.buttons-section {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px; /* Ajuste de espacio entre elementos */
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
 }
 
-/* Estilo para los campos de entrada */
-input[type="password"],
-input[type="email"],
-input[type="text"] {
-    margin: 10px 0;
-    padding: 10px;
-    width: calc(100% - 20px);
-    font-size: 14px;
-    border: 1px solid black;
-    border-radius: 5px;
+.button {
+    position: relative;
+    width: 200px;
+    height: 200px;
 }
 
-/* Botón de envío */
-button {
-    padding: 8px 15px;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
+.button-img {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s;
 }
 
-/* Ajuste de espacio entre el botón Enter y Join Waitlist */
-#join-waitlist-btn {
-    margin-top: 20px; /* Aumenta la distancia */
+.button-img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-/* Ajuste de espacio entre Join Waitlist y el texto Drops */
-span {
-    margin-top: 15px; /* Aumenta la distancia */
-    display: block;
+.button:hover .button-img-hover {
+    opacity: 1;
 }
 
-/* Estilo para los iconos de redes sociales */
-.social-icons {
-    margin-top: 20px;
+/* Íconos sociales */
+footer {
     text-align: center;
+    margin-top: 30px;
 }
 
 .social-icons a {
-    color: purple;
-    font-size: 24px;
+    display: inline-block;
     margin: 0 10px;
-    text-decoration: none;
 }
 
-.social-icons a:hover {
-    color: #ff0000; /* Cambia el color al pasar el cursor */
+.social-icons img {
+    width: 50px;
+    height: auto;
+    transition: transform 0.2s;
 }
 
-/* Ajustes para dispositivos móviles */
-@media (max-width: 600px) {
-    .bubble {
-        width: 85%; /* Ajuste del ancho en dispositivos móviles */
-        padding: 15px;
-    }
-    input[type="password"],
-    input[type="email"],
-    input[type="text"] {
-        font-size: 12px;
-    }
-    .social-icons a {
-        font-size: 20px;
-    }
+.social-icons img:hover {
+    transform: scale(1.2);
+}
+
+/* Cursor hover */
+a:hover {
+    cursor: url('Capa17.png'), pointer;
 }
