@@ -6,15 +6,15 @@
     <title>Yonko Web</title>
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
     <!-- Icono del sitio -->
-    <link rel="shortcut icon" href="Capa13.png" type="image/png">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Capa13.png') }}" type="image/png">
 
     <!-- Meta para redes sociales -->
     <meta property="og:title" content="Yonko Web">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="nombreyonkogif.gif">
+    <meta property="og:image" content="{{ url_for('static', filename='nombreyonkogif.gif') }}">
     <meta property="og:description" content="Explora mi contenido creativo">
     <meta name="theme-color" content="#FFD59F">
 </head>
@@ -24,26 +24,26 @@
 
     <!-- Título animado -->
     <header>
-        <img src="nombreyonkogif.gif" alt="Yonko Título" class="title-animation">
+        <img src="{{ url_for('static', filename='nombreyonkogif.gif') }}" alt="Yonko Título" class="title-animation">
     </header>
 
     <!-- Animación del personaje -->
     <section class="character-section">
-        <img src="personajepequeño1gif.gif" alt="Personaje Animado" class="character-animation">
+        <img src="{{ url_for('static', filename='personajepequeño1gif.gif') }}" alt="Personaje Animado" class="character-animation">
     </section>
 
     <!-- Botones principales -->
     <section class="buttons-section">
         <div class="button">
             <a href="/animation">
-                <img src="yonkonews.png" alt="Animation" class="button-img">
-                <img src="yonkonews2.png" alt="Animation Hover" class="button-img-hover">
+                <img src="{{ url_for('static', filename='yonkonews.png') }}" alt="Animation" class="button-img">
+                <img src="{{ url_for('static', filename='yonkonews2.png') }}" alt="Animation Hover" class="button-img-hover">
             </a>
         </div>
         <div class="button">
             <a href="/storyboard">
-                <img src="webYonkoshitOption.png" alt="Storyboard" class="button-img">
-                <img src="webYonkoshitOption2.png" alt="Storyboard Hover" class="button-img-hover">
+                <img src="{{ url_for('static', filename='webYonkoshitOption.png') }}" alt="Storyboard" class="button-img">
+                <img src="{{ url_for('static', filename='webYonkoshitOption2.png') }}" alt="Storyboard Hover" class="button-img-hover">
             </a>
         </div>
     </section>
@@ -52,10 +52,10 @@
     <footer>
         <div class="social-icons">
             <a href="https://www.youtube.com/channel/UCPFJ7rf5pssOt2DtYKJhnZA" target="_blank">
-                <img src="Capa13.png" alt="YouTube">
+                <img src="{{ url_for('static', filename='Capa13.png') }}" alt="YouTube">
             </a>
-            <a href="https://open.spotify.com/user/yonko_alter" target="_blank">
-                <img src="Capa15.png" alt="Spotify">
+            <a href="https://open.spotify.com/playlist/102yCUJEDKujObCziSLvM6?si=o35EB72lTSm_1p80EeU0Dg" target="_blank">
+                <img src="{{ url_for('static', filename='Capa15.png') }}" alt="Spotify">
             </a>
         </div>
     </footer>
