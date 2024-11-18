@@ -1,3 +1,4 @@
+/* General */
 body {
   margin: 0;
   padding: 0;
@@ -8,43 +9,53 @@ body {
 
 /* Cabecera */
 .header {
+  width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin: 10px 0;
 }
 
 .header img {
-  max-width: 80%; /* Mantiene la reducción al 80% */
-  height: auto; /* Conserva proporción */
+  width: 80%;
+  max-width: 1200px;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Contenedor principal */
-.content {
+.main-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 20px;
+  width: 90%;
+  margin: 20px auto;
+  position: relative;
 }
 
 /* Columna izquierda: Personaje */
-.character {
+.left-column {
   flex: 1;
   text-align: center;
 }
 
-.character img {
+.diablo-gif {
   width: auto;
-  max-height: 600px; /* Tamaño actual del personaje */
-  height: auto;
+  height: 400px;
+  max-width: 100%;
+  position: absolute;
+  left: 25%; /* Mover más cerca del centro */
+  top: 35%;  /* Ajustar verticalmente */
 }
 
-/* Botones */
-.buttons {
+/* Columna derecha: Botones */
+.right-column {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px; /* Reducir la separación entre los botones */
+  position: absolute;
+  right: 15%; /* Mover más cerca del centro */
+  top: 30%;   /* Ajustar verticalmente */
 }
 
 .button {
@@ -52,8 +63,9 @@ body {
 }
 
 .button img {
-  max-width: 600px; /* Tamaño fijo de los botones aumentado */
-  height: auto; /* Mantiene proporción */
+  display: block;
+  width: 300px; /* Aumentar el tamaño de los botones */
+  transition: transform 0.2s ease;
 }
 
 .button .hover-img {
@@ -61,8 +73,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* Asegura que el tamaño del hover sea igual al del botón base */
-  height: auto;
 }
 
 .button:hover img {
@@ -84,21 +94,4 @@ body {
 .footer img {
   max-width: 50px;
   margin: 0 10px;
-  transition: transform 0.2s ease;
-}
-
-/* Media Query para móviles */
-@media (max-width: 768px) {
-  .header img {
-    max-width: 100%; /* Tamaño completo en móviles */
-  }
-
-  .character img {
-    max-height: 400px; /* Reduce el tamaño del personaje */
-  }
-
-  .button img,
-  .button .hover-img {
-    max-width: 300px; /* Botones más pequeños en móviles */
-  }
 }
