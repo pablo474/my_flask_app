@@ -1,105 +1,113 @@
-/* General */
 body {
   margin: 0;
   padding: 0;
-  background: #FFD59F url("/static/images/fondo.png") no-repeat center center fixed;
-  background-size: cover;
   font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  background: url('/static/images/fondo.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 /* Cabecera */
-header {
-  width: 100%;
-  text-align: center;
-  margin: 10px 0;
-}
-
-.header-title {
-  width: 100%;
-  max-width: 1500%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Contenedor principal */
-.main-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin: 20px auto;
-}
-
-/* Columna izquierda: Personaje */
-.left-column {
-  flex: 1;
-  text-align: center;
-}
-
-.diablo-gif {
-  width: auto;
-  height: 600px;
-  max-width: 300%;
-}
-
-/* Columna derecha: Botones */
-.right-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.button {
-  position: relative;
-  display: inline-block;
-}
-
-.button-default {
-  display: block;
-  width: 200px;
-  height: auto;
-}
-
-.img-top {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: auto;
-}
-
-.button:hover .img-top {
-  display: block;
-}
-
-.button:hover .button-default {
-  display: none;
-}
-
-/* Footer */
-footer {
-  width: 100%;
+.header {
   text-align: center;
   margin-top: 20px;
 }
 
-footer img {
-  width: 50px;
-  height: auto;
-  margin: 0 10px;
+.header img {
+  max-width: 80%; /* Reduce el tamaño al 80% del original */
+  height: auto; /* Mantiene la proporción */
 }
 
-/* Ajustes para pantallas pequeñas como teléfonos */
+/* Contenedor principal */
+.content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Columna izquierda: Personaje */
+.character {
+  flex: 1;
+  text-align: center;
+}
+
+.character img {
+  width: auto;
+  max-height: 600px; /* Ajuste máximo para evitar compresión vertical */
+  height: auto;
+}
+
+/* Botones */
+.buttons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.button {
+  position: relative;
+}
+
+.button img {
+  max-width: 250px; /* Aumenta el tamaño del botón */
+  height: auto; /* Mantiene la proporción */
+  transition: transform 0.2s ease, border-color 0.3s ease;
+}
+
+.button .hover-img {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Asegura que el tamaño del hover sea igual al del botón base */
+  height: auto;
+}
+
+.button:hover img {
+  display: none;
+}
+
+.button:hover .hover-img {
+  display: block;
+}
+
+.button:hover {
+  transform: scale(1.1); /* Efecto de agrandado al hover */
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+}
+
+.footer img {
+  max-width: 50px;
+  margin: 0 10px;
+  transition: transform 0.2s ease;
+}
+
+.footer img:hover {
+  transform: scale(1.2); /* Agranda los iconos al hover */
+}
+
+/* Media Query para móviles */
 @media (max-width: 768px) {
+  .header img {
+    max-width: 100%; /* Tamaño completo en móviles */
+  }
+
   .character img {
-    max-width: 90%; /* El GIF ocupa hasta el 90% del ancho del contenedor */
-    max-height: 300px; /* Ajusta la altura máxima */
+    max-height: 400px; /* Reduce el tamaño del personaje */
+  }
+
+  .button img,
+  .button .hover-img {
+    max-width: 200px; /* Botones más pequeños en móviles */
   }
 }
