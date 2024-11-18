@@ -95,3 +95,11 @@ footer img {
   height: auto;
   margin: 0 10px;
 }
+
+/* Ajustes para pantallas pequeñas como teléfonos */
+@media (max-width: 768px) {
+  .character img {
+    max-width: 90%; /* El GIF ocupa hasta el 90% del ancho del contenedor */
+    max-height: 300px; /* Ajusta la altura máxima */
+  }
+}
