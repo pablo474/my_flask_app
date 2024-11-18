@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1><img src="/static/nombreyonkogif.gif" alt="Yonko"></h1>
+    <h1>
+        <div class="animation-title">
+            <iframe src="nombreyonko.html" style="border:none; width:100%; height:300px;"></iframe>
+        </div>
+    </h1>
 
     <div class="social-icons">
         {% if links.youtube %}
@@ -20,25 +24,38 @@
 
     <div class="row">
         <div class="column">
-            <p><img src="/static/personajepequeño1gif.gif" alt="Personaje"></p>
+            <div class="animation-character">
+                <iframe src="personajepequeño.html" style="border:none; width:100%; height:300px;"></iframe>
+            </div>
         </div>
         <div class="column">
             <div class="button">
-                <a href="#"><img src="/static/yonkonews.png" alt="Animation"></a>
-                <a href="#"><img src="/static/yonkonews2.png" class="img-top" alt="Animation Hover"></a>
+                <a href="#register">
+                    <img src="/static/yonkonews.png" class="default" alt="Animation">
+                    <img src="/static/yonkonews2.png" class="hover" alt="Animation Hover">
+                </a>
             </div>
             <div class="button">
-                <a href="#"><img src="/static/webYonkoshitOption.png" alt="Storyboard"></a>
-                <a href="#"><img src="/static/webYonkoshitOption2.png" class="img-top" alt="Storyboard Hover"></a>
+                <a href="#">
+                    <img src="/static/webYonkoshitOption.png" class="default" alt="Storyboard">
+                    <img src="/static/webYonkoshitOption2.png" class="hover" alt="Storyboard Hover">
+                </a>
             </div>
         </div>
     </div>
 
-    <form action="/registrar_email" method="POST">
-        <input type="email" name="email" placeholder="Correo electrónico" required>
-        <input type="text" name="first_name" placeholder="Nombre" required>
-        <input type="text" name="last_name" placeholder="Apellido" required>
-        <button type="submit">Enviar</button>
-    </form>
+    <div id="register">
+        <form action="/registrar_email" method="POST">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="text" name="first_name" placeholder="Nombre" required>
+            <select name="art_type" required>
+                <option value="" disabled selected>Seleccione su arte</option>
+                <option value="Animación">Animación</option>
+                <option value="Storyboard">Storyboard</option>
+                <option value="Diseño">Diseño</option>
+            </select>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
 </body>
 </html>
