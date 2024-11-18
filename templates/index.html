@@ -6,6 +6,7 @@
   <meta name="description" content="Página de prueba para el diseño de Yonko">
   <title>Yonko Web</title>
   <style>
+    /* Estilo general */
     body {
       margin: 0;
       padding: 0;
@@ -14,27 +15,47 @@
       background-size: cover;
     }
 
+    /* Cabecera */
     .header {
+      width: 100%;
       text-align: center;
-      margin-top: 20px;
+      margin: 20px 0;
     }
 
     .header img {
-      max-width: 100%;
+      width: 100%;
+      max-width: 1500px; /* Ancho máximo para evitar que sea demasiado grande */
       height: auto;
     }
 
-    .content {
+    /* Contenedor principal */
+    .main-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      flex-direction: column;
-      height: calc(100vh - 200px); /* Ajusta según sea necesario */
+      width: 80%;
+      margin: 40px auto;
     }
 
+    /* Personaje a la izquierda */
+    .character {
+      flex: 1;
+      text-align: center;
+    }
+
+    .character img {
+      width: auto;
+      height: 400px; /* Tamaño del GIF del personaje */
+      max-width: 100%;
+    }
+
+    /* Botones a la derecha */
     .buttons {
+      flex: 1;
       display: flex;
+      flex-direction: column;
       gap: 20px;
+      align-items: center;
     }
 
     .button {
@@ -43,7 +64,7 @@
 
     .button img {
       display: block;
-      max-width: 200px;
+      max-width: 200px; /* Tamaño de los botones */
       transition: transform 0.2s ease;
     }
 
@@ -62,6 +83,7 @@
       display: block;
     }
 
+    /* Footer */
     .footer {
       text-align: center;
       position: fixed;
@@ -81,11 +103,14 @@
     <img src="/static/images/web-nombre-anim.gif" alt="Animación del nombre">
   </div>
 
-  <!-- Contenido central -->
-  <div class="content">
+  <!-- Contenido principal -->
+  <div class="main-container">
+    <!-- Columna izquierda: Personaje -->
     <div class="character">
       <img src="/static/images/web-diablo-anim.gif" alt="Personaje animado">
     </div>
+
+    <!-- Columna derecha: Botones -->
     <div class="buttons">
       <!-- Botón Animation -->
       <div class="button">
