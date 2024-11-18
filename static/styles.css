@@ -13,8 +13,8 @@ body {
 }
 
 .header img {
-  max-width: 80%; /* Reduce el tamaño al 80% del original */
-  height: auto; /* Mantiene la proporción */
+  max-width: 80%; /* Mantiene la reducción al 80% */
+  height: auto; /* Conserva proporción */
 }
 
 /* Contenedor principal */
@@ -34,7 +34,7 @@ body {
 
 .character img {
   width: auto;
-  max-height: 600px; /* Ajuste máximo para evitar compresión vertical */
+  max-height: 600px; /* Tamaño actual del personaje */
   height: auto;
 }
 
@@ -52,9 +52,8 @@ body {
 }
 
 .button img {
-  max-width: 250px; /* Aumenta el tamaño del botón */
-  height: auto; /* Mantiene la proporción */
-  transition: transform 0.2s ease, border-color 0.3s ease;
+  max-width: 600px; /* Tamaño fijo de los botones aumentado */
+  height: auto; /* Mantiene proporción */
 }
 
 .button .hover-img {
@@ -74,10 +73,6 @@ body {
   display: block;
 }
 
-.button:hover {
-  transform: scale(1.1); /* Efecto de agrandado al hover */
-}
-
 /* Footer */
 .footer {
   text-align: center;
@@ -92,10 +87,6 @@ body {
   transition: transform 0.2s ease;
 }
 
-.footer img:hover {
-  transform: scale(1.2); /* Agranda los iconos al hover */
-}
-
 /* Media Query para móviles */
 @media (max-width: 768px) {
   .header img {
@@ -108,6 +99,6 @@ body {
 
   .button img,
   .button .hover-img {
-    max-width: 200px; /* Botones más pequeños en móviles */
+    max-width: 300px; /* Botones más pequeños en móviles */
   }
 }
