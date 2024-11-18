@@ -7,30 +7,16 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>
-        <div class="animation-title">
-            <iframe src="nombreyonko.html" style="border:none; width:100%; height:300px;"></iframe>
-        </div>
-    </h1>
-
-    <div class="social-icons">
-        {% if links.youtube %}
-        <a href="{{ links.youtube }}" target="_blank"><img src="/static/Capa13.png" alt="YouTube"></a>
-        {% endif %}
-        {% if links.spotify %}
-        <a href="{{ links.spotify }}" target="_blank"><img src="/static/Capa15.png" alt="Spotify"></a>
-        {% endif %}
+    <!-- Título en la parte superior -->
+    <div class="header">
+        <iframe src="/static/web-nombre-anim.html" class="title-animation" scrolling="no"></iframe>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="animation-character">
-                <iframe src="personajepequeño.html" style="border:none; width:100%; height:300px;"></iframe>
-            </div>
-        </div>
-        <div class="column">
+    <!-- Contenido principal: botones y personaje -->
+    <div class="main-content">
+        <div class="buttons-section">
             <div class="button">
-                <a href="#register">
+                <a href="#">
                     <img src="/static/yonkonews.png" class="default" alt="Animation">
                     <img src="/static/yonkonews2.png" class="hover" alt="Animation Hover">
                 </a>
@@ -42,20 +28,19 @@
                 </a>
             </div>
         </div>
+        <div class="character-section">
+            <iframe src="/static/web-diablo-anim.html" class="character-animation" scrolling="no"></iframe>
+        </div>
     </div>
 
-    <div id="register">
-        <form action="/registrar_email" method="POST">
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="text" name="first_name" placeholder="Nombre" required>
-            <select name="art_type" required>
-                <option value="" disabled selected>Seleccione su arte</option>
-                <option value="Animación">Animación</option>
-                <option value="Storyboard">Storyboard</option>
-                <option value="Diseño">Diseño</option>
-            </select>
-            <button type="submit">Enviar</button>
-        </form>
+    <!-- Enlaces inferiores -->
+    <div class="footer">
+        <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank">
+            <img src="/static/Capa13.png" alt="YouTube">
+        </a>
+        <a href="#" target="_blank">
+            <img src="/static/Capa15.png" alt="Spotify">
+        </a>
     </div>
 </body>
 </html>
