@@ -1,46 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yonko</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+
+  <title>Yonko</title>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Yonko" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourwebsite.com" />
+  <meta property="og:image" content="/static/nombreyonkogif.gif" />
+  <meta property="og:description" content="Welcome to Yonko's website!" />
+  <meta name="theme-color" content="#FFD59F">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <style>
+      .button {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+      }
+      .button .img-top {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+      }
+      .button:hover .img-top {
+        display: inline;
+      }
+
+      /* Layout general */
+      html, body {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        background-image: url('/static/fondo.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-family: Arial, sans-serif;
+      }
+
+      h1, h2, p {
+        text-align: center;
+        margin: 10px;
+      }
+
+      .header {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .column {
+        flex: 1;
+        text-align: center;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .footer img {
+        width: 40px;
+        height: auto;
+        margin: 0 10px;
+        transition: transform 0.2s;
+      }
+
+      .footer img:hover {
+        transform: scale(1.2);
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+      }
+  </style>
 </head>
 <body>
-    <!-- Título en la parte superior -->
-    <div class="header">
-        <iframe src="/static/web-nombre-anim.html" class="title-animation" scrolling="no"></iframe>
-    </div>
+  <!-- Cabecera -->
+  <div class="header">
+    <iframe src="/static/web-nombre-anim.html" scrolling="no" style="border: none; width: 100%; height: 200px;"></iframe>
+  </div>
 
-    <!-- Contenido principal: botones y personaje -->
-    <div class="main-content">
-        <div class="buttons-section">
-            <div class="button">
-                <a href="#">
-                    <img src="/static/yonkonews.png" class="default" alt="Animation">
-                    <img src="/static/yonkonews2.png" class="hover" alt="Animation Hover">
-                </a>
-            </div>
-            <div class="button">
-                <a href="#">
-                    <img src="/static/webYonkoshitOption.png" class="default" alt="Storyboard">
-                    <img src="/static/webYonkoshitOption2.png" class="hover" alt="Storyboard Hover">
-                </a>
-            </div>
-        </div>
-        <div class="character-section">
-            <iframe src="/static/web-diablo-anim.html" class="character-animation" scrolling="no"></iframe>
-        </div>
+  <!-- Contenido principal -->
+  <div class="row">
+    <div class="column">
+      <div class="button">
+        <a href="#">
+          <img src="/static/yonkonews.png" class="default" alt="Animation">
+          <img src="/static/yonkonews2.png" class="img-top" alt="Animation Hover">
+        </a>
+      </div>
+      <div class="button">
+        <a href="#">
+          <img src="/static/webYonkoshitOption.png" class="default" alt="Storyboard">
+          <img src="/static/webYonkoshitOption2.png" class="img-top" alt="Storyboard Hover">
+        </a>
+      </div>
     </div>
+    <div class="column">
+      <iframe src="/static/web-diablo-anim.html" scrolling="no" style="border: none; width: 300px; height: auto;"></iframe>
+    </div>
+  </div>
 
-    <!-- Enlaces inferiores -->
-    <div class="footer">
-        <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank">
-            <img src="/static/Capa13.png" alt="YouTube">
-        </a>
-        <a href="#" target="_blank">
-            <img src="/static/Capa15.png" alt="Spotify">
-        </a>
-    </div>
+  <!-- Footer con enlaces -->
+  <div class="footer">
+    <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank">
+      <img src="/static/Capa13.png" alt="YouTube">
+    </a>
+    <a href="#" target="_blank">
+      <img src="/static/Capa15.png" alt="Spotify">
+    </a>
+  </div>
 </body>
 </html>
