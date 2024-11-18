@@ -1,116 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <title>Yonko Website</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Página de prueba para el diseño de Yonko">
-  <title>Yonko Web</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('/static/images/fondo.png') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    .header {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .header img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: calc(100vh - 200px); /* Ajusta según sea necesario */
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-    }
-
-    .button {
-      position: relative;
-    }
-
-    .button img {
-      display: block;
-      max-width: 200px;
-      transition: transform 0.2s ease;
-    }
-
-    .button .hover-img {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .button:hover img {
-      display: none;
-    }
-
-    .button:hover .hover-img {
-      display: block;
-    }
-
-    .footer {
-      text-align: center;
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-    }
-
-    .footer img {
-      max-width: 50px;
-      margin: 0 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- Cabecera -->
-  <div class="header">
-    <img src="/static/images/web-nombre-anim.gif" alt="Animación del nombre">
-  </div>
+  <!-- Nombre Animación -->
+  <h1>
+    <img src="/static/images/web-nombre-anim.gif" alt="Nombre Animación">
+  </h1>
 
-  <!-- Contenido central -->
-  <div class="content">
-    <div class="character">
-      <img src="/static/images/personajepequeño1gif.gif" alt="Personaje animado">
+  <!-- Contenido Principal -->
+  <div class="row">
+    <!-- Animación Diablo -->
+    <div class="column">
+      <img src="/static/images/web-diablo-anim.gif" alt="Diablo Animación" class="diablo-anim">
     </div>
-    <div class="buttons">
-      <!-- Botón Animation -->
-      <div class="button">
-        <a href="/animation">
-          <img src="/static/images/yonkonews.png" alt="Botón Animation">
-          <img class="hover-img" src="/static/images/yonkonews2.png" alt="Botón Animation Hover">
-        </a>
-      </div>
 
-      <!-- Botón Storyboard -->
+    <!-- Botones -->
+    <div class="column">
       <div class="button">
-        <a href="/storyboard">
-          <img src="/static/images/webYonkoshitOption.png" alt="Botón Storyboard">
-          <img class="hover-img" src="/static/images/webYonkoshitOption2.png" alt="Botón Storyboard Hover">
-        </a>
+        <a href="#"><img src="/static/images/yonkonews.png" alt="Animation"></a>
+        <a href="#"><img src="/static/images/yonkonews2.png" class="img-top" alt="Animation Hover"></a>
+      </div>
+      <div class="button">
+        <a href="#"><img src="/static/images/webYonkoshitOption.png" alt="Storyboard"></a>
+        <a href="#"><img src="/static/images/webYonkoshitOption2.png" class="img-top" alt="Storyboard Hover"></a>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank">
+    <a href="https://www.youtube.com/@yonkoalter/featured">
       <img src="/static/images/Capa13.png" alt="YouTube">
     </a>
-    <a href="#" target="_blank">
+    <a href="#">
       <img src="/static/images/Capa15.png" alt="Spotify">
     </a>
   </div>
