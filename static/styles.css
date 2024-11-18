@@ -1,4 +1,3 @@
-/* General */
 body {
   margin: 0;
   padding: 0;
@@ -7,55 +6,46 @@ body {
   background-size: cover;
 }
 
-/* Cabecera */
 .header {
-  width: 100%;
   text-align: center;
-  margin: 10px 0;
+  margin-top: 20px;
 }
 
 .header img {
-  width: 80%;
-  max-width: 1200px;
+  max-width: 80%;
   height: auto;
-  object-fit: contain;
 }
 
-/* Contenedor principal */
-.main-container {
+.content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  margin: 20px auto;
-  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
 }
 
-/* Columna izquierda: Personaje */
-.left-column {
-  flex: 1;
-  text-align: center;
-}
-
-.diablo-gif {
-  width: auto;
-  height: 400px;
-  max-width: 100%;
+.character {
   position: absolute;
-  left: 25%; /* Mover más cerca del centro */
-  top: 35%;  /* Ajustar verticalmente */
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* Columna derecha: Botones */
-.right-column {
-  flex: 1;
+.character img {
+  max-width: 300px;
+  height: auto;
+}
+
+.buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 10px; /* Reducir la separación entre los botones */
-  position: absolute;
-  right: 15%; /* Mover más cerca del centro */
-  top: 30%;   /* Ajustar verticalmente */
+  align-items: center;
+  gap: 20px; /* Espaciado entre botones */
 }
 
 .button {
@@ -64,7 +54,7 @@ body {
 
 .button img {
   display: block;
-  width: 300px; /* Aumentar el tamaño de los botones */
+  max-width: 300px; /* Aumentar el tamaño del botón */
   transition: transform 0.2s ease;
 }
 
@@ -83,7 +73,6 @@ body {
   display: block;
 }
 
-/* Footer */
 .footer {
   text-align: center;
   position: fixed;
