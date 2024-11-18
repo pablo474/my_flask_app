@@ -20,16 +20,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 50px; /* Espacio entre personaje y botones */
   margin-top: 30px;
 }
 
+/* Personaje */
 .character {
-  position: absolute;
-  left: 10%;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  margin-left: 40px; /* Margen izquierdo aumentado al doble */
 }
 
 .character img {
@@ -37,15 +36,12 @@ body {
   height: auto;
 }
 
+/* Botones */
 .buttons {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* Espaciado entre botones */
+  gap: 10px; /* Espacio entre botones */
 }
 
 .button {
@@ -54,8 +50,8 @@ body {
 
 .button img {
   display: block;
-  max-width: 300px; /* Aumentar el tamaño del botón */
-  transition: transform 0.2s ease;
+  max-width: 300px; /* Aumentar tamaño de los botones */
+  height: auto;
 }
 
 .button .hover-img {
