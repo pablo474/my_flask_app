@@ -2,66 +2,77 @@
 body {
   margin: 0;
   padding: 0;
-  background: #FFD59F; /* Fondo principal */
+  background: #FFD59F url("/static/images/fondo.png") no-repeat center center fixed;
+  background-size: cover;
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-/* Contenedor del título principal */
-.title-container {
-  margin-top: 20px;
+/* Cabecera */
+header {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.header-title {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 20px 0;
+}
+
+/* Columna izquierda: Personaje */
+.left-column {
+  flex: 1;
   text-align: center;
 }
 
-.title-gif {
-  width: auto; /* Mantener tamaño original */
-  max-width: 100%;
-  height: auto;
-}
-
-/* Filas y columnas principales */
-.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-  width: 100%;
-}
-
-.column {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Imagen del Diablo */
 .diablo-gif {
   width: auto;
-  height: 400px; /* Ajuste para mantener proporciones */
+  height: 400px;
+  max-width: 100%;
 }
 
-/* Botones */
+/* Columna derecha: Botones */
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
 .button {
   position: relative;
   display: inline-block;
 }
 
-.button img {
+.button-default {
+  display: block;
   width: 200px;
   height: auto;
 }
 
-.button .img-top {
+.img-top {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
+  width: 200px;
+  height: auto;
 }
 
 .button:hover .img-top {
@@ -73,16 +84,14 @@ body {
 }
 
 /* Footer */
-.footer {
-  position: fixed;
-  bottom: 0;
+footer {
   width: 100%;
   text-align: center;
-  padding: 10px;
+  margin-top: 20px;
 }
 
-.footer img {
-  width: 50px; /* Tamaño reducido */
+footer img {
+  width: 50px;
   height: auto;
   margin: 0 10px;
 }
