@@ -1,85 +1,63 @@
-/* Estilo general */
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('/static/fondo.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: url('/static/images/fondo.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
-/* Estilo para el título */
-.header {
-    text-align: center;
-    margin-top: 20px;
+h1 img {
+  width: 50%; /* Ajusta según el tamaño necesario */
+  max-width: 800px;
+  height: auto;
 }
 
-.title-animation {
-    width: 80%;
-    height: 150px;
-    border: none;
+.diablo-anim {
+  width: 40%; /* Cambia este valor según el tamaño necesario */
+  max-width: 800px;
+  height: auto;
+  margin-top: 20px;
 }
 
-/* Contenido principal */
-.main-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 50px 5%;
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-/* Botones */
-.buttons-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.column {
+  flex: 1;
+  padding: 20px;
 }
 
-.button img.default {
-    display: block;
-    width: 150px;
-    height: auto;
+.button {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
 }
 
-.button img.hover {
-    display: none;
-    width: 150px;
-    height: auto;
+.button .img-top {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
 }
 
-.button:hover img.default {
-    display: none;
+.button:hover .img-top {
+  display: inline;
 }
 
-.button:hover img.hover {
-    display: block;
-}
-
-/* Animación del personaje */
-.character-section {
-    text-align: center;
-}
-
-.character-animation {
-    width: 300px;
-    height: auto;
-    border: none;
-}
-
-/* Footer: enlaces inferiores */
 .footer {
-    text-align: center;
-    margin-top: 50px;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
 }
 
 .footer img {
-    width: 50px;
-    height: auto;
-    margin: 0 10px;
-    transition: transform 0.2s;
-}
-
-.footer img:hover {
-    transform: scale(1.2);
+  width: 50px;
+  margin: 0 10px;
 }
