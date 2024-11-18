@@ -6,67 +6,55 @@ body {
   background-size: cover;
 }
 
-.header {
+header {
+  width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin: 10px 0;
 }
 
-.header img {
-  max-width: 80%;
+header img {
+  width: 70%;
+  max-width: 800px;
   height: auto;
 }
 
-.content {
+.main-container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: row;
-  gap: 50px; /* Espacio entre personaje y botones */
-  margin-top: 30px;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 20px auto;
 }
 
-/* Personaje */
-.character {
-  position: relative;
-  margin-left: 40px; /* Margen izquierdo aumentado al doble */
+.left-column {
+  flex: 1;
+  text-align: center;
+  margin-left: 40px;
 }
 
-.character img {
-  max-width: 300px;
-  height: auto;
+.diablo-gif {
+  width: auto;
+  height: 400px;
+  max-width: 800px;
 }
 
-/* Botones */
-.buttons {
+.center-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* Espacio entre botones */
+  gap: 10px;
 }
 
 .button {
   position: relative;
+  display: inline-block;
+  max-width: 300px;
 }
 
 .button img {
   display: block;
-  max-width: 300px; /* Aumentar tamaño de los botones */
-  height: auto;
-}
-
-.button .hover-img {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.button:hover img {
-  display: none;
-}
-
-.button:hover .hover-img {
-  display: block;
+  width: 100%;
 }
 
 .footer {
