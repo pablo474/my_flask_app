@@ -42,7 +42,7 @@
 
     .character img {
       width: auto;
-      max-height: 500px; /* Mantiene el tamaño original antes a 600*/
+      max-height: 600px; /* Mantiene el tamaño original */
       height: auto;
     }
 
@@ -52,7 +52,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 0; /* Sin espacio entre los botones */
     }
 
     .button {
@@ -60,7 +60,7 @@
     }
 
     .button img {
-      max-width: 400px; /* Tamaño aumentado 3 veces */
+      max-width: 600px; /* Tamaño aumentado 3 veces */
       height: auto;
     }
 
@@ -102,12 +102,12 @@
       }
 
       .character img {
-        max-height: 200px; /* Reduce el tamaño del personaje */
+        max-height: 400px; /* Reduce el tamaño del personaje */
       }
 
       .button img,
       .button .hover-img {
-        max-width: 200px; /* Botones más pequeños en móviles */
+        max-width: 300px; /* Botones más pequeños en móviles */
       }
     }
   </style>
