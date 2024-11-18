@@ -1,3 +1,4 @@
+/* Estilo general */
 body {
     font-family: Arial, sans-serif;
     background-image: url('/static/fondo.png');
@@ -6,27 +7,33 @@ body {
     background-position: center;
     margin: 0;
     padding: 0;
-    cursor: url('/static/Capa18.png'), auto;
 }
 
-a:hover {
-    cursor: url('/static/Capa17.png'), auto;
-}
-
-h1, h2 {
+/* Estilo para el título */
+.header {
     text-align: center;
     margin-top: 20px;
 }
 
-.social-icons img {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    transition: transform 0.2s;
+.title-animation {
+    width: 80%;
+    height: 150px;
+    border: none;
 }
 
-.social-icons img:hover {
-    transform: scale(1.2);
+/* Contenido principal */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 5%;
+}
+
+/* Botones */
+.buttons-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .button img.default {
@@ -49,26 +56,30 @@ h1, h2 {
     display: block;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+/* Animación del personaje */
+.character-section {
+    text-align: center;
 }
 
-form input, form button, form select {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-}
-
-form button {
-    background-color: #ffd59f;
+.character-animation {
+    width: 300px;
+    height: auto;
     border: none;
-    cursor: pointer;
+}
+
+/* Footer: enlaces inferiores */
+.footer {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer img {
+    width: 50px;
+    height: auto;
+    margin: 0 10px;
     transition: transform 0.2s;
 }
 
-form button:hover {
-    transform: scale(1.1);
+.footer img:hover {
+    transform: scale(1.2);
 }
