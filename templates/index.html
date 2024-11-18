@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <link rel="shortcut icon" href="/static/images/favicon.ico">
   <title>Yonko Alter</title>
@@ -13,49 +13,46 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- Título principal (Nombre animado) -->
-  <div class="title-container">
-    <img src="/static/images/web-nombre-anim.gif" alt="Nombre Animado" class="title-gif">
-  </div>
+  <!-- Fondo -->
+  <div class="background"></div>
+
+  <!-- Cabecera -->
+  <header>
+    <img src="/static/images/web-nombre-anim.gif" alt="Nombre Animado" class="header-title">
+  </header>
 
   <!-- Contenedor principal -->
-  <div class="row">
-    <!-- Columna izquierda: Animación Diablo -->
-    <div class="column">
+  <main class="main-container">
+    <!-- Personaje a la izquierda -->
+    <div class="left-column">
       <img src="/static/images/web-diablo-anim.gif" alt="Diablo Animado" class="diablo-gif">
     </div>
 
-    <!-- Columna derecha: Botones -->
-    <div class="column">
-      <h2>
-        <div class="button">
-          <a href="#" class="button-link">
-            <img src="/static/images/yonkonews.png" alt="Animation" class="button-default">
-            <img src="/static/images/yonkonews2.png" alt="Animation Hover" class="img-top">
-          </a>
-        </div>
-      </h2>
-      <h2>
-        <div class="button">
-          <a href="#" class="button-link">
-            <img src="/static/images/webYonkoshitOption.png" alt="Storyboard" class="button-default">
-            <img src="/static/images/webYonkoshitOption2.png" alt="Storyboard Hover" class="img-top">
-          </a>
-        </div>
-      </h2>
+    <!-- Botones a la derecha -->
+    <div class="right-column">
+      <div class="button">
+        <a href="#" class="button-link">
+          <img src="/static/images/yonkonews.png" alt="Animation Default" class="button-default">
+          <img src="/static/images/yonkonews2.png" alt="Animation Hover" class="img-top">
+        </a>
+      </div>
+      <div class="button">
+        <a href="#" class="button-link">
+          <img src="/static/images/webYonkoshitOption.png" alt="Storyboard Default" class="button-default">
+          <img src="/static/images/webYonkoshitOption2.png" alt="Storyboard Hover" class="img-top">
+        </a>
+      </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Footer: Iconos de redes sociales -->
-  <div class="footer">
-    <p>
-      <a href="https://www.youtube.com/@yonkoalter/featured" title="YouTube">
-        <img src="/static/images/Capa13.png" alt="YouTube" ondragstart="return false;">
-      </a>
-      <a href="#" title="Spotify">
-        <img src="/static/images/Capa15.png" alt="Spotify" ondragstart="return false;">
-      </a>
-    </p>
-  </div>
+  <!-- Footer -->
+  <footer>
+    <a href="https://www.youtube.com/@yonkoalter/featured" title="YouTube">
+      <img src="/static/images/Capa13.png" alt="YouTube">
+    </a>
+    <a href="#" title="Spotify">
+      <img src="/static/images/Capa15.png" alt="Spotify">
+    </a>
+  </footer>
 </body>
 </html>
