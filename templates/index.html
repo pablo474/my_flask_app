@@ -26,13 +26,13 @@
       <!-- Botón Storyboard -->
       <div class="button">
         <a href="/storyboard">
-          <img src="/static/images/webYonkoshitOption.png" alt="Botón Storyboard">
+          <img src="/static/images/Capa13.png" alt="Botón Storyboard">
         </a>
       </div>
 
       <!-- Botón Animation -->
       <div class="button">
-        <a href="/animation">
+        <a href="#" id="yonkonews-btn">
           <img src="/static/images/yonkonews.png" alt="Botón Animation">
         </a>
       </div>
@@ -51,5 +51,42 @@
       <img src="/static/images/Capa20.png" alt="Instagram">
     </a>
   </div>
+
+  <!-- Modal -->
+  <div id="yonkonews-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <img src="/static/images/yonkonews3.png" alt="Formulario Yonkonews">
+      <form id="yonkonews-form">
+        <label for="email">Correo Electrónico (obligatorio):</label>
+        <input type="email" id="email" name="email" required>
+        <label for="name">Nombre (obligatorio):</label>
+        <input type="text" id="name" name="name" required>
+        <label for="favorite-art">Arte Favorito (opcional):</label>
+        <input type="text" id="favorite-art" name="favorite-art">
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Mostrar modal al hacer clic en Yonkonews
+    document.getElementById('yonkonews-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('yonkonews-modal').style.display = 'block';
+    });
+
+    // Cerrar modal
+    document.getElementById('close-modal').addEventListener('click', function () {
+      document.getElementById('yonkonews-modal').style.display = 'none';
+    });
+
+    // Enviar formulario (puedes actualizar esto con AJAX si tienes un backend)
+    document.getElementById('yonkonews-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Formulario enviado con éxito.');
+      document.getElementById('yonkonews-modal').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
