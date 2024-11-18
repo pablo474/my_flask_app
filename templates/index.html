@@ -5,112 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Página de prueba para el diseño de Yonko">
   <title>Yonko Web</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('/static/images/fondo.png') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    /* Cabecera */
-    .header {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .header img {
-      max-width: 80%; /* Tamaño reducido al 80% del original */
-      height: auto;
-    }
-
-    /* Contenedor principal */
-    .content {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 20px;
-    }
-
-    /* Columna izquierda: Personaje */
-    .character {
-      flex: 1;
-      text-align: center;
-    }
-
-    .character img {
-      width: auto;
-      max-height: 600px; /* Mantiene el tamaño original */
-      height: auto;
-    }
-
-    /* Botones */
-    .buttons {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px; /* Sin espacio entre los botones */
-    }
-
-    .button {
-      position: relative;
-    }
-
-    .button img {
-      max-width: 600px; /* Tamaño aumentado 3 veces */
-      height: auto;
-    }
-
-    .button .hover-img {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: auto;
-    }
-
-    .button:hover img {
-      display: none;
-    }
-
-    .button:hover .hover-img {
-      display: block;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-    }
-
-    .footer img {
-      max-width: 50px;
-      margin: 0 10px;
-      transition: transform 0.2s ease;
-    }
-
-    /* Media Query para móviles */
-    @media (max-width: 768px) {
-      .header img {
-        max-width: 100%; /* Tamaño completo en móviles */
-      }
-
-      .character img {
-        max-height: 400px; /* Reduce el tamaño del personaje */
-      }
-
-      .button img,
-      .button .hover-img {
-        max-width: 300px; /* Botones más pequeños en móviles */
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
   <!-- Cabecera -->
@@ -119,14 +14,14 @@
   </div>
 
   <!-- Contenido central -->
-  <div class="content">
-    <!-- Personaje a la izquierda -->
-    <div class="character">
-      <img src="/static/images/web-diablo-anim.gif" alt="Personaje animado">
+  <div class="main-container">
+    <!-- Personaje -->
+    <div class="left-column">
+      <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Personaje animado">
     </div>
 
-    <!-- Botones en el centro -->
-    <div class="buttons">
+    <!-- Botones -->
+    <div class="right-column">
       <!-- Botón Animation -->
       <div class="button">
         <a href="/animation">
