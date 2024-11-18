@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Yonko Website</title>
+  <title>Yonko Web</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- Nombre Animación -->
-  <h1>
-    <img src="/static/images/web-nombre-anim.gif" alt="Nombre Animación">
-  </h1>
+  <!-- Título principal -->
+  <div class="title-container">
+    <img src="/static/images/web-nombre-anim.gif" alt="Nombre Animado" class="title-gif">
+  </div>
 
-  <!-- Contenido Principal -->
-  <div class="row">
+  <!-- Contenedor principal -->
+  <div class="main-container">
     <!-- Animación Diablo -->
-    <div class="column">
-      <img src="/static/images/web-diablo-anim.gif" alt="Diablo Animación" class="diablo-anim">
+    <div class="left-column">
+      <img src="/static/images/web-diablo-anim.gif" alt="Diablo Animado" class="diablo-gif">
     </div>
 
     <!-- Botones -->
-    <div class="column">
+    <div class="right-column">
       <div class="button">
-        <a href="#"><img src="/static/images/yonkonews.png" alt="Animation"></a>
-        <a href="#"><img src="/static/images/yonkonews2.png" class="img-top" alt="Animation Hover"></a>
+        <a href="#" class="button-link">
+          <img src="/static/images/yonkonews.png" alt="Animation" class="button-default">
+          <img src="/static/images/yonkonews2.png" alt="Animation Hover" class="button-hover">
+        </a>
       </div>
       <div class="button">
-        <a href="#"><img src="/static/images/webYonkoshitOption.png" alt="Storyboard"></a>
-        <a href="#"><img src="/static/images/webYonkoshitOption2.png" class="img-top" alt="Storyboard Hover"></a>
+        <a href="#" class="button-link">
+          <img src="/static/images/webYonkoshitOption.png" alt="Storyboard" class="button-default">
+          <img src="/static/images/webYonkoshitOption2.png" alt="Storyboard Hover" class="button-hover">
+        </a>
       </div>
     </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <a href="https://www.youtube.com/@yonkoalter/featured">
-      <img src="/static/images/Capa13.png" alt="YouTube">
-    </a>
-    <a href="#">
-      <img src="/static/images/Capa15.png" alt="Spotify">
-    </a>
   </div>
 </body>
 </html>
