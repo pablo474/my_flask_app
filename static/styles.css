@@ -59,9 +59,6 @@ header img {
 
 .button .hover-img {
   display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .button:hover .no-hover-img {
