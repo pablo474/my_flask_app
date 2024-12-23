@@ -64,9 +64,9 @@ header img {
   left: 0;
 }
 
-.button:hover img {
+/*.button:hover img {
   display: none;
-}
+}*/
 
 .button:hover .hover-img {
   display: block;
