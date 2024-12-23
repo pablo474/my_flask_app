@@ -70,6 +70,7 @@ header img {
 
 .button:hover .hover-img {
   display: block;
+  width: 100%;
 }
 
 .footer {
