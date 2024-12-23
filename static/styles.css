@@ -52,7 +52,7 @@ header img {
   width: 300px; /* Ajusta el tamaño fijo */
 }
 
-.button img {
+.button .no-hover-img {
   display: block;
   width: 100%;
 }
@@ -64,7 +64,7 @@ header img {
   left: 0;
 }
 
-.button:hover img {
+.button:hover .no-hover-img {
   display: none;
 }
 
