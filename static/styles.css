@@ -35,7 +35,7 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
     height: 400px;
-    opacity: 0.12; /* Opacidad baja detrás */
+    opacity: 0.23; /* Opacidad baja detrás */
     z-index: 1;
     pointer-events: none;
 }
@@ -73,7 +73,7 @@ header {
 }
 
 .email-section button {
-    background-color: #000;
+    background-color: #FF0000;
     color: #fff;
     border: none;
     padding: 18px;
@@ -113,5 +113,6 @@ header {
 .footer img {
     width: 22px;
     height: auto;
-    filter: brightness(0); /* Iconos negros */
+    filter: brightness(60); /* Iconos negros */
 }
+
