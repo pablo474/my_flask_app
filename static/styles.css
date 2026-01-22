@@ -34,7 +34,7 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 400px;
+    height: 500px;
     opacity: 0.23; /* Opacidad baja detrás */
     z-index: 1;
     pointer-events: none;
@@ -61,7 +61,7 @@ header {
 }
 
 .email-section input {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.7);
     border: 1px solid #000;
     padding: 18px;
     color: #000;
@@ -115,4 +115,5 @@ header {
     height: auto;
     filter: brightness(60); /* Iconos negros */
 }
+
 
