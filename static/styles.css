@@ -1,83 +1,66 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace; /* Estilo más acorde al dibujo */
   background: url('/static/images/fondo.png') no-repeat center center fixed;
   background-size: cover;
-}
-
-header {
-  width: 100%;
-  text-align: center;
-  margin: 10px 0;
-}
-
-header img {
-  width: 70%;
-  max-width: 800px;
-  height: auto;
-}
-
-.main-container {
+  color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 90%;
-  margin: 20px auto;
+  min-height: 100vh;
 }
 
-.left-column {
-  flex: 1;
+.content-wrapper {
   text-align: center;
-  margin-left: 80px; /* Aumenta el margen izquierdo */
+  width: 90%;
+  max-width: 600px;
+}
+
+.logo-gif {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
 }
 
 .diablo-gif {
+  height: 250px; /* Tamaño ajustado para estar cerca del form */
   width: auto;
-  height: 400px;
-  max-width: 800px;
+  margin-bottom: 10px;
 }
 
-.center-column {
-  flex: 1;
+.email-form {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
+}
+
+.email-form input {
+  padding: 12px;
+  width: 80%;
+  border: 2px solid #000;
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+}
+
+.email-form button {
+  padding: 10px 20px;
+  background: #ff0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.social-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
   gap: 20px;
 }
 
-.button {
-  position: relative;
-  display: inline-block;
-  width: 300px; /* Ajusta el tamaño fijo */
-}
-
-.button .no-hover-img {
-  display: block;
-  width: 100%;
-}
-
-.button .hover-img {
-  display: none;
-}
-
-.button:hover .no-hover-img {
-  display: none;
-}
-
-.button:hover .hover-img {
-  display: block;
-  width: 100%;
-}
-
-.footer {
-  text-align: center;
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-}
-
-.footer img {
-  max-width: 50px;
-  margin: 0 10px;
+.social-footer img {
+  width: 30px;
+  filter: grayscale(1) invert(1); /* Opcional: para que resalten sobre el fondo */
 }
