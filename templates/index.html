@@ -1,57 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Página de prueba para el diseño de Yonko">
   <title>Yonko Web</title>
   <link rel="icon" type="image/png" href="/static/images/diablo_3_sin_fondo_negro.png">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <img src="/static/images/web-nombre-anim.gif" alt="Animación del nombre">
-  </header>
+  <div class="content-wrapper">
+    <header>
+      <img src="/static/images/web-nombre-anim.gif" alt="Yonko Logo" class="logo-gif">
+    </header>
 
-  <!-- Main Content -->
-  <div class="main-container">
-    <!-- Left Column: Diablo -->
-    <div class="left-column">
-      <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Diablo Animado">
-    </div>
-
-    <!-- Center Column: Buttons -->
-    <div class="center-column">
-      <!-- Botón Storyboard -->
-      <div class="button">
-        <a href="/storyboard">
-          <img class="no-hover-img" src="/static/images/webYonkoshitOption.png" alt="Botón Storyboard">
-          <img class="hover-img" src="/static/images/webYonkoshitOption2.png" alt="Botón Storyboard Hover">
-        </a>
+    <main class="main-container">
+      <div class="character-section">
+        <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Diablo Animado">
       </div>
 
-      <!-- Botón Animation -->
-      <div class="button">
-        <a href="#" id="yonkonews-btn">
-          <img class="no-hover-img" src="/static/images/yonkonews.png" alt="Botón Animation">
-          <img class="hover-img" src="/static/images/yonkonews2.png" alt="Botón Animation Hover">
-        </a>
+      <div class="form-section">
+        <form action="/registrar_email" method="POST" class="email-form">
+          <input type="email" name="email" placeholder="TU CORREO AQUÍ..." required>
+          <button type="submit">UNIRSE</button>
+        </form>
       </div>
-    </div>
-  </div>
+    </main>
 
-  <!-- Footer -->
-  <div class="footer">
-    <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank">
-      <img src="/static/images/Capa13.png" alt="YouTube">
-    </a>
-    <a href="#" target="_blank">
-      <img src="/static/images/Capa15.png" alt="Spotify">
-    </a>
-    <a href="https://www.instagram.com" target="_blank">
-      <img src="/static/images/Capa20.png" alt="Instagram">
-    </a>
+    <footer class="social-footer">
+      <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank"><img src="/static/images/Capa13.png" alt="YouTube"></a>
+      <a href="#" target="_blank"><img src="/static/images/Capa15.png" alt="Spotify"></a>
+      <a href="https://www.instagram.com" target="_blank"><img src="/static/images/Capa20.png" alt="Instagram"></a>
+    </footer>
   </div>
 </body>
 </html>
