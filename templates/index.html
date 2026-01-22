@@ -1,36 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yonko Web</title>
-  <link rel="icon" type="image/png" href="/static/images/diablo_3_sin_fondo_negro.png">
-  <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yonko Web</title>
+    <link rel="icon" type="image/png" href="/static/images/diablo_3_sin_fondo_negro.png">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <div class="content-wrapper">
     <header>
-      <img src="/static/images/web-nombre-anim.gif" alt="Yonko Logo" class="logo-gif">
+        <img src="/static/images/web-nombre-anim.gif" alt="Logo Animado" class="logo-main">
     </header>
 
-    <main class="main-container">
-      <div class="character-section">
-        <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Diablo Animado">
-      </div>
+    <div class="main-container">
+        <div class="content-box">
+            <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Diablo Animado">
+            
+            <div class="email-section">
+                <form action="/registrar_email" method="POST" id="emailForm">
+                    <input type="email" name="email" placeholder="TU CORREO AQUÍ..." required>
+                    <button type="submit">OK</button>
+                </form>
+                <p id="responseMessage" style="display:none; margin-top:10px; font-weight:bold;"></p>
+            </div>
+        </div>
+    </div>
 
-      <div class="form-section">
-        <form action="/registrar_email" method="POST" class="email-form">
-          <input type="email" name="email" placeholder="TU CORREO AQUÍ..." required>
-          <button type="submit">UNIRSE</button>
-        </form>
-      </div>
-    </main>
-
-    <footer class="social-footer">
-      <a href="https://www.youtube.com/@yonkoalter/featured" target="_blank"><img src="/static/images/Capa13.png" alt="YouTube"></a>
-      <a href="#" target="_blank"><img src="/static/images/Capa15.png" alt="Spotify"></a>
-      <a href="https://www.instagram.com" target="_blank"><img src="/static/images/Capa20.png" alt="Instagram"></a>
+    <footer class="footer">
+        <a href="{{ links.youtube }}" target="_blank">
+            <img src="/static/images/Capa13.png" alt="YouTube">
+        </a>
+        <a href="{{ links.spotify }}" target="_blank">
+            <img src="/static/images/Capa15.png" alt="Spotify">
+        </a>
+        <a href="https://www.instagram.com" target="_blank">
+            <img src="/static/images/Capa20.png" alt="Instagram">
+        </a>
     </footer>
-  </div>
+
+    <script>
+        const form = document.getElementById('emailForm');
+        const msg = document.getElementById('responseMessage');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/registrar_email', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            msg.style.display = 'block';
+            msg.innerText = result.message;
+            if (result.status === 'éxito') {
+                form.reset();
+                msg.style.color = '#00FF00';
+            } else {
+                msg.style.color = '#FF0000';
+            }
+        };
+    </script>
 </body>
 </html>
