@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yonko Web</title>
+    <title>Yonko Art</title>
     <link rel="icon" type="image/png" href="/static/images/diablo_3_sin_fondo_negro.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <header>
-        <img src="/static/images/web-nombre-anim.gif" alt="Logo Animado" class="logo-main">
+        <img src="/static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
     </header>
 
     <div class="main-container">
+        <img src="/static/images/web-diablo-anim.gif" class="diablo-bg" alt="Fondo">
+
         <div class="content-box">
-            <img class="diablo-gif" src="/static/images/web-diablo-anim.gif" alt="Diablo Animado">
+            <h2>GET YOUR EARLY ACCESS</h2>
             
             <div class="email-section">
-                <form action="/registrar_email" method="POST" id="emailForm">
-                    <input type="email" name="email" placeholder="TU CORREO AQUÍ..." required>
-                    <button type="submit">OK</button>
+                <form id="emailForm">
+                    <input type="email" name="email" placeholder="YOUR E-MAIL HERE..." required>
+                    <button type="submit">SUBSCRIBE</button>
                 </form>
-                <p id="responseMessage" style="display:none; margin-top:10px; font-weight:bold;"></p>
+                <p id="responseMessage"></p>
             </div>
+            
+            <p class="copyright-text">Yonko Art ©2024</p>
         </div>
     </div>
 
     <footer class="footer">
-        <a href="{{ links.youtube }}" target="_blank">
-            <img src="/static/images/Capa13.png" alt="YouTube">
-        </a>
-        <a href="{{ links.spotify }}" target="_blank">
-            <img src="/static/images/Capa15.png" alt="Spotify">
-        </a>
-        <a href="https://www.instagram.com" target="_blank">
-            <img src="/static/images/Capa20.png" alt="Instagram">
-        </a>
+        <a href="{{ links.youtube }}" target="_blank"><img src="/static/images/Capa13.png" alt="YT"></a>
+        <a href="{{ links.spotify }}" target="_blank"><img src="/static/images/Capa15.png" alt="SP"></a>
+        <a href="https://instagram.com" target="_blank"><img src="/static/images/Capa20.png" alt="IG"></a>
     </footer>
 
     <script>
@@ -45,18 +44,22 @@
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            const response = await fetch('/registrar_email', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-            msg.style.display = 'block';
-            msg.innerText = result.message;
-            if (result.status === 'éxito') {
-                form.reset();
-                msg.style.color = '#00FF00';
-            } else {
-                msg.style.color = '#FF0000';
+            try {
+                const response = await fetch('/registrar_email', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                msg.style.display = 'block';
+                msg.innerText = result.message.toUpperCase();
+                if (result.status === 'éxito') {
+                    form.reset();
+                    msg.style.color = '#000';
+                } else {
+                    msg.style.color = 'red';
+                }
+            } catch (error) {
+                console.error("Error:", error);
             }
         };
     </script>
