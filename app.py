@@ -1,43 +1,47 @@
 from flask import Flask, request, jsonify, render_template
 import json
+import gspread
+from google.oauth2.service_account import Credentials
 import os
 
 app = Flask(__name__)
 
-# Cargar configuración de enlaces
-try:
-    with open('config.json', 'r') as f:
-        config = json.load(f)
-except Exception:
-    config = {"links": {"youtube": "#", "spotify": "#", "instagram": "#"}}
+# Configuración de Google Sheets
+scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 
-# RUTA PARA GUARDAR LOS CORREOS (Archivo local)
-LOG_FILE = "lista_correos.txt"
+# Usamos el nombre exacto de tu archivo descargado
+JSON_FILE = "yonko-web-039aabb8e53b.json"
+
+try:
+    creds = Credentials.from_service_account_file(JSON_FILE, scopes=scope)
+    client = gspread.authorize(creds)
+    # Reemplaza 'Yonko Emails' por el nombre exacto de tu hoja de Google Sheets
+    SHEET_NAME = "Yonko Emails" 
+except Exception as e:
+    print(f"Error configurando Google Sheets: {e}")
 
 @app.route('/')
 def index():
+    try:
+        with open('config.json', 'r') as f:
+            config = json.load(f)
+    except:
+        config = {"links": {"youtube": "#", "spotify": "#"}}
     return render_template('index.html', links=config['links'])
 
 @app.route('/registrar_email', methods=['POST'])
 def registrar_email():
     email = request.form.get('email')
     if email:
-        # Guardar el correo en el archivo local 'lista_correos.txt'
-        with open(LOG_FILE, "a") as f:
-            f.write(f"{email}\n")
-        print(f"NUEVO CORREO: {email}")
-        return jsonify({"status": "éxito", "message": "¡Correo guardado!"}), 200
-    return jsonify({"status": "error", "message": "Correo no válido"}), 400
-
-# RUTA SECRETA PARA VER TUS CORREOS
-# Entra a tu_dominio.com/ver_mis_correos_secretos para ver la lista
-@app.route('/ver_mis_correos_secretos')
-def ver_correos():
-    if os.path.exists(LOG_FILE):
-        with open(LOG_FILE, "r") as f:
-            correos = f.readlines()
-        return f"<h1>Tus correos:</h1><pre>{''.join(correos)}</pre>"
-    return "Aún no hay correos registrados."
+        try:
+            # Abre la hoja y añade el email al final
+            sheet = client.open(SHEET_NAME).sheet1
+            sheet.append_row([email])
+            return jsonify({"status": "éxito", "message": "Email guardado"}), 200
+        except Exception as e:
+            print(f"Error al escribir en Sheets: {e}")
+            return jsonify({"status": "error", "message": "Error de servidor"}), 500
+    return jsonify({"status": "error", "message": "Email vacío"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
