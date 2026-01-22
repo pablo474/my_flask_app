@@ -8,18 +8,14 @@ app = Flask(__name__)
 
 # Configuración de Google Sheets
 scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-
-# Nombre exacto de tu archivo descargado
 JSON_FILE = "yonko-web-039aabb8e53b.json"
 
 try:
-    # Cargar credenciales desde el archivo JSON
     creds = Credentials.from_service_account_file(JSON_FILE, scopes=scope)
     client = gspread.authorize(creds)
-    # Nombre actualizado según tu captura
     SHEET_NAME = "maillist" 
 except Exception as e:
-    print(f"Error configurando Google Sheets: {e}")
+    print(f"Error de conexión: {e}")
 
 @app.route('/')
 def index():
@@ -35,14 +31,12 @@ def registrar_email():
     email = request.form.get('email')
     if email:
         try:
-            # Abre la hoja 'maillist' y añade el email
             sheet = client.open(SHEET_NAME).sheet1
             sheet.append_row([email])
-            return jsonify({"status": "éxito", "message": "¡Correo guardado en maillist!"}), 200
+            return jsonify({"status": "éxito", "message": "¡Suscrito correctamente!"}), 200
         except Exception as e:
-            print(f"Error al escribir en Sheets: {e}")
-            return jsonify({"status": "error", "message": "Error de conexión con la hoja"}), 500
-    return jsonify({"status": "error", "message": "Email vacío"}), 400
+            return jsonify({"status": "error", "message": "Error de base de datos"}), 500
+    return jsonify({"status": "error", "message": "Email inválido"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
