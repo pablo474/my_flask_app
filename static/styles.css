@@ -111,10 +111,11 @@ header {
 }
 
 .footer img {
-    width: 200px;
+    width: 90px;
     height: auto;
-    filter: brightness(40); /* Iconos negros */
+    filter: brightness(10); /* Iconos negros */
 }
+
 
 
 
