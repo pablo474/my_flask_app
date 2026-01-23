@@ -183,3 +183,64 @@ header {
     height: auto;
     filter: brightness(10); /* Iconos blancos sobre fondo blanco? Recomiendo quitar el filter si el fondo es blanco */
 }
+
+/* Estilos para la página de Drop */
+.drop-container {
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.countdown-section h2 {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    margin-bottom: 5px;
+}
+
+.countdown-section p {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #666;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.product-card img:hover {
+    border-color: #000;
+}
+
+.product-card h3 {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+
+.product-card p {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.btn-buy {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    width: 100%;
+}
