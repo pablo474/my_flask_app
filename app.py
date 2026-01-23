@@ -57,7 +57,9 @@ def drop_page():
     # Si intentan entrar al drop sin contraseña, los devuelve a la landing
     if not session.get('access_granted'):
         return redirect(url_for('index'))
-    return "PÁGINA DEL DROP (PRÓXIMAMENTE)" # Aquí pondremos el cronómetro y Stripe luego
+    return render_template('drop.html')
+    #return "PÁGINA DEL DROP (PRÓXIMAMENTE)" # Aquí pondremos el cronómetro y Stripe luego
 
 if __name__ == '__main__':
     app.run(debug=True)
+
