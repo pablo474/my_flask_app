@@ -10,6 +10,9 @@
 </head>
 <body>
     <header>
+        <div class="password-access">
+            <a href="#" onclick="showPasswordPrompt()">ENTER USING PASSWORD</a>
+        </div>
         <img src="/static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
     </header>
 
@@ -31,6 +34,16 @@
         </div>
     </div>
 
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePasswordPrompt()">&times;</span>
+            <h3>ACCESO EXCLUSIVO</h3>
+            <input type="password" id="passInput" placeholder="CONTRASEÑA">
+            <button onclick="checkPassword()" class="btn-enter">ENTRAR</button>
+            <p id="passError" style="color:red; display:none; font-size:12px; margin-top:10px;"></p>
+        </div>
+    </div>
+
     <footer class="footer">
         <a href="{{ links.youtube }}" target="_blank"><img src="/static/images/Capa13.png" alt="YT"></a>
         <a href="{{ links.spotify }}" target="_blank"><img src="/static/images/Capa15.png" alt="SP"></a>
@@ -38,31 +51,43 @@
     </footer>
 
     <script>
+        // Lógica para el formulario de email
         const form = document.getElementById('emailForm');
         const msg = document.getElementById('responseMessage');
 
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            try {
-                const response = await fetch('/registrar_email', {
-                    method: 'POST',
-                    body: formData
-                });
-                const result = await response.json();
-                msg.style.display = 'block';
-                msg.innerText = result.message.toUpperCase();
-                if (result.status === 'éxito') {
-                    form.reset();
-                    msg.style.color = '#000';
-                } else {
-                    msg.style.color = 'red';
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
+            const response = await fetch('/registrar_email', { method: 'POST', body: formData });
+            const result = await response.json();
+            msg.style.display = 'block';
+            msg.innerText = result.message.toUpperCase();
+            if (result.status === 'éxito') { form.reset(); msg.style.color = '#000'; }
         };
+
+        // Lógica para el Modal de Contraseña
+        function showPasswordPrompt() { document.getElementById('passwordModal').style.display = 'flex'; }
+        function closePasswordPrompt() { document.getElementById('passwordModal').style.display = 'none'; }
+
+        async function checkPassword() {
+            const pass = document.getElementById('passInput').value;
+            const formData = new URLSearchParams();
+            formData.append('password', pass);
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.ok) {
+                window.location.href = '/drop';
+            } else {
+                const result = await response.json();
+                const err = document.getElementById('passError');
+                err.innerText = result.message;
+                err.style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
-
