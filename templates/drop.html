@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yonko Art - Drop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="drop-body">
+    <header>
+        <img src="/static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
+    </header>
+
+    <div class="drop-container">
+        <div class="countdown-section">
+            <h2 id="timer">00:00:00:00</h2>
+            <p>TIEMPO RESTANTE PARA EL DROP</p>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/static/images/producto1.png" alt="Producto 1">
+                <h3>NOMBRE DEL PRODUCTO</h3>
+                <p>99.99€</p>
+                <button class="btn-buy">COMPRAR AHORA</button>
+            </div>
+            </div>
+    </div>
+
+    <script>
+        // Configura la fecha de tu drop aquí
+        const dropDate = new Date("Jan 30, 2024 00:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = dropDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "DROP DISPONIBLE";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
