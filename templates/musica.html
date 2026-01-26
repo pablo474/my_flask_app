@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yonko Music - Exclusive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header><img src="/static/images/web-nombre-anim.gif" class="logo-main"></header>
+    <div class="music-container">
+        <h2 style="letter-spacing: 8px;">EXCLUSIVE TRACKS</h2>
+        <div class="track-list">
+            <div class="track-item">
+                <div class="track-info"><span>01</span><p>beast videogame</p></div>
+                <audio class="player" controls><source src="/static/music/beast videogame.mp3"></audio>
+            </div>
+            <div class="track-item">
+                <div class="track-info"><span>02</span><p>destructor2</p></div>
+                <audio class="player" controls><source src="/static/music/destructor2.mp3"></audio>
+            </div>
+            <div class="track-item">
+                <div class="track-info"><span>03</span><p>dnb smooth</p></div>
+                <audio class="player" controls><source src="/static/music/dnb smooth.mp3"></audio>
+            </div>
+            <div class="track-item">
+                <div class="track-info"><span>04</span><p>electronic_exp_minimal_3</p></div>
+                <audio class="player" controls><source src="/static/music/electronic_exp_minimal_3.mp3"></audio>
+            </div>
+            <div class="track-item">
+                <div class="track-info"><span>05</span><p>METAL_SKKRRR</p></div>
+                <audio class="player" controls><source src="/static/music/METAL_SKKRRR.mp3"></audio>
+            </div>
+            <div class="track-item">
+                <div class="track-info"><span>06</span><p>nu_metal</p></div>
+                <audio class="player" controls><source src="/static/music/nu_metal.mp3"></audio>
+            </div>
+        </div>
+    </div>
+    <script>
+        const players = document.querySelectorAll('.player');
+        players.forEach((p, i) => {
+            // Reproducción continua
+            p.onended = () => { if(players[i+1]) players[i+1].play(); };
+            // Evitar que suenen varios a la vez
+            p.onplay = () => { players.forEach(other => { if(other !== p) other.pause(); }); };
+        });
+    </script>
+</body>
+</html>
