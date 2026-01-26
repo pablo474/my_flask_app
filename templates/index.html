@@ -4,90 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonko Art</title>
-    <link rel="icon" type="image/png" href="/static/images/diablo_3_sin_fondo_negro.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <header>
         <div class="password-access">
-            <a href="#" onclick="showPasswordPrompt()">ENTER USING PASSWORD</a>
+            <a href="#" onclick="showModal()">ENTER USING PASSWORD</a>
         </div>
         <img src="/static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
     </header>
 
     <div class="main-container">
-        <img src="/static/images/web-diablo-anim.gif" class="diablo-bg" alt="Fondo">
-
+        <img src="/static/images/web-diablo-anim.gif" class="diablo-bg">
         <div class="content-box">
             <h2>GET YOUR EARLY ACCESS</h2>
-            
-            <div class="email-section">
-                <form id="emailForm">
-                    <input type="email" name="email" placeholder="YOUR E-MAIL HERE..." required>
-                    <button type="submit">SUBSCRIBE</button>
-                </form>
-                <p id="responseMessage"></p>
-            </div>
-            
-            <p class="copyright-text">Yonko Art ©2024</p>
+            <form id="emailForm" class="email-section">
+                <input type="email" name="email" placeholder="YOUR E-MAIL HERE..." required>
+                <button type="submit">SUBSCRIBE</button>
+            </form>
+            <p id="responseMessage"></p>
         </div>
     </div>
 
-    <div id="passwordModal" class="modal">
+    <div id="passModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closePasswordPrompt()">&times;</span>
-            <h3>ACCESO EXCLUSIVO</h3>
-            <input type="password" id="passInput" placeholder="CONTRASEÑA">
-            <button onclick="checkPassword()" class="btn-enter">ENTRAR</button>
-            <p id="passError" style="color:red; display:none; font-size:12px; margin-top:10px;"></p>
+            <span style="cursor:pointer; font-size: 0.7rem; letter-spacing: 2px;" onclick="closeModal()">CLOSE</span>
+            <input type="password" id="passInput" placeholder="PASSWORD" style="margin-top: 20px;">
+            <button onclick="checkPass()" style="padding:15px; background:#000; color:#fff; border:none; width:100%; cursor:pointer; font-family:'Montserrat'; letter-spacing:4px; font-weight:700;">ENTER</button>
+            <p id="passErr" style="color:red; font-size:10px; margin-top:10px;"></p>
         </div>
     </div>
 
     <footer class="footer">
-        <a href="{{ links.youtube }}" target="_blank"><img src="/static/images/Capa13.png" alt="YT"></a>
-        <a href="{{ links.spotify }}" target="_blank"><img src="/static/images/Capa15.png" alt="SP"></a>
-        <a href="{{ links.instagram }}" target="_blank"><img src="/static/images/Capa20.png" alt="IG"></a>
+        <a href="{{ links.youtube }}"><img src="/static/images/Capa13.png"></a>
+        <a href="{{ links.spotify }}"><img src="/static/images/Capa15.png"></a>
+        <a href="{{ links.instagram }}"><img src="/static/images/Capa20.png"></a>
     </footer>
 
     <script>
-        // Lógica para el formulario de email
-        const form = document.getElementById('emailForm');
-        const msg = document.getElementById('responseMessage');
+        function showModal() { document.getElementById('passModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('passModal').style.display = 'none'; }
 
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const response = await fetch('/registrar_email', { method: 'POST', body: formData });
-            const result = await response.json();
-            msg.style.display = 'block';
-            msg.innerText = result.message.toUpperCase();
-            if (result.status === 'éxito') { form.reset(); msg.style.color = '#000'; }
-        };
-
-        // Lógica para el Modal de Contraseña
-        function showPasswordPrompt() { document.getElementById('passwordModal').style.display = 'flex'; }
-        function closePasswordPrompt() { document.getElementById('passwordModal').style.display = 'none'; }
-
-        async function checkPassword() {
+        async function checkPass() {
             const pass = document.getElementById('passInput').value;
-            const formData = new URLSearchParams();
-            formData.append('password', pass);
-
-            const response = await fetch('/login', {
+            const res = await fetch('/login', {
                 method: 'POST',
-                body: formData
+                body: new URLSearchParams({'password': pass})
             });
-            
-            if (response.ok) {
-                window.location.href = '/drop';
-            } else {
-                const result = await response.json();
-                const err = document.getElementById('passError');
-                err.innerText = result.message;
-                err.style.display = 'block';
-            }
+            const data = await res.json();
+            if (res.ok) { window.location.href = data.redirect; }
+            else { document.getElementById('passErr').innerText = data.message; }
         }
+
+        document.getElementById('emailForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const res = await fetch('/registrar_email', { method: 'POST', body: new FormData(e.target) });
+            const data = await res.json();
+            const msg = document.getElementById('responseMessage');
+            msg.style.display = 'block'; msg.innerText = data.message.toUpperCase();
+        };
     </script>
 </body>
 </html>
