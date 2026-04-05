@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yonko Art</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+  <header>
+    <div class="password-access">
+      <a href="#" onclick="showModal()">ENTER USING PASSWORD</a>
+    </div>
+    <img src="static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
+  </header>
+
+  <div class="main-container">
+    <img src="static/images/web-diablo-anim.gif" class="diablo-bg">
+    <div class="content-box">
+      <h2>GET YOUR EARLY ACCESS</h2>
+      <form id="emailForm" class="email-section">
+        <input type="email" name="email" placeholder="YOUR E-MAIL HERE..." required>
+        <button type="submit">SUBSCRIBE</button>
+      </form>
+      <p id="responseMessage"></p>
+    </div>
+  </div>
+
+  <div id="passModal" class="modal">
+    <div class="modal-content">
+      <span style="cursor:pointer; font-size:0.7rem; letter-spacing:2px;" onclick="closeModal()">CLOSE</span>
+      <input type="password" id="passInput" placeholder="PASSWORD" style="margin-top:20px;">
+      <button onclick="checkPass()" style="padding:15px; background:#000; color:#fff; border:none; width:100%; cursor:pointer; font-family:'Montserrat'; letter-spacing:4px; font-weight:700;">ENTER</button>
+      <p id="passErr" style="color:red; font-size:10px; margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <a href="#"><img src="static/images/Capa13.png"></a>
+    <a href="#"><img src="static/images/Capa15.png"></a>
+    <a href="#"><img src="static/images/Capa20.png"></a>
+  </footer>
+
+  <script>
+    // ── Contraseña ──────────────────────────────────────────────
+    // Cambia esto por tu contraseña real
+    const PASSWORD = 'MUSICVIP';
+
+    function showModal() { document.getElementById('passModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('passModal').style.display = 'none'; }
+
+    function checkPass() {
+      const pass = document.getElementById('passInput').value.trim().toUpperCase();
+      if (pass === PASSWORD) {
+        window.location.href = 'musica.html';
+      } else {
+        document.getElementById('passErr').innerText = 'CONTRASEÑA INVÁLIDA';
+      }
+    }
+
+    // Enter key en el campo de contraseña
+    document.getElementById('passInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkPass();
+    });
+
+    // ── Email → Google Sheets ────────────────────────────────────
+    // Reemplaza SCRIPT_URL con la URL de tu Google Apps Script
+    const SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL_AQUI';
+
+    document.getElementById('emailForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const msg = document.getElementById('responseMessage');
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        msg.style.display = 'block';
+        msg.innerText = '¡REGISTRADO!';
+        e.target.reset();
+      } catch {
+        msg.style.display = 'block';
+        msg.innerText = 'ERROR, INTÉNTALO DE NUEVO';
+      }
+    };
+  </script>
+</body>
+</html>

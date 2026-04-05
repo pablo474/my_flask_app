@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>YONKO — EP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ed;
+      --ink: #1a1a1a;
+      --red: #c0392b;
+      --grey: #888;
+      --mini-h: 68px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding-bottom: calc(var(--mini-h) + 20px);
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 20px 16px;
+    }
+    .header img { max-width: 180px; height: auto; }
+    .ep-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: var(--grey);
+      margin-top: 8px;
+    }
+
+    /* TRACK LIST */
+    .track-list {
+      max-width: 480px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+    .track-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 6px;
+      border-bottom: 1px solid #d4cfc8;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .track-row:hover { background: rgba(0,0,0,0.03); }
+    .track-row.active .track-name,
+    .track-row.active .track-num { color: var(--red); }
+
+    .track-num {
+      font-size: 11px;
+      color: var(--grey);
+      min-width: 20px;
+      text-align: right;
+    }
+    .track-char {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.12));
+    }
+    .track-meta { flex: 1; }
+    .track-name { font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.2;
+      transition: color 0.2s;
+    }
+    .track-duration {
+      font-size: 11px;
+      color: var(--grey);
+      margin-top: 3px;
+    }
+    .track-play-icon { font-size: 16px; color: var(--grey); flex-shrink: 0; }
+    .track-row.active .track-play-icon { color: var(--red); }
+
+    /* Playing animation */
+    .playing-dots { display: none; gap: 2px; align-items: flex-end; height: 14px; }
+    .track-row.active.playing .playing-dots { display: flex; }
+    .track-row.active.playing .track-play-icon { display: none; }
+    .dot { width: 3px; background: var(--red); border-radius: 1px; animation: bounce 0.8s ease infinite; }
+    .dot:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .dot:nth-child(2) { height: 10px; animation-delay: 0.15s; }
+    .dot:nth-child(3) { height: 7px; animation-delay: 0.3s; }
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1.3); }
+    }
+
+    /* IPOD OVERLAY */
+    .ipod-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px 90px;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ipod-overlay.open { transform: translateY(0); }
+
+    .ipod-back {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      cursor: pointer;
+      padding: 4px 0 20px;
+    }
+    .ipod-back:hover { color: var(--red); }
+
+    .ipod-track-num {
+      font-size: 11px;
+      color: var(--grey);
+      letter-spacing: 4px;
+      margin-bottom: 4px;
+    }
+    .ipod-track-title { font-weight: 600; letter-spacing: -0.5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* iPod image + overlays */
+    .ipod-wrapper {
+      position: relative;
+      width: min(300px, 82vw);
+      margin: 0 auto;
+    }
+    .ipod-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Screen: % positions calibrated to the drawing */
+    .ipod-screen {
+      position: absolute;
+      top: 7%;
+      left: 13%;
+      width: 74%;
+      height: 35%;
+      overflow: hidden;
+      border-radius: 3px;
+      background: #111;
+    }
+    .ipod-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Progress area: in the gap between screen and wheel */
+    .ipod-progress-area {
+      position: absolute;
+      top: 43.5%;
+      left: 10%;
+      width: 80%;
+    }
+    .progress-bar-wrap {
+      height: 3px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 2px;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--ink);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.4s linear;
+    }
+    .progress-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: var(--grey);
+    }
+
+    /* Invisible tap zones over drawn buttons */
+    .ipod-btn {
+      position: absolute;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-prev      { top: 71%; left: 12%; width: 22%; height: 15%; }
+    .btn-playpause { top: 72%; left: 37%; width: 26%; height: 14%; border-radius: 50%; }
+    .btn-next      { top: 71%; left: 66%; width: 22%; height: 15%; }
+
+    /* Download */
+    .ipod-download {
+      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1.5px solid var(--ink);
+      border-radius: 2px;
+      padding: 10px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.15s, color 0.15s;
+    }
+    .ipod-download:hover { background: var(--ink); color: var(--bg); }
+
+    /* MINI PLAYER */
+    .mini-player {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--mini-h);
+      background: rgba(245,242,237,0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid #d4cfc8;
+      display: none;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      z-index: 200;
+    }
+    .mini-player.visible { display: flex; }
+
+    .mini-char { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+    .mini-info { flex: 1; min-width: 0; }
+    .mini-title { font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mini-progress {
+      height: 2px;
+      background: #d4cfc8;
+      border-radius: 1px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+    .mini-progress-fill {
+      height: 100%;
+      background: var(--ink);
+      width: 0%;
+      transition: width 0.5s linear;
+    }
+    .mini-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .mini-btn {
+      background: none; border: none;
+      cursor: pointer; padding: 6px;
+      font-size: 18px; color: var(--ink); line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mini-open-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 2px;
+      color: var(--grey); padding: 6px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #c8c4be; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="static/images/web-nombre-anim.gif" alt="YONKO">
+  <p class="ep-title">EP — 2026</p>
+</div>
+
+<div class="track-list">
+
+  <div class="track-row" onclick="selectTrack(0)">
+    <span class="track-num">01</span>
+    <img class="track-char" src="static/images/Capa13.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">BEAST VIDEOGAME</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="track-row" onclick="selectTrack(1)">
+    <span class="track-num">02</span>
+    <img class="track-char" src="static/images/Capa15.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">DESTRUCTOR2</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="track-row" onclick="selectTrack(2)">
+    <span class="track-num">03</span>
+    <img class="track-char" src="static/images/Capa17.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">DNB SMOOTH</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="track-row" onclick="selectTrack(3)">
+    <span class="track-num">04</span>
+    <img class="track-char" src="static/images/Capa18.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">ELECTRONIC EXP MINIMAL</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="track-row" onclick="selectTrack(4)">
+    <span class="track-num">05</span>
+    <img class="track-char" src="static/images/Capa20.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">METAL SKKRRR</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="track-row" onclick="selectTrack(5)">
+    <span class="track-num">06</span>
+    <img class="track-char" src="static/images/diablo_3_sin_fondo_negro.png" alt="">
+    <div class="track-meta">
+      <div class="track-name">NU METAL</div>
+      <div class="track-duration">—:——</div>
+    </div>
+    <span class="track-play-icon">▶</span>
+    <div class="playing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+</div>
+
+<!-- IPOD OVERLAY -->
+<div class="ipod-overlay" id="ipodOverlay">
+  <button class="ipod-back" onclick="closeIpod()">← VOLVER</button>
+  <div class="ipod-track-num" id="ipodNum">01 / 06</div>
+  <div class="ipod-track-title" id="ipodTitle">—</div>
+
+  <div class="ipod-wrapper">
+    <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+
+    <div class="ipod-screen">
+      <img id="ipodCover" src="static/images/diablo_3_sin_fondo_negro.png" alt="EP">
+    </div>
+
+    <div class="ipod-progress-area">
+      <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-times">
+        <span id="timeElapsed">0:00</span>
+        <span id="timeLeft">0:00</span>
+      </div>
+    </div>
+
+    <button class="ipod-btn btn-prev"      onclick="prevTrack()"  aria-label="Anterior"></button>
+    <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
+    <button class="ipod-btn btn-next"      onclick="nextTrack()"  aria-label="Siguiente"></button>
+  </div>
+
+  <a class="ipod-download" id="downloadBtn" href="#" download>↓ DESCARGAR</a>
+</div>
+
+<!-- MINI PLAYER -->
+<div class="mini-player" id="miniPlayer">
+  <img class="mini-char" id="miniChar" src="" alt="">
+  <div class="mini-info">
+    <div class="mini-title" id="miniTitle">—</div>
+    <div class="mini-progress">
+      <div class="mini-progress-fill" id="miniProgressFill"></div>
+    </div>
+  </div>
+  <div class="mini-controls">
+    <button class="mini-btn" onclick="prevTrack()">⏮</button>
+    <button class="mini-btn" id="miniPlayBtn" onclick="togglePlay()">▶</button>
+    <button class="mini-btn" onclick="nextTrack()">⏭</button>
+  </div>
+  <button class="mini-open-btn" onclick="openIpod()">ABRIR</button>
+</div>
+
+<audio id="audioEl" preload="metadata"></audio>
+
+<script>
+  const tracks = [
+    { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         char:'static/images/Capa13.png',                  num:'01' },
+    { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              char:'static/images/Capa15.png',                  num:'02' },
+    { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               char:'static/images/Capa17.png',                  num:'03' },
+    { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', char:'static/images/Capa18.png',                  num:'04' },
+    { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             char:'static/images/Capa20.png',                  num:'05' },
+    { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 char:'static/images/diablo_3_sin_fondo_negro.png', num:'06' },
+  ];
+
+  // Replace with your real EP cover once you have it:
+  const EP_COVER = 'static/images/diablo_3_sin_fondo_negro.png';
+
+  const audio      = document.getElementById('audioEl');
+  const overlay    = document.getElementById('ipodOverlay');
+  const miniPlayer = document.getElementById('miniPlayer');
+  const rows       = document.querySelectorAll('.track-row');
+
+  let currentIndex = -1;
+  let isPlaying    = false;
+
+  // Load durations
+  tracks.forEach((t, i) => {
+    const a = new Audio();
+    a.preload = 'metadata';
+    a.src = t.file;
+    a.onloadedmetadata = () => {
+      rows[i].querySelector('.track-duration').textContent = fmt(a.duration);
+    };
+  });
+
+  function selectTrack(i) {
+    if (currentIndex === i && isPlaying) { openIpod(); return; }
+    currentIndex = i;
+    audio.src = tracks[i].file;
+    audio.play();
+    isPlaying = true;
+    updateUI();
+    openIpod();
+  }
+
+  function updateUI() {
+    const t = tracks[currentIndex];
+    rows.forEach((r, i) => {
+      r.classList.toggle('active',  i === currentIndex);
+      r.classList.toggle('playing', i === currentIndex && isPlaying);
+    });
+    document.getElementById('ipodTitle').textContent  = t.title;
+    document.getElementById('ipodNum').textContent    = t.num + ' / 06';
+    document.getElementById('ipodCover').src          = EP_COVER;
+    document.getElementById('downloadBtn').href       = t.file;
+    document.getElementById('downloadBtn').download   = t.title + '.mp3';
+    document.getElementById('miniTitle').textContent  = t.title;
+    document.getElementById('miniChar').src           = t.char;
+    document.getElementById('miniPlayBtn').textContent = isPlaying ? '⏸' : '▶';
+    miniPlayer.classList.add('visible');
+  }
+
+  function togglePlay() {
+    if (currentIndex < 0) return;
+    if (isPlaying) { audio.pause(); isPlaying = false; }
+    else           { audio.play();  isPlaying = true;  }
+    rows.forEach((r, i) => r.classList.toggle('playing', i === currentIndex && isPlaying));
+    document.getElementById('miniPlayBtn').textContent = isPlaying ? '⏸' : '▶';
+  }
+
+  function prevTrack() {
+    if (currentIndex <= 0) return;
+    currentIndex--;
+    audio.src = tracks[currentIndex].file;
+    audio.play(); isPlaying = true; updateUI();
+  }
+  function nextTrack() {
+    if (currentIndex >= tracks.length - 1) return;
+    currentIndex++;
+    audio.src = tracks[currentIndex].file;
+    audio.play(); isPlaying = true; updateUI();
+  }
+
+  audio.addEventListener('ended', () => {
+    if (currentIndex < tracks.length - 1) nextTrack();
+    else { isPlaying = false; updateUI(); }
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    document.getElementById('progressFill').style.width     = pct + '%';
+    document.getElementById('miniProgressFill').style.width = pct + '%';
+    document.getElementById('timeElapsed').textContent = fmt(audio.currentTime);
+    document.getElementById('timeLeft').textContent    = fmt(audio.duration - audio.currentTime);
+  });
+
+  function seekTo(e) {
+    const wrap = document.getElementById('progressWrap');
+    const pct  = Math.max(0, Math.min(1, (e.clientX - wrap.getBoundingClientRect().left) / wrap.offsetWidth));
+    audio.currentTime = pct * audio.duration;
+  }
+
+  function openIpod()  { overlay.classList.add('open');    }
+  function closeIpod() { overlay.classList.remove('open'); }
+
+  function fmt(s) {
+    if (!s || isNaN(s)) return '0:00';
+    return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+  }
+</script>
+</body>
+</html>
