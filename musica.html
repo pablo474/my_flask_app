@@ -103,12 +103,13 @@
     .ipod-overlay {
       position: fixed;
       inset: 0;
-      background: var(--bg);
+      background: #ffffff;
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 20px 90px;
+      justify-content: center;
+      padding: 16px 16px 80px;
       overflow-y: auto;
       transform: translateY(100%);
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -116,34 +117,26 @@
     .ipod-overlay.open { transform: translateY(0); }
 
     .ipod-back {
-      align-self: flex-start;
+      position: absolute;
+      top: 16px;
+      left: 16px;
       background: none;
       border: none;
       font-family: 'Inter', sans-serif;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--ink);
       cursor: pointer;
-      padding: 4px 0 20px;
+      padding: 4px 0;
     }
     .ipod-back:hover { color: var(--red); }
 
-    .ipod-track-num {
-      font-size: 11px;
-      color: var(--grey);
-      letter-spacing: 4px;
-      margin-bottom: 4px;
-    }
-    .ipod-track-title { font-weight: 600; letter-spacing: -0.5px;
-      font-family: 'Inter', sans-serif;
-      font-size: 20px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
+    .ipod-track-num { display: none; }
+    .ipod-track-title { display: none; }
 
     /* iPod image + overlays */
     .ipod-wrapper {
       position: relative;
-      width: min(300px, 82vw);
+      width: min(420px, 94vw);
       margin: 0 auto;
     }
     .ipod-img {
@@ -170,6 +163,23 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+
+    /* Track title inside iPod, above progress */
+    .ipod-inner-title {
+      position: absolute;
+      top: 43%;
+      left: 15%;
+      width: 70%;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Progress area: in the gap between screen and wheel */
@@ -214,22 +224,22 @@
 
     /* Download */
     .ipod-download {
-      margin-top: 28px;
+      margin-top: 16px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: none;
-      border: 1.5px solid var(--ink);
-      border-radius: 2px;
-      padding: 10px 28px;
+      border: none;
+      padding: 6px 12px;
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 10px;
+      letter-spacing: 2px;
       cursor: pointer;
       text-decoration: none;
-      color: var(--ink);
-      transition: background 0.15s, color 0.15s;
+      color: var(--grey);
+      transition: color 0.15s;
     }
-    .ipod-download:hover { background: var(--ink); color: var(--bg); }
+    .ipod-download:hover { color: var(--ink); }
 
     /* MINI PLAYER */
     .mini-player {
@@ -377,6 +387,8 @@
       <img id="ipodCover" src="static/images/diablo_3_sin_fondo_negro.png" alt="EP">
     </div>
 
+    <div class="ipod-inner-title" id="ipodInnerTitle">—</div>
+
     <div class="ipod-progress-area">
       <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
         <div class="progress-bar-fill" id="progressFill"></div>
@@ -464,6 +476,7 @@
     document.getElementById('ipodTitle').textContent  = t.title;
     document.getElementById('ipodNum').textContent    = t.num + ' / 06';
     document.getElementById('ipodCover').src          = EP_COVER;
+    document.getElementById('ipodInnerTitle').textContent = t.title;
     document.getElementById('downloadBtn').href       = t.file;
     document.getElementById('downloadBtn').download   = t.title + '.mp3';
     document.getElementById('miniTitle').textContent  = t.title;
