@@ -52,18 +52,21 @@
       top: 0; left: 0; right: 0;
       bottom: 36px;
       pointer-events: none;
+      z-index: 10;
     }
     .icons-col-left {
       position: absolute;
       top: 12px; left: 8px;
       display: flex; flex-direction: column; gap: 6px;
       pointer-events: all;
+      z-index: 10;
     }
     .icons-col-right {
       position: absolute;
       top: 12px; right: 8px;
       display: flex; flex-direction: column; gap: 6px;
       pointer-events: all;
+      z-index: 10;
     }
     .desktop-icon {
       display: flex; flex-direction: column; align-items: center;
@@ -143,8 +146,9 @@
       position: fixed; top: 0; left: 0; right: 0; bottom: 36px;
       display: none; z-index: 500;
       background: transparent;
+      pointer-events: none;
     }
-    .xp-window.open { display: block; }
+    .xp-window.open { display: block; z-index: 600; pointer-events: all; }
 
     .drawn-win-wrap {
       position: relative;
@@ -423,15 +427,15 @@
 
 <div id="desktop">
   <div class="icons-grid">
-    <!-- LEFT COLUMN: ARTOYS, MÚSICA, COOKING -->
+    <!-- LEFT COLUMN: ARTOYS, EP, COOKING -->
     <div class="icons-col-left">
       <div class="desktop-icon" onclick="openWindow('artoys-window')">
         <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px;object-fit:contain;image-rendering:pixelated">
         <span class="icon-label">ARTOYS.exe</span>
       </div>
-      <div class="desktop-icon" onclick="openWindow('music-window')">
-        <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">musica.exe</span>
+      <div class="desktop-icon" onclick="openWindow('ep-window')">
+        <img class="icon-img" src="static/images/caratula_EP_1.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">EP — 2026</span>
       </div>
       <div class="desktop-icon" onclick="openCooking()">
         <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
@@ -439,7 +443,7 @@
         <span class="lock-badge" id="cooking-lock">🔒</span>
       </div>
     </div>
-    <!-- RIGHT COLUMN: PAPELERA, README, TUTORIALES, LINKS, VIRUS -->
+    <!-- RIGHT COLUMN: PAPELERA, README, TUTORIALES, LINKS, RELEASED, VIRUS -->
     <div class="icons-col-right">
       <div class="desktop-icon" onclick="openWindow('recycle-window')">
         <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
@@ -456,6 +460,10 @@
       <div class="desktop-icon" onclick="openWindow('info-window')">
         <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
         <span class="icon-label">links.txt</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('released-window')">
+        <img class="icon-img" src="static/images/icon_released.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">released</span>
       </div>
       <div class="desktop-icon" onclick="openVirus()">
         <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
@@ -500,7 +508,7 @@
         <div class="ipod-track-name" id="ipod-title">—</div>
         <div class="ipod-wrapper">
           <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-          <div class="ipod-screen"><img id="ipod-cover" src="static/images/caratula_EP_1.PNG" alt="EP"></div>
+          <div class="ipod-screen"><img id="ipod-cover" src="" alt="EP" style="width:100%;height:100%;object-fit:contain"></div>
           <div class="ipod-inner-title" id="ipod-inner-title">—</div>
           <div class="ipod-progress-area">
             <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
@@ -701,12 +709,103 @@
   </div>
 </div>
 
+<!-- RELEASED -->
+<div class="xp-window" id="released-window">
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
+    <img class="drawn-win-icon" src="static/images/icon_released.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">released</div>
+    <button class="drawn-win-close" onclick="closeWindow('released-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('released-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div id="rel-track-list-view">
+        <table class="track-list-95" id="released-table"></table>
+      </div>
+      <div id="rel-ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
+        <button class="ipod-back-btn" onclick="showRelTrackList()">← Volver</button>
+        <div class="ipod-track-info" id="rel-ipod-num">01</div>
+        <div class="ipod-track-name" id="rel-ipod-title">—</div>
+        <div class="ipod-wrapper">
+          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+          <div class="ipod-screen"><img id="rel-ipod-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+          <div class="ipod-inner-title" id="rel-ipod-inner-title">—</div>
+          <div class="ipod-progress-area">
+            <div class="progress-bar-wrap" id="rel-progressWrap" onclick="relSeekTo(event)">
+              <div class="progress-bar-fill" id="rel-progressFill"></div>
+            </div>
+            <div class="progress-times">
+              <span id="rel-timeElapsed">0:00</span>
+              <span id="rel-timeLeft">0:00</span>
+            </div>
+          </div>
+          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
+          <button class="ipod-btn btn-prev" onclick="relPrevTrack()" aria-label="Anterior"></button>
+          <button class="ipod-btn btn-playpause" onclick="relTogglePlay()" aria-label="Play/Pausa"></button>
+          <button class="ipod-btn btn-next" onclick="relNextTrack()" aria-label="Siguiente"></button>
+        </div>
+        <a class="ipod-download-btn" id="rel-download-btn" href="#" download>↓ Descargar</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- EP WINDOW -->
+<div class="xp-window" id="ep-window">
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
+    <img class="drawn-win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">EP — 2026</div>
+    <button class="drawn-win-close" onclick="closeWindow('ep-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('ep-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content" id="ep-content">
+      <!-- iPod view same as music window -->
+      <div id="ep-track-list-view">
+        <table class="track-list-95" id="ep-track-table"></table>
+      </div>
+      <div id="ep-ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
+        <button class="ipod-back-btn" onclick="showEpTrackList()">← Volver</button>
+        <div class="ipod-track-info" id="ep-ipod-num">01 / 06</div>
+        <div class="ipod-track-name" id="ep-ipod-title">—</div>
+        <div class="ipod-wrapper">
+          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+          <div class="ipod-screen"><img id="ep-ipod-cover" src="" alt="EP" style="width:100%;height:100%;object-fit:contain"></div>
+          <div class="ipod-inner-title" id="ep-ipod-inner-title">—</div>
+          <div class="ipod-progress-area">
+            <div class="progress-bar-wrap" id="ep-progressWrap" onclick="epSeekTo(event)">
+              <div class="progress-bar-fill" id="ep-progressFill"></div>
+            </div>
+            <div class="progress-times">
+              <span id="ep-timeElapsed">0:00</span>
+              <span id="ep-timeLeft">0:00</span>
+            </div>
+          </div>
+          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
+          <button class="ipod-btn btn-prev" onclick="epPrevTrack()" aria-label="Anterior"></button>
+          <button class="ipod-btn btn-playpause" onclick="epTogglePlay()" aria-label="Play/Pausa"></button>
+          <button class="ipod-btn btn-next" onclick="epNextTrack()" aria-label="Siguiente"></button>
+        </div>
+        <a class="ipod-download-btn" id="ep-download-btn" href="#" download>↓ Descargar</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
 <audio id="audioEl" preload="metadata"></audio>
+<audio id="epAudioEl" preload="metadata"></audio>
 
 <script>
   // ── CONFIG ──────────────────────────────────
   const NFC_KEY = 'YONKO2026';
   const GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
+
+  // ── AÑADE AQUÍ LAS CANCIONES DE "RELEASED" CUANDO LAS TENGAS ──
+  const RELEASED_TRACKS = [
+    // { title:'NOMBRE', file:'static/music/archivo.mp3', icon:'static/images/imagen.PNG', dur:'0:00', locked:false },
+  ];
 
   const TRACKS = [
     { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
@@ -757,6 +856,8 @@
 
   // ── WINDOWS ──────────────────────────────────
   const WIN_NAMES = {
+    'released-window':'released',
+    'ep-window':'EP — 2026',
     'music-window':'💿 musica.exe','artoys-window':'🪆 ARTOYS.exe',
     'recycle-window':'🗑️ Papelera','tutoriales-window':'📁 tutoriales',
     'cooking-window':'🍳 cooking...','info-window':'📡 links.txt'
@@ -833,9 +934,21 @@
     isPlaying = !isPlaying;
     refreshPlayer();
   }
-  function prevTrack() { if(currentIdx>0) playTrack(currentIdx-1); }
-  function nextTrack() { if(currentIdx<TRACKS.length-1) playTrack(currentIdx+1); }
-  audio.addEventListener('ended', nextTrack);
+  function prevTrack() {
+    let prev = currentIdx - 1;
+    while (prev >= 0 && TRACKS[prev].locked && !hasNFC) prev--;
+    if (prev >= 0) playTrack(prev);
+  }
+  function nextTrack() {
+    let next = currentIdx + 1;
+    while (next < TRACKS.length && TRACKS[next].locked && !hasNFC) next++;
+    if (next < TRACKS.length) playTrack(next);
+  }
+  audio.addEventListener('ended', () => {
+    let next = currentIdx + 1;
+    while (next < TRACKS.length && TRACKS[next].locked && !hasNFC) next++;
+    if (next < TRACKS.length) playTrack(next);
+  });
 
   function refreshPlayer() {
     document.getElementById('mini-play-btn').textContent = isPlaying?'⏸':'▶';
@@ -904,6 +1017,141 @@
   }
 
   function openVirus() { openPopup('virus-popup'); }
+
+  // ── RELEASED TRACKS ──
+  // ── RELEASED PLAYER ──
+  const relAudio = document.getElementById('epAudioEl'); // reuse second audio element
+  let relIdx = -1, relPlaying = false;
+
+  function buildReleasedTracks() {
+    const t = document.getElementById('released-table');
+    if (!t) return;
+    if (RELEASED_TRACKS.length === 0) {
+      t.innerHTML = '<tr><td colspan="4" style="padding:16px;color:#808080;font-size:11px">Próximamente — canciones en camino.</td></tr>';
+      return;
+    }
+    t.innerHTML = RELEASED_TRACKS.map((tr,i)=>`
+      <tr onclick="selectRelTrack(${i})" id="rtr-${i}">
+        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
+        <td style="width:24px"><img src="${tr.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
+        <td style="font-size:12px">${tr.title}</td>
+        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${tr.dur}</td>
+      </tr>`).join('');
+  }
+
+  function selectRelTrack(i) {
+    relIdx = i;
+    relAudio.src = RELEASED_TRACKS[i].file; relAudio.play(); relPlaying = true;
+    document.getElementById('rel-track-list-view').style.display = 'none';
+    const rv = document.getElementById('rel-ipod-view');
+    rv.style.display = 'flex';
+    document.getElementById('rel-ipod-title').textContent = RELEASED_TRACKS[i].title;
+    document.getElementById('rel-ipod-inner-title').textContent = RELEASED_TRACKS[i].title;
+    document.getElementById('rel-ipod-num').textContent = String(i+1).padStart(2,'0') + ' / ' + String(RELEASED_TRACKS.length).padStart(2,'0');
+    document.getElementById('rel-ipod-cover').src = RELEASED_TRACKS[i].icon;
+    document.getElementById('rel-download-btn').href = RELEASED_TRACKS[i].file;
+    document.getElementById('rel-download-btn').download = RELEASED_TRACKS[i].title + '.mp3';
+  }
+  function showRelTrackList() {
+    document.getElementById('rel-track-list-view').style.display = '';
+    document.getElementById('rel-ipod-view').style.display = 'none';
+  }
+  function relTogglePlay() {
+    if(relIdx<0) return;
+    relPlaying ? relAudio.pause() : relAudio.play();
+    relPlaying = !relPlaying;
+  }
+  function relPrevTrack() { if(relIdx>0) selectRelTrack(relIdx-1); }
+  function relNextTrack() { if(relIdx<RELEASED_TRACKS.length-1) selectRelTrack(relIdx+1); }
+  function relSeekTo(e) {
+    const w=document.getElementById('rel-progressWrap');
+    const pct=Math.max(0,Math.min(1,(e.clientX-w.getBoundingClientRect().left)/w.offsetWidth));
+    relAudio.currentTime=pct*relAudio.duration;
+  }
+  relAudio.addEventListener('timeupdate',()=>{
+    if(relAudio.src.includes(RELEASED_TRACKS[relIdx]?.file||'__')) {
+      if(!relAudio.duration) return;
+      const pct=(relAudio.currentTime/relAudio.duration)*100;
+      const pf=document.getElementById('rel-progressFill');
+      if(pf) pf.style.width=pct+'%';
+      const te=document.getElementById('rel-timeElapsed');
+      const tl=document.getElementById('rel-timeLeft');
+      if(te) te.textContent=fmt(relAudio.currentTime);
+      if(tl) tl.textContent=fmt(relAudio.duration-relAudio.currentTime);
+    }
+  });
+  relAudio.addEventListener('ended', relNextTrack);
+  buildReleasedTracks();
+
+  // ── EP WINDOW PLAYER ──
+  const epAudio = document.getElementById('epAudioEl');
+  let epIdx = -1, epPlaying = false;
+
+  function buildEpTracks() {
+    const t = document.getElementById('ep-track-table');
+    if (!t) return;
+    t.innerHTML = TRACKS.map((tr,i)=>{
+      const locked = tr.locked && !hasNFC;
+      return `<tr class="${locked?'track-locked':''}" onclick="${locked?`openPopup('access-popup')`:`selectEpTrack(${i})`}" id="etr-${i}">
+        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
+        <td style="width:24px"><img src="${tr.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
+        <td style="font-size:12px">${tr.title}</td>
+        <td style="width:20px;text-align:center">${locked?'🔒':''}</td>
+        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${tr.dur}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function selectEpTrack(i) {
+    if (TRACKS[i].locked && !hasNFC) { openPopup('access-popup'); return; }
+    epIdx = i;
+    epAudio.src = TRACKS[i].file; epAudio.play(); epPlaying = true;
+    document.getElementById('ep-track-list-view').style.display = 'none';
+    const ev = document.getElementById('ep-ipod-view');
+    ev.style.display = 'flex';
+    document.getElementById('ep-ipod-title').textContent = TRACKS[i].title;
+    document.getElementById('ep-ipod-inner-title').textContent = TRACKS[i].title;
+    document.getElementById('ep-ipod-num').textContent = String(i+1).padStart(2,'0') + ' / 06';
+    document.getElementById('ep-ipod-cover').src = TRACKS[i].icon;
+    document.getElementById('ep-download-btn').href = TRACKS[i].file;
+    document.getElementById('ep-download-btn').download = TRACKS[i].title + '.mp3';
+  }
+  function showEpTrackList() {
+    document.getElementById('ep-track-list-view').style.display = '';
+    document.getElementById('ep-ipod-view').style.display = 'none';
+  }
+  function epTogglePlay() {
+    if(epIdx<0) return;
+    epPlaying ? epAudio.pause() : epAudio.play();
+    epPlaying = !epPlaying;
+  }
+  function epPrevTrack() {
+    let p = epIdx-1;
+    while(p>=0 && TRACKS[p].locked && !hasNFC) p--;
+    if(p>=0) selectEpTrack(p);
+  }
+  function epNextTrack() {
+    let n = epIdx+1;
+    while(n<TRACKS.length && TRACKS[n].locked && !hasNFC) n++;
+    if(n<TRACKS.length) selectEpTrack(n);
+  }
+  epAudio.addEventListener('timeupdate',()=>{
+    if(!epAudio.duration) return;
+    const pct=(epAudio.currentTime/epAudio.duration)*100;
+    const pf=document.getElementById('ep-progressFill');
+    if(pf) pf.style.width=pct+'%';
+    const te=document.getElementById('ep-timeElapsed');
+    const tl=document.getElementById('ep-timeLeft');
+    if(te) te.textContent=fmt(epAudio.currentTime);
+    if(tl) tl.textContent=fmt(epAudio.duration-epAudio.currentTime);
+  });
+  epAudio.addEventListener('ended', epNextTrack);
+  function epSeekTo(e) {
+    const w=document.getElementById('ep-progressWrap');
+    const pct=Math.max(0,Math.min(1,(e.clientX-w.getBoundingClientRect().left)/w.offsetWidth));
+    epAudio.currentTime=pct*epAudio.duration;
+  }
+  buildEpTracks();
 
   function submitReadme() {
     const email = document.getElementById('readme-email').value.trim();
