@@ -48,11 +48,22 @@
 
     /* ── ICONS ── */
     .icons-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 12px 8px;
-      max-width: 420px;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      bottom: 36px;
+      pointer-events: none;
+    }
+    .icons-col-left {
+      position: absolute;
+      top: 12px; left: 8px;
+      display: flex; flex-direction: column; gap: 6px;
+      pointer-events: all;
+    }
+    .icons-col-right {
+      position: absolute;
+      top: 12px; right: 8px;
+      display: flex; flex-direction: column; gap: 6px;
+      pointer-events: all;
     }
     .desktop-icon {
       display: flex; flex-direction: column; align-items: center;
@@ -166,8 +177,8 @@
     /* icon top-left in titlebar */
     .drawn-win-icon {
       position: absolute;
-      top: 0.5%; left: 2%;
-      height: 3.2%; width: auto;
+      top: 1%; left: 5%;
+      height: 2.8%; width: auto;
       object-fit: contain;
       pointer-events: none;
     }
@@ -412,38 +423,44 @@
 
 <div id="desktop">
   <div class="icons-grid">
-    <div class="desktop-icon" onclick="openWindow('music-window')">
-      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">musica.exe</span>
+    <!-- LEFT COLUMN: ARTOYS, MÚSICA, COOKING -->
+    <div class="icons-col-left">
+      <div class="desktop-icon" onclick="openWindow('artoys-window')">
+        <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">ARTOYS.exe</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('music-window')">
+        <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">musica.exe</span>
+      </div>
+      <div class="desktop-icon" onclick="openCooking()">
+        <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">cooking...</span>
+        <span class="lock-badge" id="cooking-lock">🔒</span>
+      </div>
     </div>
-    <div class="desktop-icon" onclick="openWindow('artoys-window')">
-      <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">ARTOYS.exe</span>
-    </div>
-    <div class="desktop-icon" onclick="openWindow('recycle-window')">
-      <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">Papelera</span>
-    </div>
-    <div class="desktop-icon" onclick="openPopup('readme-popup')">
-      <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">README.txt</span>
-    </div>
-    <div class="desktop-icon" onclick="openWindow('tutoriales-window')">
-      <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">tutoriales</span>
-    </div>
-    <div class="desktop-icon" onclick="openCooking()">
-      <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">cooking...</span>
-      <span class="lock-badge" id="cooking-lock">🔒</span>
-    </div>
-    <div class="desktop-icon" onclick="openWindow('info-window')">
-      <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">links.txt</span>
-    </div>
-    <div class="desktop-icon" onclick="openVirus()">
-      <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
+    <!-- RIGHT COLUMN: PAPELERA, README, TUTORIALES, LINKS, VIRUS -->
+    <div class="icons-col-right">
+      <div class="desktop-icon" onclick="openWindow('recycle-window')">
+        <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">Papelera</span>
+      </div>
+      <div class="desktop-icon" onclick="openPopup('readme-popup')">
+        <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">README.txt</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('tutoriales-window')">
+        <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">tutoriales</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('info-window')">
+        <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">links.txt</span>
+      </div>
+      <div class="desktop-icon" onclick="openVirus()">
+        <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+        <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
+      </div>
     </div>
   </div>
 </div>
