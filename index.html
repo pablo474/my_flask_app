@@ -2,91 +2,834 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yonko Art</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="static/styles.css">
-</head>
-<body>
-  <header>
-    <div class="password-access">
-      <a href="#" onclick="showModal()">ENTER USING PASSWORD</a>
-    </div>
-    <img src="static/images/web-nombre-anim.gif" alt="Logo" class="logo-main">
-  </header>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>YONKO.ART</title>
+  <style>
+    @font-face {
+      font-family: 'W95FA';
+      src: url('https://fonts.cdnfonts.com/s/14984/W95FA.woff') format('woff');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <div class="main-container">
-    <img src="static/images/web-diablo-anim.gif" class="diablo-bg">
-    <div class="content-box">
-      <h2>GET YOUR EARLY ACCESS</h2>
-      <form id="emailForm" class="email-section">
-        <input type="email" name="email" placeholder="YOUR E-MAIL HERE..." required>
-        <button type="submit">SUBSCRIBE</button>
-      </form>
-      <p id="responseMessage"></p>
-    </div>
-  </div>
-
-  <div id="passModal" class="modal">
-    <div class="modal-content">
-      <span style="cursor:pointer; font-size:0.7rem; letter-spacing:2px;" onclick="closeModal()">CLOSE</span>
-      <input type="password" id="passInput" placeholder="PASSWORD" style="margin-top:20px;">
-      <button onclick="checkPass()" style="padding:15px; background:#000; color:#fff; border:none; width:100%; cursor:pointer; font-family:'Montserrat'; letter-spacing:4px; font-weight:700;">ENTER</button>
-      <p id="passErr" style="color:red; font-size:10px; margin-top:10px;"></p>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <a href="#"><img src="static/images/Capa13.png"></a>
-    <a href="#"><img src="static/images/Capa15.png"></a>
-    <a href="#"><img src="static/images/Capa20.png"></a>
-  </footer>
-
-  <script>
-    // ── Contraseña ──────────────────────────────────────────────
-    // Cambia esto por tu contraseña real
-    const PASSWORD = 'MUSICVIP';
-
-    function showModal() { document.getElementById('passModal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('passModal').style.display = 'none'; }
-
-    function checkPass() {
-      const pass = document.getElementById('passInput').value.trim().toUpperCase();
-      if (pass === PASSWORD) {
-        window.location.href = 'musica.html';
-      } else {
-        document.getElementById('passErr').innerText = 'CONTRASEÑA INVÁLIDA';
-      }
+    :root {
+      --c-bg:      #008080;
+      --c-win:     #c0c0c0;
+      --c-dark:    #808080;
+      --c-darker:  #404040;
+      --c-white:   #ffffff;
+      --c-black:   #000000;
+      --c-title:   #000080;
+      --c-title-t: #ffffff;
+      --c-btn:     #c0c0c0;
+      --c-sel:     #000080;
+      --c-sel-t:   #ffffff;
+      --c-red:     #ff0000;
+      --border-out: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white);
+      --border-in:  var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
+      --border-btn: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
     }
 
-    // Enter key en el campo de contraseña
-    document.getElementById('passInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') checkPass();
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'W95FA', 'Courier New', monospace;
+      font-size: 12px;
+      image-rendering: pixelated;
+    }
+
+    /* ── DESKTOP ── */
+    #desktop {
+      width: 100%; height: 100%;
+      background: var(--c-bg) url('static/images/fondo_escritorio.jpg') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 36px;
+    }
+
+    /* ── ICONS ── */
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 12px 8px;
+      max-width: 420px;
+    }
+    .desktop-icon {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 3px; cursor: pointer; padding: 6px 4px;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+    .desktop-icon:active .icon-emoji { outline: 1px dotted #fff; }
+    .icon-emoji { font-size: 36px; line-height: 1; }
+    .icon-label {
+      font-size: 11px; color: #fff;
+      text-align: center; text-shadow: 1px 1px 0 #000;
+      line-height: 1.2; max-width: 68px; word-break: break-word;
+    }
+    .lock-badge { position: absolute; top: 4px; right: 8px; font-size: 11px; }
+
+    /* ── TASKBAR ── */
+    #taskbar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 36px;
+      background: var(--c-win);
+      border-top: 2px solid var(--c-white);
+      display: flex; align-items: center;
+      padding: 0 4px; gap: 4px;
+      z-index: 1000;
+    }
+
+    #start-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--border-btn);
+      padding: 2px 8px 2px 4px;
+      cursor: pointer;
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 13px; font-weight: bold;
+      height: 28px; flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #start-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+    #start-btn img { width: 20px; height: 20px; object-fit: contain; }
+
+    .taskbar-items { flex: 1; display: flex; gap: 3px; overflow: hidden; }
+    .taskbar-item {
+      display: flex; align-items: center; gap: 4px;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
+      padding: 2px 8px; height: 28px;
+      cursor: pointer; font-size: 11px;
+      max-width: 150px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #mini-player-bar {
+      display: none; align-items: center; gap: 4px;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
+      padding: 2px 6px; height: 28px;
+    }
+    #mini-player-bar.visible { display: flex; }
+    #mini-title-bar { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
+    .mini-ctrl { background: none; border: none; cursor: pointer; font-size: 12px; padding: 0 2px; }
+
+    #clock {
+      border: 2px solid;
+      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
+      padding: 2px 8px; height: 28px;
+      display: flex; align-items: center;
+      font-size: 11px; flex-shrink: 0;
+    }
+
+    /* ── WINDOWS ── */
+    .xp-window {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 36px;
+      background: var(--c-win);
+      display: none; flex-direction: column;
+      z-index: 500; overflow: hidden;
+      border: 2px solid;
+      border-color: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
+    }
+    .xp-window.open { display: flex; }
+
+    .xp-titlebar {
+      background: var(--c-title);
+      padding: 3px 4px;
+      display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+      height: 22px;
+    }
+    .xp-titlebar-title {
+      flex: 1; font-size: 12px; color: var(--c-title-t);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-weight: bold;
+    }
+    .xp-titlebar-btns { display: flex; gap: 2px; }
+    .xp-btn {
+      width: 18px; height: 16px;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--border-btn);
+      cursor: pointer; font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .xp-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+    .xp-btn-close { font-size: 11px; }
+
+    .xp-menubar {
+      background: var(--c-win);
+      border-bottom: 1px solid var(--c-dark);
+      padding: 2px 6px;
+      font-size: 12px;
+      display: flex; gap: 16px; flex-shrink: 0;
+    }
+    .xp-menubar span { cursor: pointer; padding: 1px 4px; }
+    .xp-menubar span:hover { background: var(--c-sel); color: var(--c-sel-t); }
+
+    .xp-content {
+      flex: 1; overflow-y: auto;
+      background: var(--c-white);
+      border: 2px solid;
+      border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
+      margin: 4px;
+    }
+
+    /* ── POPUPS ── */
+    .xp-popup {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000; padding: 16px;
+    }
+    .xp-popup.open { display: flex; }
+    .xp-popup-inner {
+      background: var(--c-win);
+      border: 2px solid;
+      border-color: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
+      max-width: 320px; width: 100%;
+    }
+    .xp-popup-title {
+      background: var(--c-title);
+      padding: 3px 6px; height: 22px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .xp-popup-title span { flex: 1; font-size: 12px; font-weight: bold; color: var(--c-title-t); }
+    .xp-popup-body { padding: 16px 14px; font-size: 12px; line-height: 1.6; }
+    .xp-popup-footer { padding: 8px 14px 14px; display: flex; justify-content: center; gap: 8px; }
+    .xp-push-btn {
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--border-btn);
+      padding: 4px 20px;
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 12px; cursor: pointer; min-width: 80px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .xp-push-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+    .xp-push-btn.primary { font-weight: bold; }
+
+    /* ── TRACK LIST ── */
+    .track-list-95 { width: 100%; border-collapse: collapse; }
+    .track-list-95 tr { cursor: pointer; }
+    .track-list-95 tr:hover { background: var(--c-sel); color: var(--c-sel-t); }
+    .track-list-95 tr.active-track { background: var(--c-sel); color: var(--c-sel-t); }
+    .track-list-95 td { padding: 4px 6px; font-size: 12px; vertical-align: middle; border-bottom: 1px solid #e0e0e0; }
+    .track-locked { opacity: 0.45; }
+
+    /* ── IPOD VIEW ── */
+    #ipod-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 12px 8px;
+      background: var(--c-white);
+      height: 100%;
+      overflow-y: auto;
+    }
+    #ipod-view.open { display: flex; }
+
+    .ipod-back-btn {
+      align-self: flex-start;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--border-btn);
+      padding: 2px 12px;
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 12px; cursor: pointer; margin-bottom: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ipod-back-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+
+    .ipod-track-info {
+      font-size: 11px; color: var(--c-dark);
+      letter-spacing: 2px; margin-bottom: 2px; text-align: center;
+    }
+    .ipod-track-name {
+      font-size: 14px; font-weight: bold;
+      text-align: center; margin-bottom: 10px;
+    }
+
+    .ipod-wrapper {
+      position: relative;
+      width: min(280px, 88vw);
+      margin: 0 auto;
+    }
+    .ipod-img { width: 100%; height: auto; display: block; pointer-events: none; user-select: none; }
+
+    .ipod-screen {
+      position: absolute;
+      top: 11.9%; left: 30.2%;
+      width: 39.8%; height: 29.7%;
+      overflow: hidden; border-radius: 3px;
+      background: #000; z-index: -1;
+    }
+    .ipod-screen img { width: 100%; height: 100%; object-fit: contain; }
+
+    .ipod-inner-title {
+      position: absolute;
+      top: 43%; left: 15%; width: 70%;
+      text-align: center;
+      font-size: 8px; color: #333;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .ipod-progress-area {
+      position: absolute;
+      top: 50%; left: 25%; width: 46%;
+    }
+    .progress-bar-wrap {
+      height: 3px; background: rgba(0,0,0,0.15);
+      border-radius: 2px; cursor: pointer; margin-bottom: 3px;
+    }
+    .progress-bar-fill { height: 100%; background: #000; border-radius: 2px; width: 0%; transition: width 0.4s linear; }
+    .progress-times { display: flex; justify-content: space-between; font-size: 8px; color: #666; }
+
+    .ipod-btn { position: absolute; background: transparent; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .btn-prev      { top: 71%; left: 12%; width: 22%; height: 15%; }
+    .btn-playpause { top: 72%; left: 37%; width: 26%; height: 14%; border-radius: 50%; }
+    .btn-next      { top: 71%; left: 66%; width: 22%; height: 15%; }
+
+    .ipod-download-btn {
+      margin-top: 16px;
+      background: var(--c-btn);
+      border: 2px solid;
+      border-color: var(--border-btn);
+      padding: 4px 20px;
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 12px; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ipod-download-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+
+    /* ── RECYCLE ── */
+    .recycle-list { width: 100%; border-collapse: collapse; }
+    .recycle-list tr { border-bottom: 1px solid #e0e0e0; }
+    .recycle-list td { padding: 5px 6px; font-size: 12px; vertical-align: middle; }
+    .deleted-name { text-decoration: line-through; color: var(--c-dark); }
+    .playable-name { color: #000080; cursor: pointer; text-decoration: underline; }
+
+    .cooking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; }
+    .cooking-item { border: 2px solid; border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark); background: var(--c-win); padding: 8px; font-size: 11px; }
+    .cooking-item.super-locked { filter: blur(4px); pointer-events: none; }
+    .cooking-item.nfc-locked { filter: blur(3px); pointer-events: none; }
+    .item-type { font-size: 9px; color: var(--c-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+    .item-title { font-size: 12px; font-weight: bold; }
+    .item-date { font-size: 9px; color: var(--c-dark); margin-top: 3px; }
+
+    .info-links { list-style: none; padding: 4px; }
+    .info-links li { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #e0e0e0; }
+    .info-links a { color: #000080; text-decoration: underline; font-size: 12px; }
+
+    .pdf-list { list-style: none; padding: 4px; }
+    .pdf-list li { display: flex; align-items: center; gap: 8px; padding: 8px 4px; border-bottom: 1px solid #e0e0e0; }
+    .pdf-list a { color: #000080; text-decoration: underline; font-size: 12px; }
+
+    .artoys-input {
+      width: 100%;
+      border: 2px solid;
+      border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
+      padding: 4px 6px;
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 12px; margin-bottom: 8px; outline: none;
+      background: var(--c-white);
+    }
+
+    .discount-code {
+      font-family: 'W95FA','Courier New',monospace;
+      font-size: 22px; letter-spacing: 4px;
+      border: 2px solid; border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
+      padding: 8px 16px; margin: 10px 0;
+      background: var(--c-white); color: var(--c-red);
+      text-align: center; display: inline-block;
+    }
+
+    .readme-text { font-family: 'W95FA','Courier New',monospace; font-size: 12px; line-height: 1.8; white-space: pre-wrap; }
+
+    ::-webkit-scrollbar { width: 16px; }
+    ::-webkit-scrollbar-track { background: var(--c-win); }
+    ::-webkit-scrollbar-thumb { background: var(--c-win); border: 2px solid; border-color: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white); }
+    ::-webkit-scrollbar-button { background: var(--c-win); border: 2px solid; border-color: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white); height: 16px; }
+  </style>
+</head>
+<body>
+
+<div id="desktop">
+  <div class="icons-grid">
+    <div class="desktop-icon" onclick="openWindow('music-window')">
+      <div class="icon-emoji">💿</div>
+      <span class="icon-label">musica.exe</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('artoys-window')">
+      <div class="icon-emoji">🪆</div>
+      <span class="icon-label">ARTOYS.exe</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('recycle-window')">
+      <div class="icon-emoji">🗑️</div>
+      <span class="icon-label">Papelera</span>
+    </div>
+    <div class="desktop-icon" onclick="openPopup('readme-popup')">
+      <div class="icon-emoji">📄</div>
+      <span class="icon-label">README.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('tutoriales-window')">
+      <div class="icon-emoji">📁</div>
+      <span class="icon-label">tutoriales</span>
+    </div>
+    <div class="desktop-icon" onclick="openCooking()">
+      <div class="icon-emoji">🍳</div>
+      <span class="icon-label">cooking...</span>
+      <span class="lock-badge" id="cooking-lock">🔒</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('info-window')">
+      <div class="icon-emoji">📡</div>
+      <span class="icon-label">links.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openVirus()">
+      <div class="icon-emoji">🐱</div>
+      <span class="icon-label">totally_not_a_virus.exe</span>
+    </div>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <button id="start-btn">
+    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'">
+    Start
+  </button>
+  <div class="taskbar-items" id="taskbar-items"></div>
+  <div id="mini-player-bar">
+    <button class="mini-ctrl" onclick="prevTrack()">⏮</button>
+    <button class="mini-ctrl" id="mini-play-btn" onclick="togglePlay()">▶</button>
+    <button class="mini-ctrl" onclick="nextTrack()">⏭</button>
+    <span id="mini-title-bar">—</span>
+    <button class="mini-ctrl" onclick="openWindow('music-window')">🎵</button>
+  </div>
+  <div id="clock">00:00</div>
+</div>
+
+<!-- MÚSICA -->
+<div class="xp-window" id="music-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">💿 musica.exe</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('music-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('music-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar">
+    <span>Archivo</span><span>Ver</span><span>Reproducción</span>
+  </div>
+  <div class="xp-content" style="padding:0;display:flex;flex-direction:column;">
+
+    <!-- Lista de canciones -->
+    <div id="track-list-view" style="flex:1;overflow-y:auto;">
+      <table class="track-list-95" id="track-table"></table>
+    </div>
+
+    <!-- iPod view (oculto hasta pulsar canción) -->
+    <div id="ipod-view">
+      <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
+      <div class="ipod-track-info" id="ipod-num">01 / 06</div>
+      <div class="ipod-track-name" id="ipod-title">—</div>
+      <div class="ipod-wrapper">
+        <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+        <div class="ipod-screen">
+          <img id="ipod-cover" src="static/images/caratula_EP_1.PNG" alt="EP">
+        </div>
+        <div class="ipod-inner-title" id="ipod-inner-title">—</div>
+        <div class="ipod-progress-area">
+          <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
+            <div class="progress-bar-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-times">
+            <span id="timeElapsed">0:00</span>
+            <span id="timeLeft">0:00</span>
+          </div>
+        </div>
+        <button class="ipod-btn btn-prev"      onclick="prevTrack()"  aria-label="Anterior"></button>
+        <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
+        <button class="ipod-btn btn-next"      onclick="nextTrack()"  aria-label="Siguiente"></button>
+      </div>
+      <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ARTOYS -->
+<div class="xp-window" id="artoys-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">🪆 ARTOYS.exe</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('artoys-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('artoys-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
+  <div class="xp-content">
+    <div style="max-width:300px;margin:0 auto;text-align:center;padding:8px">
+      <p style="font-size:32px;margin-bottom:10px">🪆</p>
+      <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
+      <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
+      <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
+      <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+      <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+    </div>
+  </div>
+</div>
+
+<!-- PAPELERA -->
+<div class="xp-window" id="recycle-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">🗑️ Papelera de reciclaje</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('recycle-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('recycle-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar"><span>Archivo</span><span>Editar</span><span>Ver</span><span>Favoritos</span><span>Ayuda</span></div>
+  <div class="xp-content" style="padding:0">
+    <div style="padding:4px 8px;background:#c0c0c0;border-bottom:1px solid #808080;font-size:11px;color:#444">
+      Papelera — <span id="recycle-count">0</span> elementos (no se pueden recuperar)
+    </div>
+    <table class="recycle-list" id="recycle-table"></table>
+  </div>
+</div>
+
+<!-- TUTORIALES -->
+<div class="xp-window" id="tutoriales-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">📁 tutoriales — gratis</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('tutoriales-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('tutoriales-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
+  <div class="xp-content">
+    <ul class="pdf-list" id="pdf-list"></ul>
+    <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+  </div>
+</div>
+
+<!-- COOKING -->
+<div class="xp-window" id="cooking-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">🍳 cooking... — en proceso</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('cooking-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('cooking-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
+  <div class="xp-content" style="padding:0">
+    <div class="cooking-grid" id="cooking-grid"></div>
+  </div>
+</div>
+
+<!-- INFO -->
+<div class="xp-window" id="info-window">
+  <div class="xp-titlebar">
+    <span class="xp-titlebar-title">📡 links.txt</span>
+    <div class="xp-titlebar-btns">
+      <button class="xp-btn" onclick="closeWindow('info-window')">_</button>
+      <button class="xp-btn xp-btn-close" onclick="closeWindow('info-window')">✕</button>
+    </div>
+  </div>
+  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
+  <div class="xp-content">
+    <ul class="info-links">
+      <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
+      <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
+      <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
+      <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
+      <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUPS -->
+<div class="xp-popup" id="readme-popup">
+  <div class="xp-popup-inner">
+    <div class="xp-popup-title">
+      <span>📄 README.txt — Bloc de notas</span>
+      <button class="xp-btn xp-btn-close" onclick="closePopup('readme-popup')" style="margin-left:auto">✕</button>
+    </div>
+    <div class="xp-popup-body">
+      <pre class="readme-text">YONKO — README.txt
+==================
+
+[Tu texto aquí.]
+</pre>
+    </div>
+    <div class="xp-popup-footer">
+      <button class="xp-push-btn primary" onclick="closePopup('readme-popup')">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="xp-popup" id="virus-popup">
+  <div class="xp-popup-inner">
+    <div class="xp-popup-title">
+      <span>🐱 totally_not_a_virus.exe</span>
+      <button class="xp-btn xp-btn-close" onclick="closePopup('virus-popup')" style="margin-left:auto">✕</button>
+    </div>
+    <div class="xp-popup-body" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:8px">🐱</div>
+      <p>era un gato. te pillé.</p>
+      <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
+      <div class="discount-code">YONKO10</div>
+      <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
+    </div>
+    <div class="xp-popup-footer">
+      <button class="xp-push-btn primary" onclick="closePopup('virus-popup')">Guardar y salir</button>
+    </div>
+  </div>
+</div>
+
+<div class="xp-popup" id="access-popup">
+  <div class="xp-popup-inner">
+    <div class="xp-popup-title" style="background:#800000">
+      <span>🔒 Acceso denegado</span>
+      <button class="xp-btn xp-btn-close" onclick="closePopup('access-popup')" style="margin-left:auto">✕</button>
+    </div>
+    <div class="xp-popup-body" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:8px">🔒</div>
+      <p style="font-weight:bold">Access Denied</p>
+      <p style="font-size:11px;color:#666;margin-top:6px">Necesitas el objeto físico YONKO<br>para acceder a este contenido.</p>
+    </div>
+    <div class="xp-popup-footer">
+      <button class="xp-push-btn primary" onclick="closePopup('access-popup')">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="xp-popup" id="artoys-sent-popup">
+  <div class="xp-popup-inner">
+    <div class="xp-popup-title">
+      <span>✉ Registro completado</span>
+      <button class="xp-btn xp-btn-close" onclick="closePopup('artoys-sent-popup')" style="margin-left:auto">✕</button>
+    </div>
+    <div class="xp-popup-body" style="display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:32px">✅</div>
+      <div>
+        <p style="font-weight:bold;margin-bottom:4px">¡Registrado!</p>
+        <p style="font-size:11px;color:#666">Te avisamos cuando el drop esté disponible.</p>
+      </div>
+    </div>
+    <div class="xp-popup-footer">
+      <button class="xp-push-btn primary" onclick="closePopup('artoys-sent-popup')">OK</button>
+    </div>
+  </div>
+</div>
+
+<audio id="audioEl" preload="metadata"></audio>
+
+<script>
+  // ── CONFIG ──────────────────────────────────
+  const NFC_KEY = 'YONKO2026';
+  const GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
+
+  const TRACKS = [
+    { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
+    { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              icon:'static/images/ep_ilustracion_2.PNG', dur:'2:04', locked:false },
+    { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               icon:'static/images/ep_ilustracion_3.PNG', dur:'2:24', locked:true  },
+    { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', icon:'static/images/ep_ilustracion_4.PNG', dur:'1:00', locked:true  },
+    { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             icon:'static/images/ep_ilustracion_5.PNG', dur:'1:38', locked:true  },
+    { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 icon:'static/images/ep_ilustracion_6.PNG', dur:'0:45', locked:true  },
+  ];
+
+  const RECYCLE_ITEMS = [
+    { name:'intro_descartada_v1.mp3',  date:'12/01/2026', type:'audio', locked:false, playable:false },
+    { name:'beat_sin_nombre.mp3',      date:'18/01/2026', type:'audio', locked:true,  playable:true  },
+    { name:'letra_no_usada.txt',       date:'03/02/2026', type:'text',  locked:false, playable:false },
+    { name:'portada_RECHAZADA.png',    date:'10/02/2026', type:'image', locked:false, playable:false },
+    { name:'demo_destructor_v1.mp3',   date:'22/02/2026', type:'audio', locked:true,  playable:true  },
+  ];
+
+  const TUTORIALES = [];
+
+  const COOKING_ITEMS = [
+    { type:'música',  title:'sin título #7',    date:'marzo 2026', nfcLocked:false, superLocked:false },
+    { type:'dibujo',  title:'boceto figura v2', date:'marzo 2026', nfcLocked:false, superLocked:false },
+    { type:'música',  title:'???',              date:'—',          nfcLocked:true,  superLocked:false },
+    { type:'figura',  title:'???',              date:'—',          nfcLocked:false, superLocked:true  },
+  ];
+
+  // ── NFC ─────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  const hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
+  if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
+  if (hasNFC) { const cl = document.getElementById('cooking-lock'); if(cl) cl.style.display='none'; }
+
+  // ── CLOCK ────────────────────────────────────
+  function tick() {
+    const n = new Date();
+    document.getElementById('clock').textContent =
+      String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 10000);
+
+  // ── WINDOWS ──────────────────────────────────
+  const WIN_NAMES = {
+    'music-window':'💿 musica.exe','artoys-window':'🪆 ARTOYS.exe',
+    'recycle-window':'🗑️ Papelera','tutoriales-window':'📁 tutoriales',
+    'cooking-window':'🍳 cooking...','info-window':'📡 links.txt'
+  };
+  function openWindow(id) {
+    document.querySelectorAll('.xp-window').forEach(w=>w.classList.remove('open'));
+    document.getElementById(id).classList.add('open');
+    const tb = document.getElementById('taskbar-items');
+    tb.innerHTML = `<div class="taskbar-item" onclick="closeWindow('${id}')">${WIN_NAMES[id]||id}</div>`;
+  }
+  function closeWindow(id) {
+    document.getElementById(id).classList.remove('open');
+    document.getElementById('taskbar-items').innerHTML = '';
+    showTrackList();
+  }
+  function openPopup(id) { document.getElementById(id).classList.add('open'); }
+  function closePopup(id) { document.getElementById(id).classList.remove('open'); }
+
+  // ── MUSIC ─────────────────────────────────────
+  const audio = document.getElementById('audioEl');
+  let currentIdx = -1, isPlaying = false;
+
+  function buildTracks() {
+    document.getElementById('track-table').innerHTML = TRACKS.map((t,i)=>{
+      const locked = t.locked && !hasNFC;
+      return `<tr class="${locked?'track-locked':''}" onclick="${locked?`openPopup('access-popup')`:`selectTrack(${i})`}" id="tr-${i}">
+        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
+        <td style="width:24px"><img src="${t.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
+        <td style="font-size:12px">${t.title}</td>
+        <td style="width:20px;text-align:center">${locked?'🔒':''}</td>
+        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${t.dur}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function selectTrack(i) {
+    if (TRACKS[i].locked && !hasNFC) { openPopup('access-popup'); return; }
+    playTrack(i);
+    showIpod();
+  }
+
+  function playTrack(i) {
+    currentIdx = i;
+    audio.src = TRACKS[i].file;
+    audio.play();
+    isPlaying = true;
+    refreshPlayer();
+    updateIpodUI();
+  }
+
+  function showIpod() {
+    document.getElementById('track-list-view').style.display = 'none';
+    document.getElementById('ipod-view').classList.add('open');
+  }
+  function showTrackList() {
+    document.getElementById('track-list-view').style.display = '';
+    document.getElementById('ipod-view').classList.remove('open');
+  }
+
+  function updateIpodUI() {
+    if (currentIdx < 0) return;
+    const t = TRACKS[currentIdx];
+    document.getElementById('ipod-title').textContent = t.title;
+    document.getElementById('ipod-inner-title').textContent = t.title;
+    document.getElementById('ipod-num').textContent = String(currentIdx+1).padStart(2,'0') + ' / 06';
+    document.getElementById('ipod-cover').src = 'static/images/caratula_EP_1.PNG';
+    document.getElementById('download-btn').href = t.file;
+    document.getElementById('download-btn').download = t.title + '.mp3';
+  }
+
+  function togglePlay() {
+    if (currentIdx < 0) return;
+    isPlaying ? audio.pause() : audio.play();
+    isPlaying = !isPlaying;
+    refreshPlayer();
+  }
+  function prevTrack() { if(currentIdx>0) playTrack(currentIdx-1); }
+  function nextTrack() { if(currentIdx<TRACKS.length-1) playTrack(currentIdx+1); }
+  audio.addEventListener('ended', nextTrack);
+
+  function refreshPlayer() {
+    document.getElementById('mini-play-btn').textContent = isPlaying?'⏸':'▶';
+    document.getElementById('mini-title-bar').textContent = TRACKS[currentIdx]?.title||'—';
+    document.getElementById('mini-player-bar').classList.toggle('visible', currentIdx>=0);
+    document.querySelectorAll('.track-list-95 tr').forEach((tr,i)=>{
+      tr.classList.toggle('active-track', i===currentIdx);
     });
+  }
 
-    // ── Email → Google Sheets ────────────────────────────────────
-    // Reemplaza SCRIPT_URL con la URL de tu Google Apps Script
-    const SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL_AQUI';
+  audio.addEventListener('timeupdate', ()=>{
+    if (!audio.duration) return;
+    const pct = (audio.currentTime/audio.duration)*100;
+    document.getElementById('progressFill').style.width = pct+'%';
+    document.getElementById('timeElapsed').textContent = fmt(audio.currentTime);
+    document.getElementById('timeLeft').textContent = fmt(audio.duration-audio.currentTime);
+  });
 
-    document.getElementById('emailForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const email = e.target.email.value;
-      const msg = document.getElementById('responseMessage');
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        msg.style.display = 'block';
-        msg.innerText = '¡REGISTRADO!';
-        e.target.reset();
-      } catch {
-        msg.style.display = 'block';
-        msg.innerText = 'ERROR, INTÉNTALO DE NUEVO';
-      }
-    };
-  </script>
+  function seekTo(e) {
+    const wrap = document.getElementById('progressWrap');
+    const pct = Math.max(0,Math.min(1,(e.clientX-wrap.getBoundingClientRect().left)/wrap.offsetWidth));
+    audio.currentTime = pct*audio.duration;
+  }
+
+  function fmt(s) {
+    if(!s||isNaN(s)) return '0:00';
+    return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+  }
+
+  buildTracks();
+
+  // ── RECYCLE ───────────────────────────────────
+  const icons95 = {audio:'🎵',text:'📝',image:'🖼️'};
+  document.getElementById('recycle-count').textContent = RECYCLE_ITEMS.length;
+  document.getElementById('recycle-table').innerHTML = RECYCLE_ITEMS.map(item=>{
+    const locked = item.locked && !hasNFC;
+    let cls='', oc='';
+    if(!locked&&item.playable){cls='playable-name';oc=`onclick="alert('▶ ${item.name}')"`;}
+    else if(!item.playable){cls='deleted-name';}
+    return `<tr><td style="width:24px">${icons95[item.type]||'📄'}</td><td class="${cls}" ${oc}>${item.name}${locked?' 🔒':''}</td><td style="font-size:10px;color:#808080;text-align:right">${item.date}</td></tr>`;
+  }).join('');
+
+  // ── TUTORIALES ────────────────────────────────
+  const pl = document.getElementById('pdf-list');
+  pl.innerHTML = TUTORIALES.length
+    ? TUTORIALES.map(t=>`<li><span>📄</span><a href="${t.file}" target="_blank" download>${t.name}</a></li>`).join('')
+    : '<li style="color:#808080;font-size:11px">Próximamente.</li>';
+
+  // ── COOKING ───────────────────────────────────
+  function openCooking() {
+    openWindow('cooking-window');
+    document.getElementById('cooking-grid').innerHTML = COOKING_ITEMS.map(item=>{
+      const cls = item.superLocked?'super-locked':(item.nfcLocked&&!hasNFC?'nfc-locked':'');
+      return `<div class="cooking-item ${cls}"><div class="item-type">${item.type}</div><div class="item-title">${item.title}</div><div class="item-date">${item.date}</div></div>`;
+    }).join('');
+  }
+
+  // ── ARTOYS ────────────────────────────────────
+  function submitArtoys() {
+    const email = document.getElementById('artoys-email').value.trim();
+    const msg = document.getElementById('artoys-msg');
+    if(!email||!email.includes('@')){msg.style.color='red';msg.textContent='Email inválido.';return;}
+    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'ARTOYS'})});
+    closeWindow('artoys-window');
+    openPopup('artoys-sent-popup');
+  }
+
+  function openVirus() { openPopup('virus-popup'); }
+
+  // ── README al entrar ──────────────────────────
+  window.addEventListener('load', ()=>setTimeout(()=>openPopup('readme-popup'),800));
+</script>
 </body>
 </html>
