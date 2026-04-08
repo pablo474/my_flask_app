@@ -12,612 +12,496 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --c-bg:      #008080;
-      --c-win:     #c0c0c0;
-      --c-dark:    #808080;
-      --c-darker:  #404040;
-      --c-white:   #ffffff;
-      --c-black:   #000000;
-      --c-title:   #000080;
-      --c-title-t: #ffffff;
-      --c-btn:     #c0c0c0;
-      --c-sel:     #000080;
-      --c-sel-t:   #ffffff;
-      --c-red:     #ff0000;
-      --border-out: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white);
-      --border-in:  var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
-      --border-btn: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
+      --win: #c0c0c0;
+      --dark: #808080;
+      --darker: #404040;
+      --white: #ffffff;
+      --black: #000000;
+      --title: #000080;
+      --titleT: #ffffff;
+      --sel: #000080;
+      --selT: #ffffff;
+      --red: #ff0000;
+      --taskbar: #c0c0c0;
     }
 
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      font-family: 'W95FA', 'Courier New', monospace;
-      font-size: 12px;
-      image-rendering: pixelated;
-    }
+    html, body { width:100%; height:100%; overflow:hidden; font-family:'W95FA','Courier New',monospace; font-size:12px; }
 
-    /* ── DESKTOP ── */
+    /* DESKTOP */
     #desktop {
-      width: 100%; height: 100%;
-      background: var(--c-bg) url('static/images/fondo_escritorio.jpg') center/cover no-repeat;
-      position: relative;
-      overflow: hidden;
-      padding-bottom: 36px;
+      width:100%; height:100%;
+      background: #008080 url('static/images/fondo_escritorio.jpg') center/cover no-repeat;
+      position:relative; overflow:hidden; padding-bottom:36px;
     }
 
-    /* ── ICONS ── */
-    .icons-grid {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      bottom: 36px;
-      pointer-events: none;
-      z-index: 50;
+    /* ICONS */
+    #icons-grid {
+      position:fixed; top:0; left:0; right:0; bottom:36px;
+      pointer-events:none; z-index:50;
     }
     .icons-col-left {
-      position: absolute;
-      top: 12px; left: 8px;
-      display: flex; flex-direction: column; gap: 6px;
-      pointer-events: all;
+      position:absolute; top:12px; left:8px;
+      display:flex; flex-direction:column; gap:8px;
+      pointer-events:all;
     }
     .icons-col-right {
-      position: absolute;
-      top: 12px; right: 8px;
-      display: flex; flex-direction: column; gap: 6px;
-      pointer-events: all;
+      position:absolute; top:12px; right:8px;
+      display:flex; flex-direction:column; gap:8px;
+      pointer-events:all;
     }
     .desktop-icon {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 3px; cursor: pointer; padding: 6px 4px;
-      -webkit-tap-highlight-color: transparent;
-      position: relative;
+      display:flex; flex-direction:column; align-items:center;
+      gap:3px; cursor:pointer; padding:6px 4px;
+      -webkit-tap-highlight-color:transparent;
+      position:relative; max-width:80px;
     }
-    .desktop-icon:active .icon-emoji { outline: 1px dotted #fff; }
-    .icon-emoji { font-size: 36px; line-height: 1; }
+    .desktop-icon:active { opacity:0.7; }
+    .icon-img { object-fit:contain; image-rendering:pixelated; display:block; }
     .icon-label {
-      font-size: 11px; color: #fff;
-      text-align: center; text-shadow: 1px 1px 0 #000;
-      line-height: 1.2; max-width: 68px; word-break: break-word;
+      font-size:10px; color:#fff;
+      text-align:center; text-shadow:1px 1px 0 #000;
+      line-height:1.2; word-break:break-word;
     }
-    .lock-badge { position: absolute; top: 4px; right: 8px; font-size: 11px; }
+    .lock-badge { position:absolute; top:4px; right:4px; font-size:11px; }
 
-    /* ── TASKBAR ── */
+    /* TASKBAR */
     #taskbar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: 36px;
-      background: var(--c-win);
-      border-top: 2px solid var(--c-white);
-      display: flex; align-items: center;
-      padding: 0 4px; gap: 4px;
-      z-index: 1000;
+      position:fixed; bottom:0; left:0; right:0; height:36px;
+      background:var(--taskbar); border-top:2px solid var(--white);
+      display:flex; align-items:center; padding:0 4px; gap:4px; z-index:1000;
     }
-
     #start-btn {
-      display: flex; align-items: center; gap: 4px;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--border-btn);
-      padding: 2px 8px 2px 4px;
-      cursor: pointer;
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 13px; font-weight: bold;
-      height: 28px; flex-shrink: 0;
-      -webkit-tap-highlight-color: transparent;
+      display:flex; align-items:center; gap:4px;
+      background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:2px 8px 2px 4px; cursor:pointer;
+      font-family:'W95FA','Courier New',monospace;
+      font-size:13px; font-weight:bold; height:28px; flex-shrink:0;
+      -webkit-tap-highlight-color:transparent;
     }
-    #start-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
-    #start-btn img { width: 20px; height: 20px; object-fit: contain; }
-
-    .taskbar-items { flex: 1; display: flex; gap: 3px; overflow: hidden; }
+    #start-btn img { width:24px; height:24px; object-fit:contain; }
+    .taskbar-items { flex:1; display:flex; gap:3px; overflow:hidden; }
     .taskbar-item {
-      display: flex; align-items: center; gap: 4px;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
-      padding: 2px 8px; height: 28px;
-      cursor: pointer; font-size: 11px;
-      max-width: 150px; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis;
-      -webkit-tap-highlight-color: transparent;
+      display:flex; align-items:center; gap:4px;
+      background:var(--win);
+      border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:2px 8px; height:28px; cursor:pointer;
+      font-size:11px; max-width:160px; white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis;
     }
-
-    #mini-player-bar {
-      display: none; align-items: center; gap: 4px;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
-      padding: 2px 6px; height: 28px;
-    }
-    #mini-player-bar.visible { display: flex; }
-    #mini-title-bar { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
-    .mini-ctrl { background: none; border: none; cursor: pointer; font-size: 12px; padding: 0 2px; }
-
+    #mini-player { display:none; align-items:center; gap:4px; padding:2px 6px; height:28px; }
+    #mini-player.visible { display:flex; }
+    #mini-title { font-size:10px; max-width:90px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .mc { background:none; border:none; cursor:pointer; font-size:12px; padding:0 2px; -webkit-tap-highlight-color:transparent; }
     #clock {
-      border: 2px solid;
-      border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker);
-      padding: 2px 8px; height: 28px;
-      display: flex; align-items: center;
-      font-size: 11px; flex-shrink: 0;
+      border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:2px 8px; height:28px; display:flex; align-items:center;
+      font-size:11px; flex-shrink:0;
     }
 
-    /* ── DRAWN WINDOWS ── */
-    .xp-window {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 36px;
-      display: none; z-index: 500;
-      background: transparent;
-      pointer-events: none;
+    /* WINDOWS */
+    .win {
+      position:fixed; top:0; left:0; right:0; bottom:36px;
+      display:none; z-index:200; pointer-events:none;
+      background:transparent;
     }
-    .xp-window.open { display: block; z-index: 200; pointer-events: all; }
+    .win.open { display:block; pointer-events:all; }
 
-    .drawn-win-wrap {
-      position: relative;
-      width: 100%; height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+    .win-wrap {
+      position:relative; width:100%; height:100%;
+      display:flex; justify-content:center; align-items:flex-start;
     }
-    .drawn-win-img {
-      position: relative;
-      height: 100%;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      object-position: top center;
-      pointer-events: none;
-      user-select: none;
-      display: block;
-      flex-shrink: 0;
+    .win-img {
+      height:100%; width:auto; max-width:100%;
+      object-fit:contain; object-position:top center;
+      pointer-events:none; user-select:none; display:block; flex-shrink:0;
     }
-    /* overlay container — same size/position as the image */
-    .drawn-win-overlay {
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      height: 100%;
-      /* width matches the image at its natural aspect ratio: 2048/2732 */
-      width: min(100%, calc(100vh * 2048 / 2732));
+    .win-overlay {
+      position:absolute; top:0; left:50%;
+      transform:translateX(-50%);
+      height:100%;
+      width:min(100%, calc(100vh * 2048 / 2732));
     }
-    /* icon top-left in titlebar */
-    .drawn-win-icon {
-      position: absolute;
-      top: 1%; left: 5%;
-      height: 2.8%; width: auto;
-      object-fit: contain;
-      pointer-events: none;
+    .win-icon {
+      position:absolute; top:1%; left:5%;
+      height:2.8%; width:auto; object-fit:contain;
+      pointer-events:none;
     }
-    /* title text */
-    .drawn-win-title {
-      position: absolute;
-      top: 0%; left: 8%; right: 20%;
-      height: 4.4%;
-      display: flex; align-items: center;
-      font-size: clamp(10px, 2vw, 15px);
-      font-weight: bold; color: #111;
-      pointer-events: none;
-      white-space: nowrap; overflow: hidden;
+    .win-title {
+      position:absolute; top:0%; left:10%; right:20%; height:4.4%;
+      display:flex; align-items:center;
+      font-size:clamp(10px,2vw,15px); font-weight:bold; color:#111;
+      pointer-events:none; white-space:nowrap; overflow:hidden;
     }
-    /* close button over X */
-    .drawn-win-close {
-      position: absolute;
-      top: 0%; right: 0%;
-      width: 8.5%; height: 4.4%;
-      background: transparent; border: none;
-      cursor: pointer; z-index: 10;
-      -webkit-tap-highlight-color: transparent;
+    .win-close {
+      position:absolute; top:0%; right:0%;
+      width:8.5%; height:4.4%;
+      background:transparent; border:none; cursor:pointer; z-index:10;
+      -webkit-tap-highlight-color:transparent;
     }
-    /* minimize button over — */
-    .drawn-win-min {
-      position: absolute;
-      top: 0%; right: 8.5%;
-      width: 8.5%; height: 4.4%;
-      background: transparent; border: none;
-      cursor: pointer; z-index: 10;
-      -webkit-tap-highlight-color: transparent;
+    .win-min {
+      position:absolute; top:0%; right:8.5%;
+      width:8.5%; height:4.4%;
+      background:transparent; border:none; cursor:pointer; z-index:10;
+      -webkit-tap-highlight-color:transparent;
     }
-    /* scrollable content area */
-    .drawn-win-content {
-      position: absolute;
-      top: 4.4%; left: 4%;
-      right: 4%; bottom: 3%;
-      overflow-y: auto;
-      background: transparent;
-      padding: 12px 8px;
-      font-size: 12px;
+    .win-content {
+      position:absolute; top:4.4%; left:4%; right:4%; bottom:3%;
+      overflow-y:auto; background:transparent; padding:12px 8px; font-size:12px;
     }
-    /* win95 scrollbar inside drawn window */
-    .drawn-win-content::-webkit-scrollbar { width: 16px; }
-    .drawn-win-content::-webkit-scrollbar-track { background: #c0c0c0; }
-    .drawn-win-content::-webkit-scrollbar-thumb {
-      background: #c0c0c0;
-      border: 2px solid;
-      border-color: #fff #808080 #808080 #fff;
-    }
-    .drawn-win-content::-webkit-scrollbar-button {
-      background: #c0c0c0;
-      border: 2px solid;
-      border-color: #fff #808080 #808080 #fff;
-      height: 16px;
-    }
-    /* legacy selectors for compatibility */
-    .xp-btn { display: none; }
-    .xp-titlebar { display: none; }
-    .xp-menubar { display: none; }
-    .xp-content { display: none; }
+    .win-content::-webkit-scrollbar { width:16px; }
+    .win-content::-webkit-scrollbar-track { background:#c0c0c0; }
+    .win-content::-webkit-scrollbar-thumb { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; }
 
-    /* ── POPUPS ── */
-    .xp-popup {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.3);
-      display: none; align-items: center; justify-content: center;
-      z-index: 2000; padding: 16px;
+    /* POPUPS */
+    .popup {
+      position:fixed; inset:0; background:rgba(0,0,0,0.3);
+      display:none; align-items:center; justify-content:center; z-index:2000; padding:16px;
     }
-    .xp-popup.open { display: flex; }
-    .xp-popup-inner {
-      background: var(--c-win);
-      border: 2px solid;
-      border-color: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
-      max-width: 320px; width: 100%;
+    .popup.open { display:flex; }
+    .popup-inner {
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      max-width:320px; width:100%;
     }
-    .xp-popup-title {
-      background: var(--c-title);
-      padding: 3px 6px; height: 22px;
-      display: flex; align-items: center; gap: 4px;
+    .popup-title {
+      background:var(--title); padding:3px 6px; height:22px;
+      display:flex; align-items:center; gap:4px;
     }
-    .xp-popup-title span { flex: 1; font-size: 12px; font-weight: bold; color: var(--c-title-t); }
-    .xp-popup-body { padding: 16px 14px; font-size: 12px; line-height: 1.6; }
-    .xp-popup-footer { padding: 8px 14px 14px; display: flex; justify-content: center; gap: 8px; }
-    .xp-push-btn {
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--border-btn);
-      padding: 4px 20px;
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 12px; cursor: pointer; min-width: 80px;
-      -webkit-tap-highlight-color: transparent;
+    .popup-title span { flex:1; font-size:12px; font-weight:bold; color:var(--titleT); }
+    .popup-body { padding:16px 14px; font-size:12px; line-height:1.6; }
+    .popup-footer { padding:8px 14px 14px; display:flex; justify-content:center; gap:8px; }
+    .xbtn {
+      width:18px; height:16px; background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      cursor:pointer; font-size:10px; display:flex; align-items:center; justify-content:center;
+      font-weight:bold; -webkit-tap-highlight-color:transparent; margin-left:auto;
     }
-    .xp-push-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
-    .xp-push-btn.primary { font-weight: bold; }
+    .push {
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:4px 20px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; min-width:80px; font-weight:bold;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .push:active { border-color:var(--darker) var(--white) var(--white) var(--darker); }
 
-    /* ── TRACK LIST ── */
-    .track-list-95 { width: 100%; border-collapse: collapse; }
-    .track-list-95 tr { cursor: pointer; }
-    .track-list-95 tr:hover { background: var(--c-sel); color: var(--c-sel-t); }
-    .track-list-95 tr.active-track { background: var(--c-sel); color: var(--c-sel-t); }
-    .track-list-95 td { padding: 4px 6px; font-size: 12px; vertical-align: middle; border-bottom: 1px solid #e0e0e0; }
-    .track-locked { opacity: 0.45; }
+    /* TRACK LIST */
+    .tlist { width:100%; border-collapse:collapse; }
+    .tlist tr { cursor:pointer; border-bottom:1px solid #ddd; }
+    .tlist tr:hover { background:var(--sel); color:var(--selT); }
+    .tlist tr.active-tr { background:var(--sel); color:var(--selT); }
+    .tlist td { padding:5px 6px; font-size:12px; vertical-align:middle; }
+    .tlist tr.locked { opacity:0.45; cursor:default; }
 
-    /* ── IPOD VIEW ── */
-    #ipod-view {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 12px 12px 8px;
-      background: var(--c-white);
-      height: 100%;
-      overflow-y: auto;
+    /* IPOD */
+    #ipod-view, #ep-ipod-view, #rel-ipod-view {
+      display:none; flex-direction:column; align-items:center; padding:8px;
     }
-    #ipod-view.open { display: flex; }
+    #ipod-view.open, #ep-ipod-view.open, #rel-ipod-view.open { display:flex; }
 
-    .ipod-back-btn {
-      align-self: flex-start;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--border-btn);
-      padding: 2px 12px;
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 12px; cursor: pointer; margin-bottom: 8px;
-      -webkit-tap-highlight-color: transparent;
+    .ipod-back {
+      align-self:flex-start;
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:2px 12px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; margin-bottom:8px;
+      -webkit-tap-highlight-color:transparent;
     }
-    .ipod-back-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
+    .ipod-num { font-size:10px; color:var(--dark); letter-spacing:2px; margin-bottom:2px; text-align:center; }
+    .ipod-name { font-size:13px; font-weight:bold; text-align:center; margin-bottom:8px; }
 
-    .ipod-track-info {
-      font-size: 11px; color: var(--c-dark);
-      letter-spacing: 2px; margin-bottom: 2px; text-align: center;
-    }
-    .ipod-track-name {
-      font-size: 14px; font-weight: bold;
-      text-align: center; margin-bottom: 10px;
-    }
-
-    .ipod-wrapper {
-      position: relative;
-      width: min(280px, 88vw);
-      margin: 0 auto;
-    }
-    .ipod-img { width: 100%; height: auto; display: block; pointer-events: none; user-select: none; }
-
+    .ipod-wrap { position:relative; width:min(260px,85vw); margin:0 auto; }
+    .ipod-img { width:100%; height:auto; display:block; pointer-events:none; user-select:none; }
     .ipod-screen {
-      position: absolute;
-      top: 11.9%; left: 30.2%;
-      width: 39.8%; height: 29.7%;
-      overflow: hidden; border-radius: 3px;
-      background: #000; z-index: 1;
+      position:absolute; top:11.9%; left:30.2%; width:39.8%; height:29.7%;
+      overflow:hidden; border-radius:3px; background:#000; z-index:1;
     }
-    .ipod-screen img { width: 100%; height: 100%; object-fit: contain; }
-
+    .ipod-screen img { width:100%; height:100%; object-fit:contain; }
     .ipod-inner-title {
-      position: absolute;
-      top: 43%; left: 15%; width: 70%;
-      text-align: center;
-      font-size: 8px; color: #333;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      position:absolute; top:43%; left:15%; width:70%;
+      text-align:center; font-size:8px; color:#333;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .ipod-prog-area { position:absolute; top:50%; left:25%; width:46%; }
+    .prog-wrap { height:3px; background:rgba(0,0,0,0.15); border-radius:2px; cursor:pointer; margin-bottom:3px; }
+    .prog-fill { height:100%; background:#000; border-radius:2px; width:0%; transition:width 0.4s linear; }
+    .prog-times { display:flex; justify-content:space-between; font-size:8px; color:#666; }
+    .ibtn { position:absolute; background:transparent; border:none; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; }
+    .ibtn-top  { top:59%; left:33%; width:34%; height:12%; }
+    .ibtn-prev { top:71%; left:12%; width:22%; height:15%; }
+    .ibtn-play { top:72%; left:37%; width:26%; height:14%; border-radius:50%; }
+    .ibtn-next { top:71%; left:66%; width:22%; height:15%; }
+
+    .ipod-dl {
+      margin-top:12px; background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:4px 20px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; text-decoration:none; color:#000; display:inline-block;
     }
 
-    .ipod-progress-area {
-      position: absolute;
-      top: 50%; left: 25%; width: 46%;
+    /* MISC */
+    .field {
+      width:100%; border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:4px 6px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; margin-bottom:8px; outline:none; background:#fff;
     }
-    .progress-bar-wrap {
-      height: 3px; background: rgba(0,0,0,0.15);
-      border-radius: 2px; cursor: pointer; margin-bottom: 3px;
-    }
-    .progress-bar-fill { height: 100%; background: #000; border-radius: 2px; width: 0%; transition: width 0.4s linear; }
-    .progress-times { display: flex; justify-content: space-between; font-size: 8px; color: #666; }
-
-    .ipod-btn { position: absolute; background: transparent; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent; z-index: 2; }
-    .btn-top       { top: 59%; left: 33%; width: 34%; height: 12%; }
-    .btn-prev      { top: 71%; left: 12%; width: 22%; height: 15%; }
-    .btn-playpause { top: 72%; left: 37%; width: 26%; height: 14%; border-radius: 50%; }
-    .btn-next      { top: 71%; left: 66%; width: 22%; height: 15%; }
-
-    .ipod-download-btn {
-      margin-top: 16px;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--border-btn);
-      padding: 4px 20px;
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 12px; cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .ipod-download-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
-
-    /* ── RECYCLE ── */
-    .recycle-list { width: 100%; border-collapse: collapse; }
-    .recycle-list tr { border-bottom: 1px solid #e0e0e0; }
-    .recycle-list td { padding: 5px 6px; font-size: 12px; vertical-align: middle; }
-    .deleted-name { text-decoration: line-through; color: var(--c-dark); }
-    .playable-name { color: #000080; cursor: pointer; text-decoration: underline; }
-
-    .cooking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; }
-    .cooking-item { border: 2px solid; border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark); background: var(--c-win); padding: 8px; font-size: 11px; }
-    .cooking-item.super-locked { filter: blur(4px); pointer-events: none; }
-    .cooking-item.nfc-locked { filter: blur(3px); pointer-events: none; }
-    .item-type { font-size: 9px; color: var(--c-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
-    .item-title { font-size: 12px; font-weight: bold; }
-    .item-date { font-size: 9px; color: var(--c-dark); margin-top: 3px; }
-
-    .info-links { list-style: none; padding: 4px; }
-    .info-links li { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #e0e0e0; }
-    .info-links a { color: #000080; text-decoration: underline; font-size: 12px; }
-
-    .pdf-list { list-style: none; padding: 4px; }
-    .pdf-list li { display: flex; align-items: center; gap: 8px; padding: 8px 4px; border-bottom: 1px solid #e0e0e0; }
-    .pdf-list a { color: #000080; text-decoration: underline; font-size: 12px; }
-
-    .artoys-input {
-      width: 100%;
-      border: 2px solid;
-      border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
-      padding: 4px 6px;
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 12px; margin-bottom: 8px; outline: none;
-      background: var(--c-white);
-    }
-
-    .discount-code {
-      font-family: 'W95FA','Courier New',monospace;
-      font-size: 22px; letter-spacing: 4px;
-      border: 2px solid; border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
-      padding: 8px 16px; margin: 10px 0;
-      background: var(--c-white); color: var(--c-red);
-      text-align: center; display: inline-block;
-    }
-
-    .readme-text { font-family: 'W95FA','Courier New',monospace; font-size: 12px; line-height: 1.8; white-space: pre-wrap; }
-
-    ::-webkit-scrollbar { width: 16px; }
-    ::-webkit-scrollbar-track { background: var(--c-win); }
-    ::-webkit-scrollbar-thumb { background: var(--c-win); border: 2px solid; border-color: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white); }
-    ::-webkit-scrollbar-button { background: var(--c-win); border: 2px solid; border-color: var(--c-white) var(--c-dark) var(--c-dark) var(--c-white); height: 16px; }
+    .discount { font-family:'W95FA','Courier New',monospace; font-size:22px; letter-spacing:4px; border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker); padding:8px 16px; margin:10px auto; background:#fff; color:var(--red); text-align:center; display:block; }
+    .rlist { width:100%; border-collapse:collapse; }
+    .rlist tr { border-bottom:1px solid #e0e0e0; }
+    .rlist td { padding:5px 6px; font-size:12px; vertical-align:middle; }
+    .del { text-decoration:line-through; color:var(--dark); }
+    .play-link { color:#000080; text-decoration:underline; cursor:pointer; }
+    .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:4px; }
+    .citem { border:2px solid; border-color:var(--dark) var(--white) var(--white) var(--dark); background:var(--win); padding:8px; font-size:11px; }
+    .citem.blur-nfc { filter:blur(3px); pointer-events:none; }
+    .citem.blur-all { filter:blur(4px); pointer-events:none; }
+    .ctype { font-size:9px; color:var(--dark); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+    .ctitle { font-size:12px; font-weight:bold; }
+    .cdate { font-size:9px; color:var(--dark); margin-top:3px; }
+    .ilinks { list-style:none; }
+    .ilinks li { display:flex; align-items:center; gap:10px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
+    .ilinks a { color:#000080; text-decoration:underline; font-size:12px; }
+    .pdfs { list-style:none; }
+    .pdfs li { display:flex; align-items:center; gap:8px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
+    .pdfs a { color:#000080; text-decoration:underline; font-size:12px; }
+    pre.readme { font-family:'W95FA','Courier New',monospace; font-size:12px; line-height:1.8; white-space:pre-wrap; }
   </style>
 </head>
 <body>
 
-<div id="desktop">
-  <div class="icons-grid" id="icons-grid">
-    <!-- LEFT COLUMN: ARTOYS, EP, COOKING -->
-    <div class="icons-col-left">
-      <div class="desktop-icon" onclick="openWindow('artoys-window')">
-        <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">ARTOYS.exe</span>
-      </div>
-      <div class="desktop-icon" onclick="openWindow('ep-window')">
-        <img class="icon-img" src="static/images/caratula_EP_1.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">EP — 2026</span>
-      </div>
-      <div class="desktop-icon" onclick="openCooking()">
-        <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">cooking...</span>
-        <span class="lock-badge" id="cooking-lock">🔒</span>
-      </div>
+<div id="desktop"></div>
+
+<!-- ICONS -->
+<div id="icons-grid">
+  <div class="icons-col-left">
+    <div class="desktop-icon" onclick="openWin('artoys-win')">
+      <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px" onerror="this.style.display='none'">
+      <span class="icon-label">ARTOYS.exe</span>
     </div>
-    <!-- RIGHT COLUMN: PAPELERA, README, TUTORIALES, LINKS, RELEASED, VIRUS -->
-    <div class="icons-col-right">
-      <div class="desktop-icon" onclick="openWindow('recycle-window')">
-        <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">Papelera</span>
-      </div>
-      <div class="desktop-icon" onclick="openPopup('readme-popup')">
-        <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">README.txt</span>
-      </div>
-      <div class="desktop-icon" onclick="openWindow('tutoriales-window')">
-        <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">tutoriales</span>
-      </div>
-      <div class="desktop-icon" onclick="openWindow('info-window')">
-        <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">links.txt</span>
-      </div>
-      <div class="desktop-icon" onclick="openWindow('released-window')">
-        <img class="icon-img" src="static/images/icon_released.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">released</span>
-      </div>
-      <div class="desktop-icon" onclick="openVirus()">
-        <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
-        <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
-      </div>
+    <div class="desktop-icon" onclick="openWin('ep-win')">
+      <img class="icon-img" src="static/images/caratula_EP_1.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">EP — 2026</span>
+    </div>
+    <div class="desktop-icon" onclick="openCooking()">
+      <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">cooking...</span>
+      <span class="lock-badge" id="cooking-lock">🔒</span>
+    </div>
+  </div>
+  <div class="icons-col-right">
+    <div class="desktop-icon" onclick="openWin('recycle-win')">
+      <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">Papelera</span>
+    </div>
+    <div class="desktop-icon" onclick="openPopup('readme-pop')">
+      <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">README.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('tut-win')">
+      <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">tutoriales</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('info-win')">
+      <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">links.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('released-win')">
+      <img class="icon-img" src="static/images/icon_released.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">released</span>
+    </div>
+    <div class="desktop-icon" onclick="openPopup('virus-pop')">
+      <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
     </div>
   </div>
 </div>
 
 <!-- TASKBAR -->
 <div id="taskbar">
-  <button id="start-btn" onclick="openWindow('artoys-window')">
-    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'" style="width:28px;height:28px">
+  <button id="start-btn" onclick="openWin('artoys-win')">
+    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'" style="width:24px;height:24px">
     Start
   </button>
-  <div class="taskbar-items" id="taskbar-items"></div>
-  <div id="mini-player-bar">
-    <button class="mini-ctrl" onclick="prevTrack()">⏮</button>
-    <button class="mini-ctrl" id="mini-play-btn" onclick="togglePlay()">▶</button>
-    <button class="mini-ctrl" onclick="nextTrack()">⏭</button>
-    <span id="mini-title-bar">—</span>
-    <button class="mini-ctrl" onclick="openWindow('music-window')"><img src="static/images/icon_music.PNG" style="width:14px;height:14px;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='💿'"></button>
+  <div class="taskbar-items" id="tb-items"></div>
+  <div id="mini-player">
+    <button class="mc" onclick="prevT()">⏮</button>
+    <button class="mc" id="mini-play-btn" onclick="togPlay()">▶</button>
+    <button class="mc" onclick="nextT()">⏭</button>
+    <span id="mini-title">—</span>
+    <button class="mc" onclick="openWin('ep-win')">
+      <img src="static/images/icon_music.PNG" style="width:14px;height:14px;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='💿'">
+    </button>
   </div>
   <div id="clock">00:00</div>
 </div>
 
-<div class="xp-window" id="music-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">musica.exe</div>
-      <button class="drawn-win-close" onclick="closeWindow('music-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('music-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <div id="track-list-view">
-          <table class="track-list-95" id="track-table"></table>
+<!-- WINDOW: EP -->
+<div class="win" id="ep-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
+      <div class="win-title">EP — 2026</div>
+      <button class="win-close" onclick="closeWin('ep-win')"></button>
+      <button class="win-min" onclick="closeWin('ep-win')"></button>
+      <div class="win-content">
+        <div id="ep-list-view">
+          <table class="tlist" id="ep-table"></table>
         </div>
-        <div id="ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
-          <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
-          <div class="ipod-track-info" id="ipod-num">01 / 06</div>
-          <div class="ipod-track-name" id="ipod-title">—</div>
-          <div class="ipod-wrapper">
-            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-            <div class="ipod-screen"><img id="ipod-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
-            <div class="ipod-inner-title" id="ipod-inner-title">—</div>
-            <div class="ipod-progress-area">
-              <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
-                <div class="progress-bar-fill" id="progressFill"></div>
-              </div>
-              <div class="progress-times"><span id="timeElapsed">0:00</span><span id="timeLeft">0:00</span></div>
+        <div id="ep-ipod-view">
+          <button class="ipod-back" onclick="showList('ep-list-view','ep-ipod-view')">← Volver</button>
+          <div class="ipod-num" id="ep-num">01 / 06</div>
+          <div class="ipod-name" id="ep-name">—</div>
+          <div class="ipod-wrap">
+            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="">
+            <div class="ipod-screen"><img id="ep-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+            <div class="ipod-inner-title" id="ep-inner">—</div>
+            <div class="ipod-prog-area">
+              <div class="prog-wrap" onclick="seek(event,'ep-audio','ep-prog')"><div class="prog-fill" id="ep-prog"></div></div>
+              <div class="prog-times"><span id="ep-elapsed">0:00</span><span id="ep-left">0:00</span></div>
             </div>
-            <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')"></button>
-            <button class="ipod-btn btn-prev" onclick="prevTrack()"></button>
-            <button class="ipod-btn btn-playpause" onclick="togglePlay()"></button>
-            <button class="ipod-btn btn-next" onclick="nextTrack()"></button>
+            <button class="ibtn ibtn-top" onclick="openWin('artoys-win')"></button>
+            <button class="ibtn ibtn-prev" onclick="epPrev()"></button>
+            <button class="ibtn ibtn-play" onclick="epTog()"></button>
+            <button class="ibtn ibtn-next" onclick="epNext()"></button>
           </div>
-          <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+          <a class="ipod-dl" id="ep-dl" href="#" download>↓ Descargar</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="xp-window" id="artoys-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">ARTOYS.exe</div>
-      <button class="drawn-win-close" onclick="closeWindow('artoys-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('artoys-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <div style="text-align:center;padding:8px">
-          <p style="font-size:32px;margin-bottom:10px">🪆</p>
-          <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
-          <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
-          <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
-          <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
-          <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+<!-- WINDOW: RELEASED -->
+<div class="win" id="released-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_released.PNG" onerror="this.style.display='none'">
+      <div class="win-title">released</div>
+      <button class="win-close" onclick="closeWin('released-win')"></button>
+      <button class="win-min" onclick="closeWin('released-win')"></button>
+      <div class="win-content">
+        <div id="rel-list-view">
+          <table class="tlist" id="rel-table"></table>
+        </div>
+        <div id="rel-ipod-view">
+          <button class="ipod-back" onclick="showList('rel-list-view','rel-ipod-view')">← Volver</button>
+          <div class="ipod-num" id="rel-num">01</div>
+          <div class="ipod-name" id="rel-name">—</div>
+          <div class="ipod-wrap">
+            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="">
+            <div class="ipod-screen"><img id="rel-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+            <div class="ipod-inner-title" id="rel-inner">—</div>
+            <div class="ipod-prog-area">
+              <div class="prog-wrap" onclick="seek(event,'rel-audio','rel-prog')"><div class="prog-fill" id="rel-prog"></div></div>
+              <div class="prog-times"><span id="rel-elapsed">0:00</span><span id="rel-left">0:00</span></div>
+            </div>
+            <button class="ibtn ibtn-top" onclick="openWin('artoys-win')"></button>
+            <button class="ibtn ibtn-prev" onclick="relPrev()"></button>
+            <button class="ibtn ibtn-play" onclick="relTog()"></button>
+            <button class="ibtn ibtn-next" onclick="relNext()"></button>
+          </div>
+          <a class="ipod-dl" id="rel-dl" href="#" download>↓ Descargar</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="xp-window" id="recycle-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">Papelera de reciclaje</div>
-      <button class="drawn-win-close" onclick="closeWindow('recycle-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('recycle-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <div style="padding:4px 0;font-size:10px;color:#808080;margin-bottom:8px">
-          Papelera — <span id="recycle-count">0</span> elementos
-        </div>
-        <table class="recycle-list" id="recycle-table"></table>
+<!-- WINDOW: ARTOYS -->
+<div class="win" id="artoys-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
+      <div class="win-title">ARTOYS.exe</div>
+      <button class="win-close" onclick="closeWin('artoys-win')"></button>
+      <button class="win-min" onclick="closeWin('artoys-win')"></button>
+      <div class="win-content" style="text-align:center;padding-top:16px">
+        <p style="font-size:28px;margin-bottom:10px">🪆</p>
+        <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
+        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
+        <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com">
+        <button class="push" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+        <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
       </div>
     </div>
   </div>
 </div>
 
-<div class="xp-window" id="tutoriales-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">tutoriales — gratis</div>
-      <button class="drawn-win-close" onclick="closeWindow('tutoriales-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('tutoriales-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <div id="tut-gate" style="text-align:center;padding:16px">
-          <p style="font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
-          <p style="font-size:11px;color:#666;margin-bottom:12px">Desbloquea con tu correo o contraseña.</p>
-          <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
-          <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
-          <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
-          <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+<!-- WINDOW: PAPELERA -->
+<div class="win" id="recycle-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
+      <div class="win-title">Papelera de reciclaje</div>
+      <button class="win-close" onclick="closeWin('recycle-win')"></button>
+      <button class="win-min" onclick="closeWin('recycle-win')"></button>
+      <div class="win-content" style="padding:0">
+        <div style="padding:4px 8px;background:#c0c0c0;border-bottom:1px solid #808080;font-size:10px;color:#444">
+          Papelera — <span id="rec-count">0</span> elementos (no se pueden recuperar)
+        </div>
+        <table class="rlist" id="rec-table"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: TUTORIALES -->
+<div class="win" id="tut-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
+      <div class="win-title">tutoriales — gratis</div>
+      <button class="win-close" onclick="closeWin('tut-win')"></button>
+      <button class="win-min" onclick="closeWin('tut-win')"></button>
+      <div class="win-content">
+        <div id="tut-gate" style="text-align:center;padding:12px">
+          <p style="font-weight:bold;margin-bottom:8px">🔒 Desbloquea el contenido</p>
+          <p style="font-size:11px;color:#666;margin-bottom:12px">Con tu correo o con la contraseña si la tienes.</p>
+          <input class="field" type="email" id="tut-email" placeholder="tu@correo.com">
+          <button class="push" onclick="unlockTutEmail()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+          <input class="field" type="password" id="tut-pass" placeholder="contraseña">
+          <button class="push" onclick="unlockTutPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
           <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
         </div>
         <div id="tut-content" style="display:none">
-          <ul class="pdf-list" id="pdf-list"></ul>
-          <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+          <ul class="pdfs" id="tut-list"></ul>
+          <p style="margin-top:12px;font-size:11px;color:#808080">Más próximamente.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="xp-window" id="cooking-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">cooking... — en proceso</div>
-      <button class="drawn-win-close" onclick="closeWindow('cooking-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('cooking-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <div class="cooking-grid" id="cooking-grid"></div>
+<!-- WINDOW: COOKING -->
+<div class="win" id="cooking-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
+      <div class="win-title">cooking... — en proceso</div>
+      <button class="win-close" onclick="closeWin('cooking-win')"></button>
+      <button class="win-min" onclick="closeWin('cooking-win')"></button>
+      <div class="win-content">
+        <div class="cgrid" id="cooking-grid"></div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="xp-window" id="info-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-      <img class="drawn-win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
-      <div class="drawn-win-title">links.txt</div>
-      <button class="drawn-win-close" onclick="closeWindow('info-window')" aria-label="Cerrar"></button>
-      <button class="drawn-win-min" onclick="closeWindow('info-window')" aria-label="Minimizar"></button>
-      <div class="drawn-win-content">
-        <ul class="info-links">
+<!-- WINDOW: INFO -->
+<div class="win" id="info-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
+      <div class="win-title">links.txt</div>
+      <button class="win-close" onclick="closeWin('info-win')"></button>
+      <button class="win-min" onclick="closeWin('info-win')"></button>
+      <div class="win-content">
+        <ul class="ilinks">
           <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
           <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
           <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
@@ -629,15 +513,15 @@
   </div>
 </div>
 
-<!-- POPUPS -->
-<div class="xp-popup" id="readme-popup">
-  <div class="xp-popup-inner">
-    <div class="xp-popup-title">
+<!-- POPUP: README -->
+<div class="popup" id="readme-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
       <span>📄 README.txt — Bloc de notas</span>
-      <button class="xp-btn xp-btn-close" onclick="closePopup('readme-popup')" style="margin-left:auto">✕</button>
+      <button class="xbtn" onclick="closePopup('readme-pop')">✕</button>
     </div>
-    <div class="xp-popup-body">
-      <pre class="readme-text">YONKO — README.txt
+    <div class="popup-body">
+      <pre class="readme">YONKO — README.txt
 ==================
 
 [Tu texto aquí.]
@@ -645,464 +529,419 @@
     </div>
     <div style="padding:0 14px 14px">
       <p style="font-size:11px;color:#666;margin-bottom:6px">Deja tu correo para estar al tanto:</p>
-      <input class="artoys-input" type="email" id="readme-email" placeholder="tu@correo.com" style="margin-bottom:6px">
-      <button class="xp-push-btn primary" onclick="submitReadme()" style="width:100%">SUSCRIBIRSE</button>
+      <input class="field" type="email" id="readme-email" placeholder="tu@correo.com">
+      <button class="push" onclick="submitReadme()" style="width:100%">SUSCRIBIRSE</button>
       <p id="readme-msg" style="font-size:11px;color:green;margin-top:4px"></p>
     </div>
-    <div class="xp-popup-footer">
-      <button class="xp-push-btn primary" onclick="closePopup('readme-popup')">OK</button>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('readme-pop')">OK</button>
     </div>
   </div>
 </div>
 
-<div class="xp-popup" id="virus-popup">
-  <div class="xp-popup-inner">
-    <div class="xp-popup-title">
+<!-- POPUP: VIRUS -->
+<div class="popup" id="virus-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
       <span>🐱 claro que es un virus confia en mi bro... soy un gato</span>
-      <button class="xp-btn xp-btn-close" onclick="closePopup('virus-popup')" style="margin-left:auto">✕</button>
+      <button class="xbtn" onclick="closePopup('virus-pop')">✕</button>
     </div>
-    <div class="xp-popup-body" style="text-align:center">
+    <div class="popup-body" style="text-align:center">
       <div style="font-size:40px;margin-bottom:8px">🐱</div>
       <p>era un gato. te pillé.</p>
       <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
-      <div class="discount-code">YONKO10</div>
+      <span class="discount">YONKO10</span>
       <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
     </div>
-    <div class="xp-popup-footer">
-      <button class="xp-push-btn primary" onclick="closePopup('virus-popup')">Guardar y salir</button>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('virus-pop')">Guardar y salir</button>
     </div>
   </div>
 </div>
 
-<div class="xp-popup" id="access-popup">
-  <div class="xp-popup-inner">
-    <div class="xp-popup-title" style="background:#800000">
+<!-- POPUP: ACCESS DENIED -->
+<div class="popup" id="access-pop">
+  <div class="popup-inner">
+    <div class="popup-title" style="background:#800000">
       <span>🔒 Acceso denegado</span>
-      <button class="xp-btn xp-btn-close" onclick="closePopup('access-popup')" style="margin-left:auto">✕</button>
+      <button class="xbtn" onclick="closePopup('access-pop')">✕</button>
     </div>
-    <div class="xp-popup-body" style="text-align:center">
+    <div class="popup-body" style="text-align:center">
       <div style="font-size:40px;margin-bottom:8px">🔒</div>
       <p style="font-weight:bold">Access Denied</p>
       <p style="font-size:11px;color:#666;margin-top:6px">Necesitas el objeto físico YONKO<br>para acceder a este contenido.</p>
     </div>
-    <div class="xp-popup-footer">
-      <button class="xp-push-btn primary" onclick="closePopup('access-popup')">OK</button>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('access-pop')">OK</button>
     </div>
   </div>
 </div>
 
-<div class="xp-popup" id="artoys-sent-popup">
-  <div class="xp-popup-inner">
-    <div class="xp-popup-title">
+<!-- POPUP: ARTOYS SENT -->
+<div class="popup" id="artoys-sent-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
       <span>✉ Registro completado</span>
-      <button class="xp-btn xp-btn-close" onclick="closePopup('artoys-sent-popup')" style="margin-left:auto">✕</button>
+      <button class="xbtn" onclick="closePopup('artoys-sent-pop')">✕</button>
     </div>
-    <div class="xp-popup-body" style="display:flex;gap:12px;align-items:flex-start">
+    <div class="popup-body" style="display:flex;gap:12px;align-items:flex-start">
       <div style="font-size:32px">✅</div>
       <div>
         <p style="font-weight:bold;margin-bottom:4px">¡Registrado!</p>
         <p style="font-size:11px;color:#666">Te avisamos cuando el drop esté disponible.</p>
       </div>
     </div>
-    <div class="xp-popup-footer">
-      <button class="xp-push-btn primary" onclick="closePopup('artoys-sent-popup')">OK</button>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('artoys-sent-pop')">OK</button>
     </div>
   </div>
 </div>
 
-<audio id="audioEl" preload="metadata"></audio>
-<audio id="epAudioEl" preload="metadata"></audio>
+<audio id="ep-audio" preload="metadata"></audio>
+<audio id="rel-audio" preload="metadata"></audio>
 
 <script>
-  // ── CONFIG ──────────────────────────────────
-  const NFC_KEY = 'YONKO2026';
-  const GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
+// ═══════════════════════════════════════════
+// CONFIG — edita aquí
+// ═══════════════════════════════════════════
+var NFC_KEY = 'YONKO2026';
+var GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
+var TUT_PASSWORD = 'YONKO2026';
+var DISCOUNT_CODE = 'YONKO10';
 
-  // ── AÑADE AQUÍ LAS CANCIONES DE "RELEASED" CUANDO LAS TENGAS ──
-  const RELEASED_TRACKS = [
-    // { title:'NOMBRE', file:'static/music/archivo.mp3', icon:'static/images/imagen.PNG', dur:'0:00', locked:false },
-  ];
+var EP_TRACKS = [
+  { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
+  { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              icon:'static/images/ep_ilustracion_2.PNG', dur:'2:04', locked:false },
+  { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               icon:'static/images/ep_ilustracion_3.PNG', dur:'2:24', locked:true  },
+  { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', icon:'static/images/ep_ilustracion_4.PNG', dur:'1:00', locked:true  },
+  { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             icon:'static/images/ep_ilustracion_5.PNG', dur:'1:38', locked:true  },
+  { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 icon:'static/images/ep_ilustracion_6.PNG', dur:'0:45', locked:true  }
+];
 
-  const TRACKS = [
-    { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
-    { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              icon:'static/images/ep_ilustracion_2.PNG', dur:'2:04', locked:false },
-    { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               icon:'static/images/ep_ilustracion_3.PNG', dur:'2:24', locked:true  },
-    { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', icon:'static/images/ep_ilustracion_4.PNG', dur:'1:00', locked:true  },
-    { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             icon:'static/images/ep_ilustracion_5.PNG', dur:'1:38', locked:true  },
-    { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 icon:'static/images/ep_ilustracion_6.PNG', dur:'0:45', locked:true  },
-  ];
+// Añade canciones aquí cuando las tengas:
+var REL_TRACKS = [
+  // { title:'NOMBRE', file:'static/music/archivo.mp3', icon:'static/images/imagen.PNG', dur:'0:00' }
+];
 
-  const RECYCLE_ITEMS = [
-    { name:'intro_descartada_v1.mp3',  date:'12/01/2026', type:'audio', locked:false, playable:false },
-    { name:'beat_sin_nombre.mp3',      date:'18/01/2026', type:'audio', locked:true,  playable:true  },
-    { name:'letra_no_usada.txt',       date:'03/02/2026', type:'text',  locked:false, playable:false },
-    { name:'portada_RECHAZADA.png',    date:'10/02/2026', type:'image', locked:false, playable:false },
-    { name:'demo_destructor_v1.mp3',   date:'22/02/2026', type:'audio', locked:true,  playable:true  },
-  ];
+var RECYCLE = [
+  { name:'intro_descartada_v1.mp3',  date:'12/01/2026', type:'audio', locked:false, playable:false },
+  { name:'beat_sin_nombre.mp3',      date:'18/01/2026', type:'audio', locked:true,  playable:true  },
+  { name:'letra_no_usada.txt',       date:'03/02/2026', type:'text',  locked:false, playable:false },
+  { name:'portada_RECHAZADA.png',    date:'10/02/2026', type:'image', locked:false, playable:false },
+  { name:'demo_destructor_v1.mp3',   date:'22/02/2026', type:'audio', locked:true,  playable:true  }
+];
 
-  const TUTORIALES = [];
+var TUTORIALES = [
+  // { name:'Tutorial NFC', file:'static/pdfs/tutorial_nfc.pdf' }
+];
 
-  const COOKING_ITEMS = [
-    { type:'música',  title:'sin título #7',    date:'marzo 2026', nfcLocked:false, superLocked:false },
-    { type:'dibujo',  title:'boceto figura v2', date:'marzo 2026', nfcLocked:false, superLocked:false },
-    { type:'música',  title:'???',              date:'—',          nfcLocked:true,  superLocked:false },
-    { type:'figura',  title:'???',              date:'—',          nfcLocked:false, superLocked:true  },
-  ];
+var COOKING = [
+  { type:'música',  title:'sin título #7',    date:'marzo 2026', nfcLocked:false, superLocked:false },
+  { type:'dibujo',  title:'boceto figura v2', date:'marzo 2026', nfcLocked:false, superLocked:false },
+  { type:'música',  title:'???',              date:'—',          nfcLocked:true,  superLocked:false },
+  { type:'figura',  title:'???',              date:'—',          nfcLocked:false, superLocked:true  }
+];
 
-  // ── NFC ─────────────────────────────────────
-  const params = new URLSearchParams(window.location.search);
-  const hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
-  if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
-  if (hasNFC) {
-    const cl = document.getElementById('cooking-lock'); if(cl) cl.style.display='none';
-    // auto-unlock tutoriales
-    const gate = document.getElementById('tut-gate');
-    const tc = document.getElementById('tut-content');
-    if(gate) gate.style.display='none';
-    if(tc) tc.style.display='';
+// ═══════════════════════════════════════════
+// NFC CHECK
+// ═══════════════════════════════════════════
+var params = new URLSearchParams(window.location.search);
+var hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
+if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
+if (hasNFC) {
+  var cl = document.getElementById('cooking-lock');
+  if (cl) cl.style.display = 'none';
+}
+
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function tick() {
+  var n = new Date();
+  document.getElementById('clock').textContent =
+    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+}
+tick();
+setInterval(tick, 10000);
+
+// ═══════════════════════════════════════════
+// WINDOWS
+// ═══════════════════════════════════════════
+var WIN_NAMES = {
+  'ep-win':'EP — 2026', 'released-win':'released',
+  'artoys-win':'ARTOYS.exe', 'recycle-win':'Papelera',
+  'tut-win':'tutoriales', 'cooking-win':'cooking...',
+  'info-win':'links.txt'
+};
+
+function openWin(id) {
+  document.querySelectorAll('.win').forEach(function(w){ w.classList.remove('open'); });
+  document.getElementById(id).classList.add('open');
+  document.getElementById('icons-grid').style.display = 'none';
+  document.getElementById('tb-items').innerHTML =
+    '<div class="taskbar-item" onclick="closeWin(\'' + id + '\')">' + (WIN_NAMES[id]||id) + '</div>';
+}
+function closeWin(id) {
+  document.getElementById(id).classList.remove('open');
+  document.getElementById('icons-grid').style.display = '';
+  document.getElementById('tb-items').innerHTML = '';
+}
+function openPopup(id) { document.getElementById(id).classList.add('open'); }
+function closePopup(id) { document.getElementById(id).classList.remove('open'); }
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function fmt(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+function showList(listId, ipodId) {
+  document.getElementById(listId).style.display = '';
+  document.getElementById(ipodId).classList.remove('open');
+}
+function seek(e, audioId, progId) {
+  var a = document.getElementById(audioId);
+  var w = e.currentTarget;
+  var pct = Math.max(0, Math.min(1, (e.clientX - w.getBoundingClientRect().left) / w.offsetWidth));
+  if (a.duration) a.currentTime = pct * a.duration;
+}
+
+// ═══════════════════════════════════════════
+// EP PLAYER
+// ═══════════════════════════════════════════
+var epAudio = document.getElementById('ep-audio');
+var epIdx = -1, epPlaying = false;
+
+function buildEpTable() {
+  var rows = '';
+  for (var i = 0; i < EP_TRACKS.length; i++) {
+    var t = EP_TRACKS[i];
+    var locked = t.locked && !hasNFC;
+    var cls = locked ? 'locked' : '';
+    var fn = locked ? "openPopup('access-pop')" : "epPlay(" + i + ")";
+    var lock = locked ? '🔒' : '';
+    rows += '<tr class="' + cls + '" onclick="' + fn + '">' +
+      '<td style="width:28px;font-size:10px;color:#808080">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td style="width:24px"><img src="' + t.icon + '" style="width:18px;height:18px;object-fit:contain"></td>' +
+      '<td style="font-size:12px">' + t.title + '</td>' +
+      '<td style="width:20px;text-align:center">' + lock + '</td>' +
+      '<td style="width:36px;font-size:10px;color:#808080;text-align:right">' + t.dur + '</td>' +
+      '</tr>';
   }
+  document.getElementById('ep-table').innerHTML = rows;
+}
 
-  // ── CLOCK ────────────────────────────────────
-  function tick() {
-    const n = new Date();
-    document.getElementById('clock').textContent =
-      String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+function epPlay(i) {
+  if (EP_TRACKS[i].locked && !hasNFC) { openPopup('access-pop'); return; }
+  epIdx = i;
+  epAudio.src = EP_TRACKS[i].file;
+  epAudio.play();
+  epPlaying = true;
+  // Show iPod
+  document.getElementById('ep-list-view').style.display = 'none';
+  document.getElementById('ep-ipod-view').classList.add('open');
+  // Update iPod UI
+  document.getElementById('ep-name').textContent = EP_TRACKS[i].title;
+  document.getElementById('ep-inner').textContent = EP_TRACKS[i].title;
+  document.getElementById('ep-num').textContent = String(i+1).padStart(2,'0') + ' / 06';
+  document.getElementById('ep-cover').src = EP_TRACKS[i].icon;
+  document.getElementById('ep-dl').href = EP_TRACKS[i].file;
+  document.getElementById('ep-dl').download = EP_TRACKS[i].title + '.mp3';
+  // Update mini player
+  document.getElementById('mini-title').textContent = EP_TRACKS[i].title;
+  document.getElementById('mini-player').classList.add('visible');
+  document.getElementById('mini-play-btn').textContent = '⏸';
+  // Highlight row
+  var rows = document.querySelectorAll('#ep-table tr');
+  for (var j = 0; j < rows.length; j++) rows[j].classList.toggle('active-tr', j === i);
+}
+
+function epTog() {
+  if (epIdx < 0) return;
+  if (epPlaying) { epAudio.pause(); epPlaying = false; document.getElementById('mini-play-btn').textContent = '▶'; }
+  else { epAudio.play(); epPlaying = true; document.getElementById('mini-play-btn').textContent = '⏸'; }
+}
+function epNextUnlocked(from, dir) {
+  var n = from + dir;
+  while (n >= 0 && n < EP_TRACKS.length) {
+    if (!EP_TRACKS[n].locked || hasNFC) return n;
+    n += dir;
   }
-  tick(); setInterval(tick, 10000);
+  return -1;
+}
+function epNext() { var n = epNextUnlocked(epIdx, 1); if (n >= 0) epPlay(n); }
+function epPrev() { var n = epNextUnlocked(epIdx, -1); if (n >= 0) epPlay(n); }
+function togPlay() { epTog(); }
+function prevT() { epPrev(); }
+function nextT() { epNext(); }
 
-  // ── WINDOWS ──────────────────────────────────
-  const WIN_NAMES = {
-    'released-window':'released',
-    'ep-window':'EP — 2026',
-    'music-window':'💿 musica.exe','artoys-window':'🪆 ARTOYS.exe',
-    'recycle-window':'🗑️ Papelera','tutoriales-window':'📁 tutoriales',
-    'cooking-window':'🍳 cooking...','info-window':'📡 links.txt'
-  };
-  function openWindow(id) {
-    document.querySelectorAll('.xp-window').forEach(w=>w.classList.remove('open'));
-    document.getElementById(id).classList.add('open');
-    // hide icons when window is open
-    document.getElementById('icons-grid').style.display = 'none';
-    const tb = document.getElementById('taskbar-items');
-    tb.innerHTML = `<div class="taskbar-item" onclick="closeWindow('${id}')">${WIN_NAMES[id]||id}</div>`;
+epAudio.addEventListener('ended', function() { epNext(); });
+epAudio.addEventListener('timeupdate', function() {
+  if (!epAudio.duration) return;
+  var pct = (epAudio.currentTime / epAudio.duration) * 100;
+  document.getElementById('ep-prog').style.width = pct + '%';
+  document.getElementById('ep-elapsed').textContent = fmt(epAudio.currentTime);
+  document.getElementById('ep-left').textContent = fmt(epAudio.duration - epAudio.currentTime);
+});
+
+buildEpTable();
+
+// ═══════════════════════════════════════════
+// RELEASED PLAYER
+// ═══════════════════════════════════════════
+var relAudio = document.getElementById('rel-audio');
+var relIdx = -1, relPlaying = false;
+
+function buildRelTable() {
+  var t = document.getElementById('rel-table');
+  if (REL_TRACKS.length === 0) {
+    t.innerHTML = '<tr><td colspan="4" style="padding:16px;color:#808080;font-size:11px">Próximamente.</td></tr>';
+    return;
   }
-  function closeWindow(id) {
-    document.getElementById(id).classList.remove('open');
-    document.getElementById('taskbar-items').innerHTML = '';
-    // show icons again
-    document.getElementById('icons-grid').style.display = '';
-    showTrackList();
+  var rows = '';
+  for (var i = 0; i < REL_TRACKS.length; i++) {
+    var tr = REL_TRACKS[i];
+    rows += '<tr onclick="relPlay(' + i + ')">' +
+      '<td style="width:28px;font-size:10px;color:#808080">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td style="width:24px"><img src="' + tr.icon + '" style="width:18px;height:18px;object-fit:contain"></td>' +
+      '<td style="font-size:12px">' + tr.title + '</td>' +
+      '<td style="width:36px;font-size:10px;color:#808080;text-align:right">' + tr.dur + '</td>' +
+      '</tr>';
   }
-  function openPopup(id) { document.getElementById(id).classList.add('open'); }
-  function closePopup(id) { document.getElementById(id).classList.remove('open'); }
+  t.innerHTML = rows;
+}
 
-  // ── MUSIC ─────────────────────────────────────
-  const audio = document.getElementById('audioEl');
-  let currentIdx = -1, isPlaying = false;
+function relPlay(i) {
+  relIdx = i;
+  relAudio.src = REL_TRACKS[i].file;
+  relAudio.play();
+  relPlaying = true;
+  document.getElementById('rel-list-view').style.display = 'none';
+  document.getElementById('rel-ipod-view').classList.add('open');
+  document.getElementById('rel-name').textContent = REL_TRACKS[i].title;
+  document.getElementById('rel-inner').textContent = REL_TRACKS[i].title;
+  document.getElementById('rel-num').textContent = String(i+1).padStart(2,'0') + ' / ' + String(REL_TRACKS.length).padStart(2,'0');
+  document.getElementById('rel-cover').src = REL_TRACKS[i].icon;
+  document.getElementById('rel-dl').href = REL_TRACKS[i].file;
+  document.getElementById('rel-dl').download = REL_TRACKS[i].title + '.mp3';
+}
+function relTog() {
+  if (relIdx < 0) return;
+  if (relPlaying) { relAudio.pause(); relPlaying = false; }
+  else { relAudio.play(); relPlaying = true; }
+}
+function relNext() { if (relIdx < REL_TRACKS.length - 1) relPlay(relIdx + 1); }
+function relPrev() { if (relIdx > 0) relPlay(relIdx - 1); }
+relAudio.addEventListener('ended', function() { relNext(); });
+relAudio.addEventListener('timeupdate', function() {
+  if (!relAudio.duration) return;
+  var pct = (relAudio.currentTime / relAudio.duration) * 100;
+  document.getElementById('rel-prog').style.width = pct + '%';
+  document.getElementById('rel-elapsed').textContent = fmt(relAudio.currentTime);
+  document.getElementById('rel-left').textContent = fmt(relAudio.duration - relAudio.currentTime);
+});
+buildRelTable();
 
-  function buildTracks() {
-    document.getElementById('track-table').innerHTML = TRACKS.map((t,i)=>{
-      const locked = t.locked && !hasNFC;
-      return `<tr class="${locked?'track-locked':''}" onclick="${locked?`openPopup('access-popup')`:`selectTrack(${i})`}" id="tr-${i}">
-        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
-        <td style="width:24px"><img src="${t.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
-        <td style="font-size:12px">${t.title}</td>
-        <td style="width:20px;text-align:center">${locked?'🔒':''}</td>
-        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${t.dur}</td>
-      </tr>`;
-    }).join('');
+// ═══════════════════════════════════════════
+// RECYCLE BIN
+// ═══════════════════════════════════════════
+function buildRecycle() {
+  var icons = { audio:'🎵', text:'📝', image:'🖼️' };
+  document.getElementById('rec-count').textContent = RECYCLE.length;
+  var rows = '';
+  for (var i = 0; i < RECYCLE.length; i++) {
+    var item = RECYCLE[i];
+    var locked = item.locked && !hasNFC;
+    var cls = '', oc = '';
+    if (!locked && item.playable) { cls = 'play-link'; oc = 'onclick="alert(\'▶ ' + item.name + '\')"'; }
+    else if (!item.playable) { cls = 'del'; }
+    rows += '<tr><td style="width:24px">' + (icons[item.type]||'📄') + '</td>' +
+      '<td class="' + cls + '" ' + oc + '>' + item.name + (locked ? ' 🔒' : '') + '</td>' +
+      '<td style="font-size:10px;color:#808080;text-align:right">' + item.date + '</td></tr>';
   }
+  document.getElementById('rec-table').innerHTML = rows;
+}
+buildRecycle();
 
-  function selectTrack(i) {
-    if (TRACKS[i].locked && !hasNFC) { openPopup('access-popup'); return; }
-    playTrack(i);
-    showIpod();
-  }
-
-  function playTrack(i) {
-    currentIdx = i;
-    audio.src = TRACKS[i].file;
-    audio.play();
-    isPlaying = true;
-    refreshPlayer();
-    updateIpodUI();
-  }
-
-  function showIpod() {
-    document.getElementById('track-list-view').style.display = 'none';
-    document.getElementById('ipod-view').classList.add('open');
-  }
-  function showTrackList() {
-    document.getElementById('track-list-view').style.display = '';
-    document.getElementById('ipod-view').classList.remove('open');
-  }
-
-  function updateIpodUI() {
-    if (currentIdx < 0) return;
-    const t = TRACKS[currentIdx];
-    document.getElementById('ipod-title').textContent = t.title;
-    document.getElementById('ipod-inner-title').textContent = t.title;
-    document.getElementById('ipod-num').textContent = String(currentIdx+1).padStart(2,'0') + ' / 06';
-    document.getElementById('ipod-cover').src = TRACKS[currentIdx].icon;
-    document.getElementById('download-btn').href = t.file;
-    document.getElementById('download-btn').download = t.title + '.mp3';
-  }
-
-  function togglePlay() {
-    if (currentIdx < 0) return;
-    isPlaying ? audio.pause() : audio.play();
-    isPlaying = !isPlaying;
-    refreshPlayer();
-  }
-  function prevTrack() {
-    let prev = currentIdx - 1;
-    while (prev >= 0 && TRACKS[prev].locked && !hasNFC) prev--;
-    if (prev >= 0) playTrack(prev);
-  }
-  function nextTrack() {
-    let next = currentIdx + 1;
-    while (next < TRACKS.length && TRACKS[next].locked && !hasNFC) next++;
-    if (next < TRACKS.length) playTrack(next);
-  }
-  audio.addEventListener('ended', () => {
-    let next = currentIdx + 1;
-    while (next < TRACKS.length && TRACKS[next].locked && !hasNFC) next++;
-    if (next < TRACKS.length) playTrack(next);
-  });
-
-  function refreshPlayer() {
-    document.getElementById('mini-play-btn').textContent = isPlaying?'⏸':'▶';
-    document.getElementById('mini-title-bar').textContent = TRACKS[currentIdx]?.title||'—';
-    document.getElementById('mini-player-bar').classList.toggle('visible', currentIdx>=0);
-    document.querySelectorAll('.track-list-95 tr').forEach((tr,i)=>{
-      tr.classList.toggle('active-track', i===currentIdx);
-    });
-  }
-
-  audio.addEventListener('timeupdate', ()=>{
-    if (!audio.duration) return;
-    const pct = (audio.currentTime/audio.duration)*100;
-    document.getElementById('progressFill').style.width = pct+'%';
-    document.getElementById('timeElapsed').textContent = fmt(audio.currentTime);
-    document.getElementById('timeLeft').textContent = fmt(audio.duration-audio.currentTime);
-  });
-
-  function seekTo(e) {
-    const wrap = document.getElementById('progressWrap');
-    const pct = Math.max(0,Math.min(1,(e.clientX-wrap.getBoundingClientRect().left)/wrap.offsetWidth));
-    audio.currentTime = pct*audio.duration;
-  }
-
-  function fmt(s) {
-    if(!s||isNaN(s)) return '0:00';
-    return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
-  }
-
-  buildTracks();
-
-  // ── RECYCLE ───────────────────────────────────
-  const icons95 = {audio:'🎵',text:'📝',image:'🖼️'};
-  document.getElementById('recycle-count').textContent = RECYCLE_ITEMS.length;
-  document.getElementById('recycle-table').innerHTML = RECYCLE_ITEMS.map(item=>{
-    const locked = item.locked && !hasNFC;
-    let cls='', oc='';
-    if(!locked&&item.playable){cls='playable-name';oc=`onclick="alert('▶ ${item.name}')"`;}
-    else if(!item.playable){cls='deleted-name';}
-    return `<tr><td style="width:24px">${icons95[item.type]||'📄'}</td><td class="${cls}" ${oc}>${item.name}${locked?' 🔒':''}</td><td style="font-size:10px;color:#808080;text-align:right">${item.date}</td></tr>`;
-  }).join('');
-
-  // ── TUTORIALES ────────────────────────────────
-  const pl = document.getElementById('pdf-list');
-  pl.innerHTML = TUTORIALES.length
-    ? TUTORIALES.map(t=>`<li><span>📄</span><a href="${t.file}" target="_blank" download>${t.name}</a></li>`).join('')
-    : '<li style="color:#808080;font-size:11px">Próximamente.</li>';
-
-  // ── COOKING ───────────────────────────────────
-  function openCooking() {
-    openWindow('cooking-window');
-    document.getElementById('cooking-grid').innerHTML = COOKING_ITEMS.map(item=>{
-      const cls = item.superLocked?'super-locked':(item.nfcLocked&&!hasNFC?'nfc-locked':'');
-      return `<div class="cooking-item ${cls}"><div class="item-type">${item.type}</div><div class="item-title">${item.title}</div><div class="item-date">${item.date}</div></div>`;
-    }).join('');
-  }
-
-  // ── ARTOYS ────────────────────────────────────
-  function submitArtoys() {
-    const email = document.getElementById('artoys-email').value.trim();
-    const msg = document.getElementById('artoys-msg');
-    if(!email||!email.includes('@')){msg.style.color='red';msg.textContent='Email inválido.';return;}
-    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'ARTOYS'})});
-    closeWindow('artoys-window');
-    openPopup('artoys-sent-popup');
-  }
-
-  function openVirus() { openPopup('virus-popup'); }
-
-  // ── RELEASED TRACKS ──
-  // ── RELEASED PLAYER ──
-  const relAudio = document.getElementById('epAudioEl'); // reuse second audio element
-  let relIdx = -1, relPlaying = false;
-
-  function buildReleasedTracks() {
-    const t = document.getElementById('released-table');
-    if (!t) return;
-    if (RELEASED_TRACKS.length === 0) {
-      t.innerHTML = '<tr><td colspan="4" style="padding:16px;color:#808080;font-size:11px">Próximamente — canciones en camino.</td></tr>';
-      return;
+// ═══════════════════════════════════════════
+// TUTORIALES
+// ═══════════════════════════════════════════
+function showTutContent() {
+  document.getElementById('tut-gate').style.display = 'none';
+  document.getElementById('tut-content').style.display = '';
+  var list = document.getElementById('tut-list');
+  if (TUTORIALES.length === 0) {
+    list.innerHTML = '<li style="color:#808080;font-size:11px">Próximamente.</li>';
+  } else {
+    var items = '';
+    for (var i = 0; i < TUTORIALES.length; i++) {
+      items += '<li><span>📄</span><a href="' + TUTORIALES[i].file + '" target="_blank" download>' + TUTORIALES[i].name + '</a></li>';
     }
-    t.innerHTML = RELEASED_TRACKS.map((tr,i)=>`
-      <tr onclick="selectRelTrack(${i})" id="rtr-${i}">
-        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
-        <td style="width:24px"><img src="${tr.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
-        <td style="font-size:12px">${tr.title}</td>
-        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${tr.dur}</td>
-      </tr>`).join('');
+    list.innerHTML = items;
   }
+}
+function unlockTutEmail() {
+  var email = document.getElementById('tut-email').value.trim();
+  var msg = document.getElementById('tut-msg');
+  if (!email || !email.includes('@')) { msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'TUTORIALES'}) });
+  showTutContent();
+}
+function unlockTutPass() {
+  var pass = document.getElementById('tut-pass').value.trim();
+  if (pass === TUT_PASSWORD || pass === NFC_KEY) { showTutContent(); }
+  else { document.getElementById('tut-msg').textContent = 'Contraseña incorrecta.'; }
+}
+if (hasNFC) showTutContent();
 
-  function selectRelTrack(i) {
-    relIdx = i;
-    relAudio.src = RELEASED_TRACKS[i].file; relAudio.play(); relPlaying = true;
-    document.getElementById('rel-track-list-view').style.display = 'none';
-    const rv = document.getElementById('rel-ipod-view');
-    rv.style.display = 'flex';
-    document.getElementById('rel-ipod-title').textContent = RELEASED_TRACKS[i].title;
-    document.getElementById('rel-ipod-inner-title').textContent = RELEASED_TRACKS[i].title;
-    document.getElementById('rel-ipod-num').textContent = String(i+1).padStart(2,'0') + ' / ' + String(RELEASED_TRACKS.length).padStart(2,'0');
-    document.getElementById('rel-ipod-cover').src = RELEASED_TRACKS[i].icon;
-    document.getElementById('rel-download-btn').href = RELEASED_TRACKS[i].file;
-    document.getElementById('rel-download-btn').download = RELEASED_TRACKS[i].title + '.mp3';
+// ═══════════════════════════════════════════
+// COOKING
+// ═══════════════════════════════════════════
+function openCooking() {
+  openWin('cooking-win');
+  var grid = document.getElementById('cooking-grid');
+  var html = '';
+  for (var i = 0; i < COOKING.length; i++) {
+    var item = COOKING[i];
+    var cls = item.superLocked ? 'citem blur-all' : (item.nfcLocked && !hasNFC ? 'citem blur-nfc' : 'citem');
+    html += '<div class="' + cls + '">' +
+      '<div class="ctype">' + item.type + '</div>' +
+      '<div class="ctitle">' + item.title + '</div>' +
+      '<div class="cdate">' + item.date + '</div>' +
+      '</div>';
   }
-  function showRelTrackList() {
-    document.getElementById('rel-track-list-view').style.display = '';
-    document.getElementById('rel-ipod-view').style.display = 'none';
-  }
-  function relTogglePlay() {
-    if(relIdx<0) return;
-    relPlaying ? relAudio.pause() : relAudio.play();
-    relPlaying = !relPlaying;
-  }
-  function relPrevTrack() { if(relIdx>0) selectRelTrack(relIdx-1); }
-  function relNextTrack() { if(relIdx<RELEASED_TRACKS.length-1) selectRelTrack(relIdx+1); }
-  function relSeekTo(e) {
-    const w=document.getElementById('rel-progressWrap');
-    const pct=Math.max(0,Math.min(1,(e.clientX-w.getBoundingClientRect().left)/w.offsetWidth));
-    relAudio.currentTime=pct*relAudio.duration;
-  }
-  relAudio.addEventListener('timeupdate',()=>{
-    if(relAudio.src.includes(RELEASED_TRACKS[relIdx]?.file||'__')) {
-      if(!relAudio.duration) return;
-      const pct=(relAudio.currentTime/relAudio.duration)*100;
-      const pf=document.getElementById('rel-progressFill');
-      if(pf) pf.style.width=pct+'%';
-      const te=document.getElementById('rel-timeElapsed');
-      const tl=document.getElementById('rel-timeLeft');
-      if(te) te.textContent=fmt(relAudio.currentTime);
-      if(tl) tl.textContent=fmt(relAudio.duration-relAudio.currentTime);
-    }
-  });
-  relAudio.addEventListener('ended', relNextTrack);
-  buildReleasedTracks();
+  grid.innerHTML = html;
+}
 
-  // ── EP WINDOW PLAYER ──
-  const epAudio = document.getElementById('epAudioEl');
-  let epIdx = -1, epPlaying = false;
+// ═══════════════════════════════════════════
+// ARTOYS EMAIL
+// ═══════════════════════════════════════════
+function submitArtoys() {
+  var email = document.getElementById('artoys-email').value.trim();
+  var msg = document.getElementById('artoys-msg');
+  if (!email || !email.includes('@')) { msg.style.color = 'red'; msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'ARTOYS'}) });
+  closeWin('artoys-win');
+  openPopup('artoys-sent-pop');
+}
 
-  function buildEpTracks() {
-    const t = document.getElementById('ep-track-table');
-    if (!t) return;
-    t.innerHTML = TRACKS.map((tr,i)=>{
-      const locked = tr.locked && !hasNFC;
-      return `<tr class="${locked?'track-locked':''}" onclick="${locked?`openPopup('access-popup')`:`selectEpTrack(${i})`}" id="etr-${i}">
-        <td style="width:28px;font-size:10px;color:#808080">${String(i+1).padStart(2,'0')}</td>
-        <td style="width:24px"><img src="${tr.icon}" style="width:18px;height:18px;object-fit:contain" onerror="this.outerHTML='🎵'"></td>
-        <td style="font-size:12px">${tr.title}</td>
-        <td style="width:20px;text-align:center">${locked?'🔒':''}</td>
-        <td style="width:36px;font-size:10px;color:#808080;text-align:right">${tr.dur}</td>
-      </tr>`;
-    }).join('');
-  }
+function submitReadme() {
+  var email = document.getElementById('readme-email').value.trim();
+  var msg = document.getElementById('readme-msg');
+  if (!email || !email.includes('@')) { msg.style.color = 'red'; msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'README'}) });
+  msg.style.color = 'green';
+  msg.textContent = '¡Registrado!';
+  document.getElementById('readme-email').value = '';
+}
 
-  function selectEpTrack(i) {
-    if (TRACKS[i].locked && !hasNFC) { openPopup('access-popup'); return; }
-    epIdx = i;
-    epAudio.src = TRACKS[i].file; epAudio.play(); epPlaying = true;
-    document.getElementById('ep-track-list-view').style.display = 'none';
-    const ev = document.getElementById('ep-ipod-view');
-    ev.style.display = 'flex';
-    document.getElementById('ep-ipod-title').textContent = TRACKS[i].title;
-    document.getElementById('ep-ipod-inner-title').textContent = TRACKS[i].title;
-    document.getElementById('ep-ipod-num').textContent = String(i+1).padStart(2,'0') + ' / 06';
-    document.getElementById('ep-ipod-cover').src = TRACKS[i].icon;
-    document.getElementById('ep-download-btn').href = TRACKS[i].file;
-    document.getElementById('ep-download-btn').download = TRACKS[i].title + '.mp3';
-  }
-  function showEpTrackList() {
-    document.getElementById('ep-track-list-view').style.display = '';
-    document.getElementById('ep-ipod-view').style.display = 'none';
-  }
-  function epTogglePlay() {
-    if(epIdx<0) return;
-    epPlaying ? epAudio.pause() : epAudio.play();
-    epPlaying = !epPlaying;
-  }
-  function epPrevTrack() {
-    let p = epIdx-1;
-    while(p>=0 && TRACKS[p].locked && !hasNFC) p--;
-    if(p>=0) selectEpTrack(p);
-  }
-  function epNextTrack() {
-    let n = epIdx+1;
-    while(n<TRACKS.length && TRACKS[n].locked && !hasNFC) n++;
-    if(n<TRACKS.length) selectEpTrack(n);
-  }
-  epAudio.addEventListener('timeupdate',()=>{
-    if(!epAudio.duration) return;
-    const pct=(epAudio.currentTime/epAudio.duration)*100;
-    const pf=document.getElementById('ep-progressFill');
-    if(pf) pf.style.width=pct+'%';
-    const te=document.getElementById('ep-timeElapsed');
-    const tl=document.getElementById('ep-timeLeft');
-    if(te) te.textContent=fmt(epAudio.currentTime);
-    if(tl) tl.textContent=fmt(epAudio.duration-epAudio.currentTime);
-  });
-  epAudio.addEventListener('ended', epNextTrack);
-  function epSeekTo(e) {
-    const w=document.getElementById('ep-progressWrap');
-    const pct=Math.max(0,Math.min(1,(e.clientX-w.getBoundingClientRect().left)/w.offsetWidth));
-    epAudio.currentTime=pct*epAudio.duration;
-  }
-  buildEpTracks();
-
-  function submitReadme() {
-    const email = document.getElementById('readme-email').value.trim();
-    const msg = document.getElementById('readme-msg');
-    if(!email||!email.includes('@')){msg.style.color='red';msg.textContent='Email inválido.';return;}
-    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'README'})});
-    msg.style.color='green';msg.textContent='¡Registrado!';
-    document.getElementById('readme-email').value='';
-  }
-
-  const TUT_PASSWORD = 'YONKO2026';
-  function showTutContent() {
-    document.getElementById('tut-gate').style.display='none';
-    document.getElementById('tut-content').style.display='';
-  }
-  function unlockTutoriales() {
-    const email = document.getElementById('tut-email').value.trim();
-    const msg = document.getElementById('tut-msg');
-    if(!email||!email.includes('@')){msg.textContent='Email inválido.';return;}
-    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'TUTORIALES'})});
-    showTutContent();
-  }
-  function unlockTutorialesPass() {
-    const pass = document.getElementById('tut-pass').value.trim();
-    const msg = document.getElementById('tut-msg');
-    if(pass===TUT_PASSWORD||pass===NFC_KEY){showTutContent();}
-    else{msg.textContent='Contraseña incorrecta.';}
-  }
-
-  // ── README al entrar ──────────────────────────
-  window.addEventListener('load', ()=>setTimeout(()=>openPopup('readme-popup'),800));
+// ═══════════════════════════════════════════
+// README POPUP ON LOAD
+// ═══════════════════════════════════════════
+window.addEventListener('load', function() {
+  setTimeout(function() { openPopup('readme-pop'); }, 800);
+});
 </script>
 </body>
 </html>
