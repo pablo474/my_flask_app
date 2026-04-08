@@ -48,25 +48,23 @@
 
     /* ── ICONS ── */
     .icons-grid {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0; right: 0;
       bottom: 36px;
       pointer-events: none;
-      z-index: 10;
+      z-index: 50;
     }
     .icons-col-left {
       position: absolute;
       top: 12px; left: 8px;
       display: flex; flex-direction: column; gap: 6px;
       pointer-events: all;
-      z-index: 10;
     }
     .icons-col-right {
       position: absolute;
       top: 12px; right: 8px;
       display: flex; flex-direction: column; gap: 6px;
       pointer-events: all;
-      z-index: 10;
     }
     .desktop-icon {
       display: flex; flex-direction: column; align-items: center;
@@ -148,7 +146,7 @@
       background: transparent;
       pointer-events: none;
     }
-    .xp-window.open { display: block; z-index: 600; pointer-events: all; }
+    .xp-window.open { display: block; z-index: 200; pointer-events: all; }
 
     .drawn-win-wrap {
       position: relative;
@@ -426,7 +424,7 @@
 <body>
 
 <div id="desktop">
-  <div class="icons-grid">
+  <div class="icons-grid" id="icons-grid">
     <!-- LEFT COLUMN: ARTOYS, EP, COOKING -->
     <div class="icons-col-left">
       <div class="desktop-icon" onclick="openWindow('artoys-window')">
@@ -865,12 +863,16 @@
   function openWindow(id) {
     document.querySelectorAll('.xp-window').forEach(w=>w.classList.remove('open'));
     document.getElementById(id).classList.add('open');
+    // hide icons when window is open
+    document.getElementById('icons-grid').style.display = 'none';
     const tb = document.getElementById('taskbar-items');
     tb.innerHTML = `<div class="taskbar-item" onclick="closeWindow('${id}')">${WIN_NAMES[id]||id}</div>`;
   }
   function closeWindow(id) {
     document.getElementById(id).classList.remove('open');
     document.getElementById('taskbar-items').innerHTML = '';
+    // show icons again
+    document.getElementById('icons-grid').style.display = '';
     showTrackList();
   }
   function openPopup(id) { document.getElementById(id).classList.add('open'); }
