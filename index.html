@@ -138,14 +138,30 @@
     .drawn-win-wrap {
       position: relative;
       width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
     .drawn-win-img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: fill;
+      position: relative;
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: top center;
       pointer-events: none;
       user-select: none;
       display: block;
+      flex-shrink: 0;
+    }
+    /* overlay container — same size/position as the image */
+    .drawn-win-overlay {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      /* width matches the image at its natural aspect ratio: 2048/2732 */
+      width: min(100%, calc(100vh * 2048 / 2732));
     }
     /* icon top-left in titlebar */
     .drawn-win-icon {
@@ -166,7 +182,7 @@
       pointer-events: none;
       white-space: nowrap; overflow: hidden;
     }
-    /* close button — over X (right: 0, width 8.5%) */
+    /* close button over X */
     .drawn-win-close {
       position: absolute;
       top: 0%; right: 0%;
@@ -175,7 +191,7 @@
       cursor: pointer; z-index: 10;
       -webkit-tap-highlight-color: transparent;
     }
-    /* minimize button — over — (right: 8.5%, width 8.5%) */
+    /* minimize button over — */
     .drawn-win-min {
       position: absolute;
       top: 0%; right: 8.5%;
@@ -452,6 +468,7 @@
 <div class="xp-window" id="music-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">musica.exe</div>
     <button class="drawn-win-close" onclick="closeWindow('music-window')" aria-label="Cerrar"></button>
@@ -491,6 +508,7 @@
 <div class="xp-window" id="artoys-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">ARTOYS.exe</div>
     <button class="drawn-win-close" onclick="closeWindow('artoys-window')" aria-label="Cerrar"></button>
@@ -511,6 +529,7 @@
 <div class="xp-window" id="recycle-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">Papelera de reciclaje</div>
     <button class="drawn-win-close" onclick="closeWindow('recycle-window')" aria-label="Cerrar"></button>
@@ -527,6 +546,7 @@
 <div class="xp-window" id="tutoriales-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">tutoriales — gratis</div>
     <button class="drawn-win-close" onclick="closeWindow('tutoriales-window')" aria-label="Cerrar"></button>
@@ -552,6 +572,7 @@
 <div class="xp-window" id="cooking-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">cooking... — en proceso</div>
     <button class="drawn-win-close" onclick="closeWindow('cooking-window')" aria-label="Cerrar"></button>
@@ -565,6 +586,7 @@
 <div class="xp-window" id="info-window">
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <div class="drawn-win-overlay">
     <img class="drawn-win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
     <div class="drawn-win-title">links.txt</div>
     <button class="drawn-win-close" onclick="closeWindow('info-window')" aria-label="Cerrar"></button>
