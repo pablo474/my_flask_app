@@ -492,37 +492,35 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">musica.exe</div>
-    <button class="drawn-win-close" onclick="closeWindow('music-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('music-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div id="track-list-view" style="height:100%;overflow-y:auto">
-        <table class="track-list-95" id="track-table"></table>
-      </div>
-      <div id="ipod-view">
-        <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
-        <div class="ipod-track-info" id="ipod-num">01 / 06</div>
-        <div class="ipod-track-name" id="ipod-title">—</div>
-        <div class="ipod-wrapper">
-          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-          <div class="ipod-screen"><img id="ipod-cover" src="" alt="EP" style="width:100%;height:100%;object-fit:contain"></div>
-          <div class="ipod-inner-title" id="ipod-inner-title">—</div>
-          <div class="ipod-progress-area">
-            <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
-              <div class="progress-bar-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-times">
-              <span id="timeElapsed">0:00</span>
-              <span id="timeLeft">0:00</span>
-            </div>
-          </div>
-          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
-          <button class="ipod-btn btn-prev" onclick="prevTrack()" aria-label="Anterior"></button>
-          <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
-          <button class="ipod-btn btn-next" onclick="nextTrack()" aria-label="Siguiente"></button>
+      <img class="drawn-win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">musica.exe</div>
+      <button class="drawn-win-close" onclick="closeWindow('music-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('music-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <div id="track-list-view">
+          <table class="track-list-95" id="track-table"></table>
         </div>
-        <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+        <div id="ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
+          <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
+          <div class="ipod-track-info" id="ipod-num">01 / 06</div>
+          <div class="ipod-track-name" id="ipod-title">—</div>
+          <div class="ipod-wrapper">
+            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+            <div class="ipod-screen"><img id="ipod-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+            <div class="ipod-inner-title" id="ipod-inner-title">—</div>
+            <div class="ipod-progress-area">
+              <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
+                <div class="progress-bar-fill" id="progressFill"></div>
+              </div>
+              <div class="progress-times"><span id="timeElapsed">0:00</span><span id="timeLeft">0:00</span></div>
+            </div>
+            <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')"></button>
+            <button class="ipod-btn btn-prev" onclick="prevTrack()"></button>
+            <button class="ipod-btn btn-playpause" onclick="togglePlay()"></button>
+            <button class="ipod-btn btn-next" onclick="nextTrack()"></button>
+          </div>
+          <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+        </div>
       </div>
     </div>
   </div>
@@ -532,18 +530,19 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">ARTOYS.exe</div>
-    <button class="drawn-win-close" onclick="closeWindow('artoys-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('artoys-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div style="text-align:center;padding:8px">
-        <p style="font-size:32px;margin-bottom:10px">🪆</p>
-        <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
-        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
-        <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
-        <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
-        <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+      <img class="drawn-win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">ARTOYS.exe</div>
+      <button class="drawn-win-close" onclick="closeWindow('artoys-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('artoys-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <div style="text-align:center;padding:8px">
+          <p style="font-size:32px;margin-bottom:10px">🪆</p>
+          <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
+          <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
+          <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
+          <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+          <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -553,15 +552,16 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">Papelera de reciclaje</div>
-    <button class="drawn-win-close" onclick="closeWindow('recycle-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('recycle-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div style="padding:4px 0;font-size:10px;color:#808080;margin-bottom:8px">
-        Papelera — <span id="recycle-count">0</span> elementos (no se pueden recuperar)
+      <img class="drawn-win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">Papelera de reciclaje</div>
+      <button class="drawn-win-close" onclick="closeWindow('recycle-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('recycle-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <div style="padding:4px 0;font-size:10px;color:#808080;margin-bottom:8px">
+          Papelera — <span id="recycle-count">0</span> elementos
+        </div>
+        <table class="recycle-list" id="recycle-table"></table>
       </div>
-      <table class="recycle-list" id="recycle-table"></table>
     </div>
   </div>
 </div>
@@ -570,23 +570,24 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">tutoriales — gratis</div>
-    <button class="drawn-win-close" onclick="closeWindow('tutoriales-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('tutoriales-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div id="tut-gate" style="text-align:center;padding:20px 12px">
-        <p style="font-size:13px;font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
-        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Desbloquea con tu correo<br>o con la contraseña si la tienes.</p>
-        <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
-        <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
-        <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
-        <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
-        <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
-      </div>
-      <div id="tut-content" style="display:none">
-        <ul class="pdf-list" id="pdf-list"></ul>
-        <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+      <img class="drawn-win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">tutoriales — gratis</div>
+      <button class="drawn-win-close" onclick="closeWindow('tutoriales-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('tutoriales-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <div id="tut-gate" style="text-align:center;padding:16px">
+          <p style="font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
+          <p style="font-size:11px;color:#666;margin-bottom:12px">Desbloquea con tu correo o contraseña.</p>
+          <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
+          <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+          <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
+          <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+          <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
+        </div>
+        <div id="tut-content" style="display:none">
+          <ul class="pdf-list" id="pdf-list"></ul>
+          <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -596,12 +597,13 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">cooking... — en proceso</div>
-    <button class="drawn-win-close" onclick="closeWindow('cooking-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('cooking-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div class="cooking-grid" id="cooking-grid"></div>
+      <img class="drawn-win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">cooking... — en proceso</div>
+      <button class="drawn-win-close" onclick="closeWindow('cooking-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('cooking-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <div class="cooking-grid" id="cooking-grid"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -610,18 +612,19 @@
   <div class="drawn-win-wrap">
     <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
     <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">links.txt</div>
-    <button class="drawn-win-close" onclick="closeWindow('info-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('info-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <ul class="info-links">
-        <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
-        <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
-        <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
-        <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
-        <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
-      </ul>
+      <img class="drawn-win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
+      <div class="drawn-win-title">links.txt</div>
+      <button class="drawn-win-close" onclick="closeWindow('info-window')" aria-label="Cerrar"></button>
+      <button class="drawn-win-min" onclick="closeWindow('info-window')" aria-label="Minimizar"></button>
+      <div class="drawn-win-content">
+        <ul class="info-links">
+          <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
+          <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
+          <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
+          <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
+          <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -703,91 +706,6 @@
     </div>
     <div class="xp-popup-footer">
       <button class="xp-push-btn primary" onclick="closePopup('artoys-sent-popup')">OK</button>
-    </div>
-  </div>
-</div>
-
-<!-- RELEASED -->
-<div class="xp-window" id="released-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/icon_released.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">released</div>
-    <button class="drawn-win-close" onclick="closeWindow('released-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('released-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content">
-      <div id="rel-track-list-view">
-        <table class="track-list-95" id="released-table"></table>
-      </div>
-      <div id="rel-ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
-        <button class="ipod-back-btn" onclick="showRelTrackList()">← Volver</button>
-        <div class="ipod-track-info" id="rel-ipod-num">01</div>
-        <div class="ipod-track-name" id="rel-ipod-title">—</div>
-        <div class="ipod-wrapper">
-          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-          <div class="ipod-screen"><img id="rel-ipod-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
-          <div class="ipod-inner-title" id="rel-ipod-inner-title">—</div>
-          <div class="ipod-progress-area">
-            <div class="progress-bar-wrap" id="rel-progressWrap" onclick="relSeekTo(event)">
-              <div class="progress-bar-fill" id="rel-progressFill"></div>
-            </div>
-            <div class="progress-times">
-              <span id="rel-timeElapsed">0:00</span>
-              <span id="rel-timeLeft">0:00</span>
-            </div>
-          </div>
-          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
-          <button class="ipod-btn btn-prev" onclick="relPrevTrack()" aria-label="Anterior"></button>
-          <button class="ipod-btn btn-playpause" onclick="relTogglePlay()" aria-label="Play/Pausa"></button>
-          <button class="ipod-btn btn-next" onclick="relNextTrack()" aria-label="Siguiente"></button>
-        </div>
-        <a class="ipod-download-btn" id="rel-download-btn" href="#" download>↓ Descargar</a>
-      </div>
-    </div>
-    </div>
-  </div>
-</div>
-
-<!-- EP WINDOW -->
-<div class="xp-window" id="ep-window">
-  <div class="drawn-win-wrap">
-    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
-    <div class="drawn-win-overlay">
-    <img class="drawn-win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
-    <div class="drawn-win-title">EP — 2026</div>
-    <button class="drawn-win-close" onclick="closeWindow('ep-window')" aria-label="Cerrar"></button>
-    <button class="drawn-win-min" onclick="closeWindow('ep-window')" aria-label="Minimizar"></button>
-    <div class="drawn-win-content" id="ep-content">
-      <!-- iPod view same as music window -->
-      <div id="ep-track-list-view">
-        <table class="track-list-95" id="ep-track-table"></table>
-      </div>
-      <div id="ep-ipod-view" style="display:none;flex-direction:column;align-items:center;padding:8px">
-        <button class="ipod-back-btn" onclick="showEpTrackList()">← Volver</button>
-        <div class="ipod-track-info" id="ep-ipod-num">01 / 06</div>
-        <div class="ipod-track-name" id="ep-ipod-title">—</div>
-        <div class="ipod-wrapper">
-          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-          <div class="ipod-screen"><img id="ep-ipod-cover" src="" alt="EP" style="width:100%;height:100%;object-fit:contain"></div>
-          <div class="ipod-inner-title" id="ep-ipod-inner-title">—</div>
-          <div class="ipod-progress-area">
-            <div class="progress-bar-wrap" id="ep-progressWrap" onclick="epSeekTo(event)">
-              <div class="progress-bar-fill" id="ep-progressFill"></div>
-            </div>
-            <div class="progress-times">
-              <span id="ep-timeElapsed">0:00</span>
-              <span id="ep-timeLeft">0:00</span>
-            </div>
-          </div>
-          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
-          <button class="ipod-btn btn-prev" onclick="epPrevTrack()" aria-label="Anterior"></button>
-          <button class="ipod-btn btn-playpause" onclick="epTogglePlay()" aria-label="Play/Pausa"></button>
-          <button class="ipod-btn btn-next" onclick="epNextTrack()" aria-label="Siguiente"></button>
-        </div>
-        <a class="ipod-download-btn" id="ep-download-btn" href="#" download>↓ Descargar</a>
-      </div>
-    </div>
     </div>
   </div>
 </div>
