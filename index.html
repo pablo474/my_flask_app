@@ -292,6 +292,7 @@
     .progress-times { display: flex; justify-content: space-between; font-size: 8px; color: #666; }
 
     .ipod-btn { position: absolute; background: transparent; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .btn-top       { top: 59%; left: 33%; width: 34%; height: 12%; }
     .btn-prev      { top: 71%; left: 12%; width: 22%; height: 15%; }
     .btn-playpause { top: 72%; left: 37%; width: 26%; height: 14%; border-radius: 50%; }
     .btn-next      { top: 71%; left: 66%; width: 22%; height: 15%; }
@@ -363,45 +364,45 @@
 <div id="desktop">
   <div class="icons-grid">
     <div class="desktop-icon" onclick="openWindow('music-window')">
-      <img class="icon-img" src="static/images/icon_music.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">musica.exe</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('artoys-window')">
-      <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">ARTOYS.exe</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('recycle-window')">
-      <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">Papelera</span>
     </div>
     <div class="desktop-icon" onclick="openPopup('readme-popup')">
-      <img class="icon-img" src="static/images/icon_readme.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">README.txt</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('tutoriales-window')">
-      <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">tutoriales</span>
     </div>
     <div class="desktop-icon" onclick="openCooking()">
-      <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">cooking...</span>
       <span class="lock-badge" id="cooking-lock">🔒</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('info-window')">
-      <img class="icon-img" src="static/images/icon_info.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
+      <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
       <span class="icon-label">links.txt</span>
     </div>
     <div class="desktop-icon" onclick="openVirus()">
-      <img class="icon-img" src="static/images/icon_virus.PNG" style="width:48px;height:48px;object-fit:contain;image-rendering:pixelated">
-      <span class="icon-label">totally_not_a_virus.exe</span>
+      <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated">
+      <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
     </div>
   </div>
 </div>
 
 <!-- TASKBAR -->
 <div id="taskbar">
-  <button id="start-btn">
-    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'">
+  <button id="start-btn" onclick="openWindow('artoys-window')">
+    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'" style="width:28px;height:28px">
     Start
   </button>
   <div class="taskbar-items" id="taskbar-items"></div>
@@ -418,7 +419,7 @@
 <!-- MÚSICA -->
 <div class="xp-window" id="music-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">💿 musica.exe</span>
+    <img src="static/images/icon_music.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">musica.exe</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('music-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('music-window')">✕</button>
@@ -454,6 +455,7 @@
             <span id="timeLeft">0:00</span>
           </div>
         </div>
+        <button class="ipod-btn btn-top"       onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
         <button class="ipod-btn btn-prev"      onclick="prevTrack()"  aria-label="Anterior"></button>
         <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
         <button class="ipod-btn btn-next"      onclick="nextTrack()"  aria-label="Siguiente"></button>
@@ -467,7 +469,7 @@
 <!-- ARTOYS -->
 <div class="xp-window" id="artoys-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">🪆 ARTOYS.exe</span>
+    <img src="static/images/icon_artoys.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">ARTOYS.exe</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('artoys-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('artoys-window')">✕</button>
@@ -489,7 +491,7 @@
 <!-- PAPELERA -->
 <div class="xp-window" id="recycle-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">🗑️ Papelera de reciclaje</span>
+    <img src="static/images/icon_recycle.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">Papelera de reciclaje</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('recycle-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('recycle-window')">✕</button>
@@ -507,7 +509,7 @@
 <!-- TUTORIALES -->
 <div class="xp-window" id="tutoriales-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">📁 tutoriales — gratis</span>
+    <img src="static/images/icon_tutoriales.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">tutoriales — gratis</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('tutoriales-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('tutoriales-window')">✕</button>
@@ -515,15 +517,26 @@
   </div>
   <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
   <div class="xp-content">
-    <ul class="pdf-list" id="pdf-list"></ul>
-    <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+    <div id="tut-gate" style="text-align:center;padding:20px 12px">
+      <p style="font-size:13px;font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
+      <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Desbloquea con tu correo<br>o con la contraseña si la tienes.</p>
+      <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
+      <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+      <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
+      <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+      <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
+    </div>
+    <div id="tut-content" style="display:none">
+      <ul class="pdf-list" id="pdf-list"></ul>
+      <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+    </div>
   </div>
 </div>
 
 <!-- COOKING -->
 <div class="xp-window" id="cooking-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">🍳 cooking... — en proceso</span>
+    <img src="static/images/icon_cooking.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">cooking... — en proceso</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('cooking-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('cooking-window')">✕</button>
@@ -538,7 +551,7 @@
 <!-- INFO -->
 <div class="xp-window" id="info-window">
   <div class="xp-titlebar">
-    <span class="xp-titlebar-title">📡 links.txt</span>
+    <img src="static/images/icon_info.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">links.txt</span>
     <div class="xp-titlebar-btns">
       <button class="xp-btn" onclick="closeWindow('info-window')">_</button>
       <button class="xp-btn xp-btn-close" onclick="closeWindow('info-window')">✕</button>
@@ -570,6 +583,12 @@
 [Tu texto aquí.]
 </pre>
     </div>
+    <div style="padding:0 14px 14px">
+      <p style="font-size:11px;color:#666;margin-bottom:6px">Deja tu correo para estar al tanto:</p>
+      <input class="artoys-input" type="email" id="readme-email" placeholder="tu@correo.com" style="margin-bottom:6px">
+      <button class="xp-push-btn primary" onclick="submitReadme()" style="width:100%">SUSCRIBIRSE</button>
+      <p id="readme-msg" style="font-size:11px;color:green;margin-top:4px"></p>
+    </div>
     <div class="xp-popup-footer">
       <button class="xp-push-btn primary" onclick="closePopup('readme-popup')">OK</button>
     </div>
@@ -579,7 +598,7 @@
 <div class="xp-popup" id="virus-popup">
   <div class="xp-popup-inner">
     <div class="xp-popup-title">
-      <span>🐱 totally_not_a_virus.exe</span>
+      <span>🐱 claro que es un virus confia en mi bro... soy un gato</span>
       <button class="xp-btn xp-btn-close" onclick="closePopup('virus-popup')" style="margin-left:auto">✕</button>
     </div>
     <div class="xp-popup-body" style="text-align:center">
@@ -668,7 +687,14 @@
   const params = new URLSearchParams(window.location.search);
   const hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
   if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
-  if (hasNFC) { const cl = document.getElementById('cooking-lock'); if(cl) cl.style.display='none'; }
+  if (hasNFC) {
+    const cl = document.getElementById('cooking-lock'); if(cl) cl.style.display='none';
+    // auto-unlock tutoriales
+    const gate = document.getElementById('tut-gate');
+    const tc = document.getElementById('tut-content');
+    if(gate) gate.style.display='none';
+    if(tc) tc.style.display='';
+  }
 
   // ── CLOCK ────────────────────────────────────
   function tick() {
@@ -745,7 +771,7 @@
     document.getElementById('ipod-title').textContent = t.title;
     document.getElementById('ipod-inner-title').textContent = t.title;
     document.getElementById('ipod-num').textContent = String(currentIdx+1).padStart(2,'0') + ' / 06';
-    document.getElementById('ipod-cover').src = 'static/images/caratula_EP_1.PNG';
+    document.getElementById('ipod-cover').src = TRACKS[currentIdx].icon;
     document.getElementById('download-btn').href = t.file;
     document.getElementById('download-btn').download = t.title + '.mp3';
   }
@@ -827,6 +853,34 @@
   }
 
   function openVirus() { openPopup('virus-popup'); }
+
+  function submitReadme() {
+    const email = document.getElementById('readme-email').value.trim();
+    const msg = document.getElementById('readme-msg');
+    if(!email||!email.includes('@')){msg.style.color='red';msg.textContent='Email inválido.';return;}
+    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'README'})});
+    msg.style.color='green';msg.textContent='¡Registrado!';
+    document.getElementById('readme-email').value='';
+  }
+
+  const TUT_PASSWORD = 'YONKO2026';
+  function showTutContent() {
+    document.getElementById('tut-gate').style.display='none';
+    document.getElementById('tut-content').style.display='';
+  }
+  function unlockTutoriales() {
+    const email = document.getElementById('tut-email').value.trim();
+    const msg = document.getElementById('tut-msg');
+    if(!email||!email.includes('@')){msg.textContent='Email inválido.';return;}
+    fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'TUTORIALES'})});
+    showTutContent();
+  }
+  function unlockTutorialesPass() {
+    const pass = document.getElementById('tut-pass').value.trim();
+    const msg = document.getElementById('tut-msg');
+    if(pass===TUT_PASSWORD||pass===NFC_KEY){showTutContent();}
+    else{msg.textContent='Contraseña incorrecta.';}
+  }
 
   // ── README al entrar ──────────────────────────
   window.addEventListener('load', ()=>setTimeout(()=>openPopup('readme-popup'),800));
