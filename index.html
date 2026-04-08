@@ -127,59 +127,92 @@
       font-size: 11px; flex-shrink: 0;
     }
 
-    /* ── WINDOWS ── */
+    /* ── DRAWN WINDOWS ── */
     .xp-window {
       position: fixed; top: 0; left: 0; right: 0; bottom: 36px;
-      background: var(--c-win);
-      display: none; flex-direction: column;
-      z-index: 500; overflow: hidden;
-      border: 2px solid;
-      border-color: var(--c-white) var(--c-darker) var(--c-darker) var(--c-white);
+      display: none; z-index: 500;
+      background: transparent;
     }
-    .xp-window.open { display: flex; }
+    .xp-window.open { display: block; }
 
-    .xp-titlebar {
-      background: var(--c-title);
-      padding: 3px 4px;
-      display: flex; align-items: center; gap: 4px; flex-shrink: 0;
-      height: 22px;
+    .drawn-win-wrap {
+      position: relative;
+      width: 100%; height: 100%;
     }
-    .xp-titlebar-title {
-      flex: 1; font-size: 12px; color: var(--c-title-t);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      font-weight: bold;
+    .drawn-win-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      user-select: none;
+      display: block;
     }
-    .xp-titlebar-btns { display: flex; gap: 2px; }
-    .xp-btn {
-      width: 18px; height: 16px;
-      background: var(--c-btn);
-      border: 2px solid;
-      border-color: var(--border-btn);
-      cursor: pointer; font-size: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: bold; line-height: 1;
+    /* icon top-left in titlebar */
+    .drawn-win-icon {
+      position: absolute;
+      top: 0.5%; left: 2%;
+      height: 3.2%; width: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    /* title text */
+    .drawn-win-title {
+      position: absolute;
+      top: 0%; left: 8%; right: 20%;
+      height: 4.4%;
+      display: flex; align-items: center;
+      font-size: clamp(10px, 2vw, 15px);
+      font-weight: bold; color: #111;
+      pointer-events: none;
+      white-space: nowrap; overflow: hidden;
+    }
+    /* close button — over X (right: 0, width 8.5%) */
+    .drawn-win-close {
+      position: absolute;
+      top: 0%; right: 0%;
+      width: 8.5%; height: 4.4%;
+      background: transparent; border: none;
+      cursor: pointer; z-index: 10;
       -webkit-tap-highlight-color: transparent;
     }
-    .xp-btn:active { border-color: var(--c-darker) var(--c-white) var(--c-white) var(--c-darker); }
-    .xp-btn-close { font-size: 11px; }
-
-    .xp-menubar {
-      background: var(--c-win);
-      border-bottom: 1px solid var(--c-dark);
-      padding: 2px 6px;
+    /* minimize button — over — (right: 8.5%, width 8.5%) */
+    .drawn-win-min {
+      position: absolute;
+      top: 0%; right: 8.5%;
+      width: 8.5%; height: 4.4%;
+      background: transparent; border: none;
+      cursor: pointer; z-index: 10;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* scrollable content area */
+    .drawn-win-content {
+      position: absolute;
+      top: 4.4%; left: 4%;
+      right: 4%; bottom: 3%;
+      overflow-y: auto;
+      background: transparent;
+      padding: 12px 8px;
       font-size: 12px;
-      display: flex; gap: 16px; flex-shrink: 0;
     }
-    .xp-menubar span { cursor: pointer; padding: 1px 4px; }
-    .xp-menubar span:hover { background: var(--c-sel); color: var(--c-sel-t); }
-
-    .xp-content {
-      flex: 1; overflow-y: auto;
-      background: var(--c-white);
+    /* win95 scrollbar inside drawn window */
+    .drawn-win-content::-webkit-scrollbar { width: 16px; }
+    .drawn-win-content::-webkit-scrollbar-track { background: #c0c0c0; }
+    .drawn-win-content::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
       border: 2px solid;
-      border-color: var(--c-dark) var(--c-white) var(--c-white) var(--c-dark);
-      margin: 4px;
+      border-color: #fff #808080 #808080 #fff;
     }
+    .drawn-win-content::-webkit-scrollbar-button {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-color: #fff #808080 #808080 #fff;
+      height: 16px;
+    }
+    /* legacy selectors for compatibility */
+    .xp-btn { display: none; }
+    .xp-titlebar { display: none; }
+    .xp-menubar { display: none; }
+    .xp-content { display: none; }
 
     /* ── POPUPS ── */
     .xp-popup {
@@ -416,156 +449,135 @@
   <div id="clock">00:00</div>
 </div>
 
-<!-- MÚSICA -->
 <div class="xp-window" id="music-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_music.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">musica.exe</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('music-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('music-window')">✕</button>
-    </div>
-  </div>
-  <div class="xp-menubar">
-    <span>Archivo</span><span>Ver</span><span>Reproducción</span>
-  </div>
-  <div class="xp-content" style="padding:0;display:flex;flex-direction:column;">
-
-    <!-- Lista de canciones -->
-    <div id="track-list-view" style="flex:1;overflow-y:auto;">
-      <table class="track-list-95" id="track-table"></table>
-    </div>
-
-    <!-- iPod view (oculto hasta pulsar canción) -->
-    <div id="ipod-view">
-      <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
-      <div class="ipod-track-info" id="ipod-num">01 / 06</div>
-      <div class="ipod-track-name" id="ipod-title">—</div>
-      <div class="ipod-wrapper">
-        <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
-        <div class="ipod-screen">
-          <img id="ipod-cover" src="static/images/caratula_EP_1.PNG" alt="EP">
-        </div>
-        <div class="ipod-inner-title" id="ipod-inner-title">—</div>
-        <div class="ipod-progress-area">
-          <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
-            <div class="progress-bar-fill" id="progressFill"></div>
-          </div>
-          <div class="progress-times">
-            <span id="timeElapsed">0:00</span>
-            <span id="timeLeft">0:00</span>
-          </div>
-        </div>
-        <button class="ipod-btn btn-top"       onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
-        <button class="ipod-btn btn-prev"      onclick="prevTrack()"  aria-label="Anterior"></button>
-        <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
-        <button class="ipod-btn btn-next"      onclick="nextTrack()"  aria-label="Siguiente"></button>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">musica.exe</div>
+    <button class="drawn-win-close" onclick="closeWindow('music-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('music-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div id="track-list-view" style="height:100%;overflow-y:auto">
+        <table class="track-list-95" id="track-table"></table>
       </div>
-      <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+      <div id="ipod-view">
+        <button class="ipod-back-btn" onclick="showTrackList()">← Volver</button>
+        <div class="ipod-track-info" id="ipod-num">01 / 06</div>
+        <div class="ipod-track-name" id="ipod-title">—</div>
+        <div class="ipod-wrapper">
+          <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="iPod">
+          <div class="ipod-screen"><img id="ipod-cover" src="static/images/caratula_EP_1.PNG" alt="EP"></div>
+          <div class="ipod-inner-title" id="ipod-inner-title">—</div>
+          <div class="ipod-progress-area">
+            <div class="progress-bar-wrap" id="progressWrap" onclick="seekTo(event)">
+              <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-times">
+              <span id="timeElapsed">0:00</span>
+              <span id="timeLeft">0:00</span>
+            </div>
+          </div>
+          <button class="ipod-btn btn-top" onclick="openWindow('artoys-window')" aria-label="ARTOYS"></button>
+          <button class="ipod-btn btn-prev" onclick="prevTrack()" aria-label="Anterior"></button>
+          <button class="ipod-btn btn-playpause" onclick="togglePlay()" aria-label="Play/Pausa"></button>
+          <button class="ipod-btn btn-next" onclick="nextTrack()" aria-label="Siguiente"></button>
+        </div>
+        <a class="ipod-download-btn" id="download-btn" href="#" download>↓ Descargar</a>
+      </div>
     </div>
-
   </div>
 </div>
 
-<!-- ARTOYS -->
 <div class="xp-window" id="artoys-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_artoys.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">ARTOYS.exe</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('artoys-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('artoys-window')">✕</button>
-    </div>
-  </div>
-  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
-  <div class="xp-content">
-    <div style="max-width:300px;margin:0 auto;text-align:center;padding:8px">
-      <p style="font-size:32px;margin-bottom:10px">🪆</p>
-      <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
-      <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
-      <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
-      <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
-      <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">ARTOYS.exe</div>
+    <button class="drawn-win-close" onclick="closeWindow('artoys-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('artoys-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div style="text-align:center;padding:8px">
+        <p style="font-size:32px;margin-bottom:10px">🪆</p>
+        <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
+        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
+        <input class="artoys-input" type="email" id="artoys-email" placeholder="tu@correo.com">
+        <button class="xp-push-btn primary" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+        <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAPELERA -->
 <div class="xp-window" id="recycle-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_recycle.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">Papelera de reciclaje</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('recycle-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('recycle-window')">✕</button>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">Papelera de reciclaje</div>
+    <button class="drawn-win-close" onclick="closeWindow('recycle-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('recycle-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div style="padding:4px 0;font-size:10px;color:#808080;margin-bottom:8px">
+        Papelera — <span id="recycle-count">0</span> elementos (no se pueden recuperar)
+      </div>
+      <table class="recycle-list" id="recycle-table"></table>
     </div>
-  </div>
-  <div class="xp-menubar"><span>Archivo</span><span>Editar</span><span>Ver</span><span>Favoritos</span><span>Ayuda</span></div>
-  <div class="xp-content" style="padding:0">
-    <div style="padding:4px 8px;background:#c0c0c0;border-bottom:1px solid #808080;font-size:11px;color:#444">
-      Papelera — <span id="recycle-count">0</span> elementos (no se pueden recuperar)
-    </div>
-    <table class="recycle-list" id="recycle-table"></table>
   </div>
 </div>
 
-<!-- TUTORIALES -->
 <div class="xp-window" id="tutoriales-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_tutoriales.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">tutoriales — gratis</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('tutoriales-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('tutoriales-window')">✕</button>
-    </div>
-  </div>
-  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
-  <div class="xp-content">
-    <div id="tut-gate" style="text-align:center;padding:20px 12px">
-      <p style="font-size:13px;font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
-      <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Desbloquea con tu correo<br>o con la contraseña si la tienes.</p>
-      <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
-      <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
-      <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
-      <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
-      <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
-    </div>
-    <div id="tut-content" style="display:none">
-      <ul class="pdf-list" id="pdf-list"></ul>
-      <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">tutoriales — gratis</div>
+    <button class="drawn-win-close" onclick="closeWindow('tutoriales-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('tutoriales-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div id="tut-gate" style="text-align:center;padding:20px 12px">
+        <p style="font-size:13px;font-weight:bold;margin-bottom:8px">🔒 Contenido gratuito</p>
+        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Desbloquea con tu correo<br>o con la contraseña si la tienes.</p>
+        <input class="artoys-input" type="email" id="tut-email" placeholder="tu@correo.com">
+        <button class="xp-push-btn primary" onclick="unlockTutoriales()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+        <input class="artoys-input" type="password" id="tut-pass" placeholder="contraseña">
+        <button class="xp-push-btn" onclick="unlockTutorialesPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+        <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
+      </div>
+      <div id="tut-content" style="display:none">
+        <ul class="pdf-list" id="pdf-list"></ul>
+        <p style="margin-top:12px;font-size:11px;color:#808080">Más tutoriales próximamente.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- COOKING -->
 <div class="xp-window" id="cooking-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_cooking.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">cooking... — en proceso</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('cooking-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('cooking-window')">✕</button>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">cooking... — en proceso</div>
+    <button class="drawn-win-close" onclick="closeWindow('cooking-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('cooking-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <div class="cooking-grid" id="cooking-grid"></div>
     </div>
-  </div>
-  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
-  <div class="xp-content" style="padding:0">
-    <div class="cooking-grid" id="cooking-grid"></div>
   </div>
 </div>
 
-<!-- INFO -->
 <div class="xp-window" id="info-window">
-  <div class="xp-titlebar">
-    <img src="static/images/icon_info.PNG" style="width:14px;height:14px;object-fit:contain;flex-shrink:0" onerror="this.style.display='none'"><span class="xp-titlebar-title">links.txt</span>
-    <div class="xp-titlebar-btns">
-      <button class="xp-btn" onclick="closeWindow('info-window')">_</button>
-      <button class="xp-btn xp-btn-close" onclick="closeWindow('info-window')">✕</button>
+  <div class="drawn-win-wrap">
+    <img class="drawn-win-img" src="static/images/ventana.PNG" alt="">
+    <img class="drawn-win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
+    <div class="drawn-win-title">links.txt</div>
+    <button class="drawn-win-close" onclick="closeWindow('info-window')" aria-label="Cerrar"></button>
+    <button class="drawn-win-min" onclick="closeWindow('info-window')" aria-label="Minimizar"></button>
+    <div class="drawn-win-content">
+      <ul class="info-links">
+        <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
+        <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
+        <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
+        <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
+        <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
+      </ul>
     </div>
-  </div>
-  <div class="xp-menubar"><span>Archivo</span><span>Ver</span></div>
-  <div class="xp-content">
-    <ul class="info-links">
-      <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
-      <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
-      <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
-      <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
-      <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
-    </ul>
   </div>
 </div>
 
