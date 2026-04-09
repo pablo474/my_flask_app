@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>YONKO.ART</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+    @font-face {
+      font-family: 'W95FA';
+      src: url('https://fonts.cdnfonts.com/s/14984/W95FA.woff') format('woff');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --win: #c0c0c0;
+      --dark: #808080;
+      --darker: #404040;
+      --white: #ffffff;
+      --black: #000000;
+      --title: #000080;
+      --titleT: #ffffff;
+      --sel: #000080;
+      --selT: #ffffff;
+      --red: #ff0000;
+      --taskbar: #c0c0c0;
+    }
+
+    html, body { width:100%; height:100%; overflow:hidden; font-family:'W95FA','Courier New',monospace; font-size:12px; }
+
+    /* DESKTOP */
+    #desktop {
+      width:100%; height:100%;
+      background: #008080 url('static/images/fondo_escritorio.PNG') center/cover no-repeat;
+      position:relative; overflow:hidden; padding-bottom:36px;
+    }
+
+    /* ICONS */
+    #icons-grid {
+      position:fixed; top:0; left:0; right:0; bottom:36px;
+      pointer-events:none; z-index:50;
+    }
+    .icons-col-left {
+      position:absolute; top:12px; left:8px;
+      display:flex; flex-direction:column; gap:8px;
+      pointer-events:all;
+    }
+    .icons-col-right {
+      position:absolute; top:12px; right:8px;
+      display:flex; flex-direction:column; gap:8px;
+      pointer-events:all;
+    }
+    .desktop-icon {
+      display:flex; flex-direction:column; align-items:center;
+      gap:3px; cursor:pointer; padding:6px 4px;
+      -webkit-tap-highlight-color:transparent;
+      position:relative; max-width:80px;
+    }
+    .desktop-icon:active { opacity:0.7; }
+    .icon-img { object-fit:contain; image-rendering:pixelated; display:block; }
+    .icon-label {
+      font-size:10px; color:#fff;
+      text-align:center; text-shadow:1px 1px 0 #000;
+      line-height:1.2; word-break:break-word;
+    }
+    .lock-badge { position:absolute; top:4px; right:4px; font-size:11px; }
+
+    /* TASKBAR */
+    #taskbar {
+      position:fixed; bottom:0; left:0; right:0; height:36px;
+      background:var(--taskbar); border-top:2px solid var(--white);
+      display:flex; align-items:center; padding:0 4px; gap:4px; z-index:1000;
+    }
+    #start-btn {
+      display:flex; align-items:center; gap:4px;
+      background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:2px 8px 2px 4px; cursor:pointer;
+      font-family:'W95FA','Courier New',monospace;
+      font-size:13px; font-weight:bold; height:28px; flex-shrink:0;
+      -webkit-tap-highlight-color:transparent;
+    }
+    #start-btn img { width:24px; height:24px; object-fit:contain; }
+    .taskbar-items { flex:1; display:flex; gap:3px; overflow:hidden; }
+    .taskbar-item {
+      display:flex; align-items:center; gap:4px;
+      background:var(--win);
+      border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:2px 8px; height:28px; cursor:pointer;
+      font-size:11px; max-width:160px; white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis;
+    }
+    #mini-player { display:none; align-items:center; gap:4px; padding:2px 6px; height:28px; }
+    #mini-player.visible { display:flex; }
+    #mini-title { font-size:10px; max-width:90px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .mc { background:none; border:none; cursor:pointer; font-size:12px; padding:0 2px; -webkit-tap-highlight-color:transparent; }
+    #clock {
+      border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:2px 8px; height:28px; display:flex; align-items:center;
+      font-size:11px; flex-shrink:0;
+    }
+
+    /* WINDOWS */
+    .win {
+      position:fixed; top:0; left:0; right:0; bottom:36px;
+      display:none; z-index:200; pointer-events:none;
+      background:transparent;
+    }
+    .win.open { display:block; pointer-events:all; }
+
+    .win-wrap {
+      position:relative; width:100%; height:100%;
+      display:flex; justify-content:center; align-items:flex-start;
+      background:transparent;
+    }
+    .win-img {
+      height:100%; width:auto; max-width:100%;
+      object-fit:contain; object-position:top center;
+      pointer-events:none; user-select:none; display:block; flex-shrink:0;
+    }
+    .win-overlay {
+      position:absolute; top:0; left:50%;
+      transform:translateX(-50%);
+      height:100%;
+      width:min(100%, calc(100vh * 2048 / 2732));
+    }
+    .win-icon {
+      position:absolute; top:1%; left:5%;
+      height:2.8%; width:auto; object-fit:contain;
+      pointer-events:none;
+    }
+    .win-title {
+      position:absolute; top:0%; left:10%; right:20%; height:4.4%;
+      display:flex; align-items:center;
+      font-size:clamp(10px,2vw,15px); font-weight:bold; color:#111;
+      pointer-events:none; white-space:nowrap; overflow:hidden;
+    }
+    .win-close {
+      position:absolute; top:0%; right:0%;
+      width:8.5%; height:4.4%;
+      background:transparent; border:none; cursor:pointer; z-index:10;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .win-min {
+      position:absolute; top:0%; right:8.5%;
+      width:8.5%; height:4.4%;
+      background:transparent; border:none; cursor:pointer; z-index:10;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .win-content {
+      position:absolute; top:4.4%; left:4%; right:4%; bottom:3%;
+      overflow-y:auto; background:transparent; padding:12px 8px; font-size:12px;
+      min-height:100px;
+    }
+    .win-wrap { min-height:300px; }
+    .win-img { min-height:300px; }
+    .win-content::-webkit-scrollbar { width:16px; }
+    .win-content::-webkit-scrollbar-track { background:#c0c0c0; }
+    .win-content::-webkit-scrollbar-thumb { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; }
+
+    /* POPUPS */
+    .popup {
+      position:fixed; inset:0; background:rgba(0,0,0,0.3);
+      display:none; align-items:center; justify-content:center; z-index:2000; padding:16px;
+    }
+    .popup.open { display:flex; }
+    .popup-inner {
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      max-width:320px; width:100%;
+    }
+    .popup-title {
+      background:var(--title); padding:3px 6px; height:22px;
+      display:flex; align-items:center; gap:4px;
+    }
+    .popup-title span { flex:1; font-size:12px; font-weight:bold; color:var(--titleT); }
+    .popup-body { padding:16px 14px; font-size:12px; line-height:1.6; }
+    .popup-footer { padding:8px 14px 14px; display:flex; justify-content:center; gap:8px; }
+    .xbtn {
+      width:18px; height:16px; background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      cursor:pointer; font-size:10px; display:flex; align-items:center; justify-content:center;
+      font-weight:bold; -webkit-tap-highlight-color:transparent; margin-left:auto;
+    }
+    .push {
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:4px 20px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; min-width:80px; font-weight:bold;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .push:active { border-color:var(--darker) var(--white) var(--white) var(--darker); }
+
+    /* TRACK LIST */
+    .tlist { width:100%; border-collapse:collapse; }
+    .tlist tr { cursor:pointer; border-bottom:1px solid #ddd; }
+    .tlist tr:hover { background:var(--sel); color:var(--selT); }
+    .tlist tr.active-tr { background:var(--sel); color:var(--selT); }
+    .tlist td { padding:5px 6px; font-size:12px; vertical-align:middle; }
+    .tlist tr.locked { opacity:0.45; cursor:default; }
+
+    /* IPOD */
+    #ipod-view, #ep-ipod-view, #rel-ipod-view {
+      display:none; flex-direction:column; align-items:center; padding:8px;
+    }
+    #ipod-view.open, #ep-ipod-view.open, #rel-ipod-view.open { display:flex; }
+
+    .ipod-back {
+      align-self:flex-start;
+      background:var(--win); border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:2px 12px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; margin-bottom:8px;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .ipod-num { font-size:10px; color:var(--dark); letter-spacing:2px; margin-bottom:2px; text-align:center; }
+    .ipod-name { font-size:13px; font-weight:bold; text-align:center; margin-bottom:8px; }
+
+    .ipod-wrap { position:relative; width:min(260px,85vw); margin:0 auto; }
+    .ipod-img { width:100%; height:auto; display:block; pointer-events:none; user-select:none; }
+    .ipod-screen {
+      position:absolute; top:11.9%; left:30.2%; width:39.8%; height:29.7%;
+      overflow:hidden; border-radius:3px; background:#000; z-index:1;
+    }
+    .ipod-screen img { width:100%; height:100%; object-fit:contain; }
+    .ipod-inner-title {
+      position:absolute; top:43%; left:15%; width:70%;
+      text-align:center; font-size:8px; color:#333;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .ipod-prog-area { position:absolute; top:50%; left:25%; width:46%; }
+    .prog-wrap { height:3px; background:rgba(0,0,0,0.15); border-radius:2px; cursor:pointer; margin-bottom:3px; }
+    .prog-fill { height:100%; background:#000; border-radius:2px; width:0%; transition:width 0.4s linear; }
+    .prog-times { display:flex; justify-content:space-between; font-size:8px; color:#666; }
+    .ibtn { position:absolute; background:transparent; border:none; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; }
+    .ibtn-top  { top:59%; left:33%; width:34%; height:12%; }
+    .ibtn-prev { top:71%; left:12%; width:22%; height:15%; }
+    .ibtn-play { top:72%; left:37%; width:26%; height:14%; border-radius:50%; }
+    .ibtn-next { top:71%; left:66%; width:22%; height:15%; }
+
+    .ipod-dl {
+      margin-top:12px; background:var(--win);
+      border:2px solid; border-color:var(--white) var(--darker) var(--darker) var(--white);
+      padding:4px 20px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; cursor:pointer; text-decoration:none; color:#000; display:inline-block;
+    }
+
+    /* MISC */
+    .field {
+      width:100%; border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker);
+      padding:4px 6px; font-family:'W95FA','Courier New',monospace;
+      font-size:12px; margin-bottom:8px; outline:none; background:#fff;
+    }
+    .discount { font-family:'W95FA','Courier New',monospace; font-size:22px; letter-spacing:4px; border:2px solid; border-color:var(--darker) var(--white) var(--white) var(--darker); padding:8px 16px; margin:10px auto; background:#fff; color:var(--red); text-align:center; display:block; }
+    .rlist { width:100%; border-collapse:collapse; }
+    .rlist tr { border-bottom:1px solid #e0e0e0; }
+    .rlist td { padding:5px 6px; font-size:12px; vertical-align:middle; }
+    .del { text-decoration:line-through; color:var(--dark); }
+    .play-link { color:#000080; text-decoration:underline; cursor:pointer; }
+    .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:4px; }
+    .citem { border:2px solid; border-color:var(--dark) var(--white) var(--white) var(--dark); background:var(--win); padding:8px; font-size:11px; }
+    .citem.blur-nfc { filter:blur(3px); pointer-events:none; }
+    .citem.blur-all { filter:blur(4px); pointer-events:none; }
+    .ctype { font-size:9px; color:var(--dark); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+    .ctitle { font-size:12px; font-weight:bold; }
+    .cdate { font-size:9px; color:var(--dark); margin-top:3px; }
+    .ilinks { list-style:none; }
+    .ilinks li { display:flex; align-items:center; gap:10px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
+    .ilinks a { color:#000080; text-decoration:underline; font-size:12px; }
+    .pdfs { list-style:none; }
+    .pdfs li { display:flex; align-items:center; gap:8px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
+    .pdfs a { color:#000080; text-decoration:underline; font-size:12px; }
+    .artoys-font { font-family: 'Inter', sans-serif !important; }
+    .artoys-font * { font-family: 'Inter', sans-serif !important; }
+    .artoys-thumb {
+      width:44px; height:44px; object-fit:contain;
+      border:2px solid; border-color:#808080 #fff #fff #808080;
+      cursor:pointer; background:#f5f5f5; display:block;
+    }
+    .artoys-thumb.active {
+      border-color:#000080 #000080 #000080 #000080;
+    }
+    pre.readme { font-family:'W95FA','Courier New',monospace; font-size:12px; line-height:1.8; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+
+<div id="desktop"></div>
+
+<!-- ICONS -->
+<div id="icons-grid">
+  <div class="icons-col-left">
+    <div class="desktop-icon" onclick="openWin('artoys-win')">
+      <img class="icon-img" src="static/images/icon_artoys.PNG" style="width:72px;height:72px" onerror="this.style.display='none'">
+      <span class="icon-label">ARTOYS.exe</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('ep-win')">
+      <img class="icon-img" src="static/images/caratula_EP_1.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">EP — 2026</span>
+    </div>
+    <div class="desktop-icon" onclick="openCooking()">
+      <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">cooking...</span>
+      <span class="lock-badge" id="cooking-lock">🔒</span>
+    </div>
+  </div>
+  <div class="icons-col-right">
+    <div class="desktop-icon" onclick="openWin('recycle-win')">
+      <img class="icon-img" src="static/images/icon_recycle.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">Papelera</span>
+    </div>
+    <div class="desktop-icon" onclick="openPopup('readme-pop')">
+      <img class="icon-img" src="static/images/icon_readme.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">README.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('tut-win')">
+      <img class="icon-img" src="static/images/icon_tutoriales.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">tutoriales</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('info-win')">
+      <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">links.txt</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('released-win')">
+      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">released</span>
+    </div>
+    <div class="desktop-icon" onclick="openPopup('virus-pop')">
+      <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">claro que no soy un virus confía... soy un gato</span>
+    </div>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <button id="start-btn" onclick="openWin('artoys-win')">
+    <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'" style="width:24px;height:24px">
+    Start
+  </button>
+  <div class="taskbar-items" id="tb-items"></div>
+  <div id="mini-player">
+    <button class="mc" onclick="prevT()">⏮</button>
+    <button class="mc" id="mini-play-btn" onclick="togPlay()">▶</button>
+    <button class="mc" onclick="nextT()">⏭</button>
+    <span id="mini-title">—</span>
+    <button class="mc" onclick="openWin('ep-win')">
+      <img src="static/images/icon_music.PNG" style="width:14px;height:14px;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='💿'">
+    </button>
+  </div>
+  <div id="clock">00:00</div>
+</div>
+
+<!-- WINDOW: EP -->
+<div class="win" id="ep-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
+      <div class="win-title">EP — 2026</div>
+      <button class="win-close" onclick="closeWin('ep-win')"></button>
+      <button class="win-min" onclick="closeWin('ep-win')"></button>
+      <div class="win-content">
+        <div id="ep-list-view">
+          <table class="tlist" id="ep-table"></table>
+        </div>
+        <div id="ep-ipod-view">
+          <button class="ipod-back" onclick="showList('ep-list-view','ep-ipod-view')">← Volver</button>
+          <div class="ipod-num" id="ep-num">01 / 06</div>
+          <div class="ipod-name" id="ep-name">—</div>
+          <div class="ipod-wrap">
+            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="">
+            <div class="ipod-screen"><img id="ep-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+            <div class="ipod-inner-title" id="ep-inner">—</div>
+            <div class="ipod-prog-area">
+              <div class="prog-wrap" onclick="seek(event,'ep-audio','ep-prog')"><div class="prog-fill" id="ep-prog"></div></div>
+              <div class="prog-times"><span id="ep-elapsed">0:00</span><span id="ep-left">0:00</span></div>
+            </div>
+            <button class="ibtn ibtn-top" onclick="openWin('artoys-win')"></button>
+            <button class="ibtn ibtn-prev" onclick="epPrev()"></button>
+            <button class="ibtn ibtn-play" onclick="epTog()"></button>
+            <button class="ibtn ibtn-next" onclick="epNext()"></button>
+          </div>
+          <a class="ipod-dl" id="ep-dl" href="#" download>↓ Descargar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: RELEASED -->
+<div class="win" id="released-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
+      <div class="win-title">released</div>
+      <button class="win-close" onclick="closeWin('released-win')"></button>
+      <button class="win-min" onclick="closeWin('released-win')"></button>
+      <div class="win-content">
+        <div id="rel-list-view">
+          <table class="tlist" id="rel-table"></table>
+        </div>
+        <div id="rel-ipod-view">
+          <button class="ipod-back" onclick="showList('rel-list-view','rel-ipod-view')">← Volver</button>
+          <div class="ipod-num" id="rel-num">01</div>
+          <div class="ipod-name" id="rel-name">—</div>
+          <div class="ipod-wrap">
+            <img class="ipod-img" src="static/images/Ipod_dibujo.png" alt="">
+            <div class="ipod-screen"><img id="rel-cover" src="" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+            <div class="ipod-inner-title" id="rel-inner">—</div>
+            <div class="ipod-prog-area">
+              <div class="prog-wrap" onclick="seek(event,'rel-audio','rel-prog')"><div class="prog-fill" id="rel-prog"></div></div>
+              <div class="prog-times"><span id="rel-elapsed">0:00</span><span id="rel-left">0:00</span></div>
+            </div>
+            <button class="ibtn ibtn-top" onclick="openWin('artoys-win')"></button>
+            <button class="ibtn ibtn-prev" onclick="relPrev()"></button>
+            <button class="ibtn ibtn-play" onclick="relTog()"></button>
+            <button class="ibtn ibtn-next" onclick="relNext()"></button>
+          </div>
+          <a class="ipod-dl" id="rel-dl" href="#" download>↓ Descargar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: ARTOYS -->
+<div class="win" id="artoys-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
+      <div class="win-title">ARTOYS.exe</div>
+      <button class="win-close" onclick="closeWin('artoys-win')"></button>
+      <button class="win-min" onclick="closeWin('artoys-win')"></button>
+      <div class="win-content artoys-font" style="padding:10px">
+
+        <!-- TITLE -->
+        <div style="margin-bottom:10px">
+          <div style="font-size:18px;font-weight:700;line-height:1.1">YONKO — EP Artoy</div>
+          <div style="font-size:12px;font-weight:400;color:#444;margin-top:2px">— Llave secreta BlindBox</div>
+        </div>
+
+        <!-- GALLERY -->
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <div id="artoys-thumbs" style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <img id="artoys-main" src="static/images/artoys_extra_1.jpg"
+              style="width:100%;aspect-ratio:1;object-fit:contain;border:2px solid;border-color:#808080 #fff #fff #808080;background:#f5f5f5;display:block">
+          </div>
+        </div>
+
+        <!-- BUTTON COMPRAR -->
+        <button onclick="openPopup('access-buy-pop')"
+          style="width:100%;font-size:13px;padding:8px;margin-bottom:12px;background:#c0392b;color:#fff;border:none;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer">
+          COMPRAR
+        </button>
+
+        <!-- REFERENCE IMAGE -->
+        <img src="static/images/artoys_ref.PNG" onerror="this.style.display='none'"
+          style="width:100%;display:block;margin-bottom:12px;border:1px solid #e0e0e0">
+
+        <!-- TWO COLUMN TEXT -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <p style="font-weight:600;font-size:12px;margin-bottom:4px">Para qué sirve</p>
+            <p style="font-size:11px;color:#444;line-height:1.5">Una figura en blanco lista para que tú la termines. Cada una es única porque la acabas tú.</p>
+          </div>
+          <div>
+            <p style="font-weight:600;font-size:12px;margin-bottom:4px">Cómo funciona</p>
+            <p style="font-size:11px;color:#444;line-height:1.5">Recibes la cabeza impresa en resina, lijada y con imprimación. El resto lo decides tú.</p>
+          </div>
+        </div>
+
+
+
+        <!-- EMAIL PRE-DROP -->
+        <div style="border-top:1px solid #ddd;padding-top:10px">
+          <p style="font-size:10px;color:#808080;margin-bottom:6px">¿No tienes el objeto todavía? Regístrate para el drop:</p>
+          <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com" style="font-family:'Inter',sans-serif">
+          <button onclick="submitArtoys()"
+            style="width:100%;padding:6px;background:#000;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer">
+            REGISTRARME
+          </button>
+          <p id="artoys-msg" style="margin-top:6px;font-size:11px;color:green"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: PAPELERA -->
+<div class="win" id="recycle-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
+      <div class="win-title">Papelera de reciclaje</div>
+      <button class="win-close" onclick="closeWin('recycle-win')"></button>
+      <button class="win-min" onclick="closeWin('recycle-win')"></button>
+      <div class="win-content" style="padding:0">
+        <div style="padding:4px 8px;background:#c0c0c0;border-bottom:1px solid #808080;font-size:10px;color:#444">
+          Papelera — <span id="rec-count">0</span> elementos (no se pueden recuperar)
+        </div>
+        <table class="rlist" id="rec-table"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: TUTORIALES -->
+<div class="win" id="tut-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
+      <div class="win-title">tutoriales — gratis</div>
+      <button class="win-close" onclick="closeWin('tut-win')"></button>
+      <button class="win-min" onclick="closeWin('tut-win')"></button>
+      <div class="win-content">
+        <div id="tut-gate" style="text-align:center;padding:12px">
+          <p style="font-weight:bold;margin-bottom:8px">🔒 Desbloquea el contenido</p>
+          <p style="font-size:11px;color:#666;margin-bottom:12px">Con tu correo o con la contraseña si la tienes.</p>
+          <input class="field" type="email" id="tut-email" placeholder="tu@correo.com">
+          <button class="push" onclick="unlockTutEmail()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+          <input class="field" type="password" id="tut-pass" placeholder="contraseña">
+          <button class="push" onclick="unlockTutPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+          <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
+        </div>
+        <div id="tut-content" style="display:none">
+          <ul class="pdfs" id="tut-list"></ul>
+          <p style="margin-top:12px;font-size:11px;color:#808080">Más próximamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: COOKING -->
+<div class="win" id="cooking-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
+      <div class="win-title">cooking... — en proceso</div>
+      <button class="win-close" onclick="closeWin('cooking-win')"></button>
+      <button class="win-min" onclick="closeWin('cooking-win')"></button>
+      <div class="win-content">
+        <div class="cgrid" id="cooking-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WINDOW: INFO -->
+<div class="win" id="info-win">
+  <div class="win-wrap">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <div class="win-overlay">
+      <img class="win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
+      <div class="win-title">links.txt</div>
+      <button class="win-close" onclick="closeWin('info-win')"></button>
+      <button class="win-min" onclick="closeWin('info-win')"></button>
+      <div class="win-content">
+        <ul class="ilinks">
+          <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
+          <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
+          <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
+          <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
+          <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: README -->
+<div class="popup" id="readme-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
+      <span>📄 README.txt — Bloc de notas</span>
+      <button class="xbtn" onclick="closePopup('readme-pop')">✕</button>
+    </div>
+    <div class="popup-body">
+      <pre class="readme">YONKO — README.txt
+==================
+
+[Tu texto aquí.]
+</pre>
+    </div>
+    <div style="padding:0 14px 14px">
+      <p style="font-size:11px;color:#666;margin-bottom:6px">Deja tu correo para estar al tanto:</p>
+      <input class="field" type="email" id="readme-email" placeholder="tu@correo.com">
+      <button class="push" onclick="submitReadme()" style="width:100%">SUSCRIBIRSE</button>
+      <p id="readme-msg" style="font-size:11px;color:green;margin-top:4px"></p>
+    </div>
+    <div class="popup-footer" style="flex-direction:column;gap:6px;align-items:center">
+      <button class="push" onclick="unlockMusicVIP()" style="width:80%">MUSICVIP — Ver ARTOYS</button>
+      <button class="push" onclick="closePopup('readme-pop')" style="width:80%">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: VIRUS -->
+<div class="popup" id="virus-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
+      <span>🐱 claro que no soy un virus confía... soy un gato</span>
+      <button class="xbtn" onclick="closePopup('virus-pop')">✕</button>
+    </div>
+    <div class="popup-body" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:8px">🐱</div>
+      <p>era un gato. te pillé.</p>
+      <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
+      <span class="discount">YONKO10</span>
+      <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
+    </div>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('virus-pop')">Guardar y salir</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: ACCESS DENIED -->
+<div class="popup" id="access-pop">
+  <div class="popup-inner">
+    <div class="popup-title" style="background:#800000">
+      <span>🔒 Acceso denegado</span>
+      <button class="xbtn" onclick="closePopup('access-pop')">✕</button>
+    </div>
+    <div class="popup-body" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:8px">🔒</div>
+      <p style="font-weight:bold">Access Denied</p>
+      <p style="font-size:11px;color:#666;margin-top:6px">Necesitas el objeto físico YONKO<br>para acceder a este contenido.</p>
+    </div>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('access-pop')">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: ARTOYS SENT -->
+<div class="popup" id="artoys-sent-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
+      <span>✉ Registro completado</span>
+      <button class="xbtn" onclick="closePopup('artoys-sent-pop')">✕</button>
+    </div>
+    <div class="popup-body" style="display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:32px">✅</div>
+      <div>
+        <p style="font-weight:bold;margin-bottom:4px">¡Registrado!</p>
+        <p style="font-size:11px;color:#666">Te avisamos cuando el drop esté disponible.</p>
+      </div>
+    </div>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('artoys-sent-pop')">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: OBTENER ACCESO -->
+<div class="popup" id="access-buy-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
+      <span>🪆 Obtener acceso — YONKO</span>
+      <button class="xbtn" onclick="closePopup('access-buy-pop')">✕</button>
+    </div>
+    <div class="popup-body" style="text-align:center">
+      <p style="font-size:12px;margin-bottom:4px">Paga lo que quieras</p>
+      <p style="font-size:10px;color:#808080;margin-bottom:12px">Mínimo 7€ · sin límite superior</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
+        <input id="buy-price" type="number" min="7" value="7"
+          style="width:70px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 8px;font-family:'W95FA','Courier New',monospace;font-size:16px;text-align:center;outline:none"
+          oninput="if(this.value<7&&this.value!='')this.value=7">
+        <span style="font-size:16px;font-weight:bold">€</span>
+      </div>
+      <p style="font-size:10px;color:#808080;margin-bottom:12px">Recibirás la figura sin pintar.<br>Tú decides cómo terminarla.</p>
+      <button class="push" onclick="processBuy()" style="width:100%;font-size:13px;padding:6px">CONFIRMAR Y PAGAR</button>
+      <p id="buy-msg" style="font-size:10px;color:#808080;margin-top:8px">→ Próximamente disponible</p>
+    </div>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('access-buy-pop')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<audio id="ep-audio" preload="metadata"></audio>
+<audio id="rel-audio" preload="metadata"></audio>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG — edita aquí
+// ═══════════════════════════════════════════
+var NFC_KEY = 'YONKO2026';
+var GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
+var TUT_PASSWORD = 'YONKO2026';
+var DISCOUNT_CODE = 'YONKO10';
+
+var EP_TRACKS = [
+  { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
+  { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              icon:'static/images/ep_ilustracion_2.PNG', dur:'2:04', locked:false },
+  { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               icon:'static/images/ep_ilustracion_3.PNG', dur:'2:24', locked:true  },
+  { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', icon:'static/images/ep_ilustracion_4.PNG', dur:'1:00', locked:true  },
+  { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             icon:'static/images/ep_ilustracion_5.PNG', dur:'1:38', locked:true  },
+  { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 icon:'static/images/ep_ilustracion_6.PNG', dur:'0:45', locked:true  }
+];
+
+// Añade canciones aquí cuando las tengas:
+var REL_TRACKS = [
+  // { title:'NOMBRE', file:'static/music/archivo.mp3', icon:'static/images/imagen.PNG', dur:'0:00' }
+];
+
+var RECYCLE = [
+  { name:'intro_descartada_v1.mp3',  date:'12/01/2026', type:'audio', locked:false, playable:false },
+  { name:'beat_sin_nombre.mp3',      date:'18/01/2026', type:'audio', locked:true,  playable:true  },
+  { name:'letra_no_usada.txt',       date:'03/02/2026', type:'text',  locked:false, playable:false },
+  { name:'portada_RECHAZADA.png',    date:'10/02/2026', type:'image', locked:false, playable:false },
+  { name:'demo_destructor_v1.mp3',   date:'22/02/2026', type:'audio', locked:true,  playable:true  }
+];
+
+var TUTORIALES = [
+  // { name:'Tutorial NFC', file:'static/pdfs/tutorial_nfc.pdf' }
+];
+
+var COOKING = [
+  { type:'música',  title:'sin título #7',    date:'marzo 2026', nfcLocked:false, superLocked:false },
+  { type:'dibujo',  title:'boceto figura v2', date:'marzo 2026', nfcLocked:false, superLocked:false },
+  { type:'música',  title:'???',              date:'—',          nfcLocked:true,  superLocked:false },
+  { type:'figura',  title:'???',              date:'—',          nfcLocked:false, superLocked:true  }
+];
+
+// ═══════════════════════════════════════════
+// NFC CHECK
+// ═══════════════════════════════════════════
+var params = new URLSearchParams(window.location.search);
+var hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
+if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
+if (hasNFC) {
+  var cl = document.getElementById('cooking-lock');
+  if (cl) cl.style.display = 'none';
+}
+
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function tick() {
+  var n = new Date();
+  document.getElementById('clock').textContent =
+    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+}
+tick();
+setInterval(tick, 10000);
+
+// ═══════════════════════════════════════════
+// WINDOWS
+// ═══════════════════════════════════════════
+var WIN_NAMES = {
+  'ep-win':'EP — 2026', 'released-win':'released',
+  'artoys-win':'ARTOYS.exe', 'recycle-win':'Papelera',
+  'tut-win':'tutoriales', 'cooking-win':'cooking...',
+  'info-win':'links.txt'
+};
+
+function openWin(id) {
+  document.querySelectorAll('.win').forEach(function(w){ w.classList.remove('open'); });
+  document.getElementById(id).classList.add('open');
+
+  document.getElementById('tb-items').innerHTML =
+    '<div class="taskbar-item" onclick="closeWin(\'' + id + '\')">' + (WIN_NAMES[id]||id) + '</div>';
+}
+function closeWin(id) {
+  document.getElementById(id).classList.remove('open');
+
+  document.getElementById('tb-items').innerHTML = '';
+}
+function openPopup(id) { document.getElementById(id).classList.add('open'); }
+function closePopup(id) { document.getElementById(id).classList.remove('open'); }
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function fmt(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+function showList(listId, ipodId) {
+  document.getElementById(listId).style.display = '';
+  document.getElementById(ipodId).classList.remove('open');
+}
+function seek(e, audioId, progId) {
+  var a = document.getElementById(audioId);
+  var w = e.currentTarget;
+  var pct = Math.max(0, Math.min(1, (e.clientX - w.getBoundingClientRect().left) / w.offsetWidth));
+  if (a.duration) a.currentTime = pct * a.duration;
+}
+
+// ═══════════════════════════════════════════
+// EP PLAYER
+// ═══════════════════════════════════════════
+var epAudio = document.getElementById('ep-audio');
+var epIdx = -1, epPlaying = false;
+
+function buildEpTable() {
+  var rows = '';
+  for (var i = 0; i < EP_TRACKS.length; i++) {
+    var t = EP_TRACKS[i];
+    var locked = t.locked && !hasNFC;
+    var cls = locked ? 'locked' : '';
+    var fn = locked ? "openPopup('access-pop')" : "epPlay(" + i + ")";
+    var lock = locked ? '🔒' : '';
+    rows += '<tr class="' + cls + '" onclick="' + fn + '">' +
+      '<td style="width:28px;font-size:10px;color:#808080">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td style="width:24px"><img src="' + t.icon + '" style="width:18px;height:18px;object-fit:contain"></td>' +
+      '<td style="font-size:12px">' + t.title + '</td>' +
+      '<td style="width:20px;text-align:center">' + lock + '</td>' +
+      '<td style="width:36px;font-size:10px;color:#808080;text-align:right">' + t.dur + '</td>' +
+      '</tr>';
+  }
+  document.getElementById('ep-table').innerHTML = rows;
+}
+
+function epPlay(i) {
+  if (EP_TRACKS[i].locked && !hasNFC) { openPopup('access-pop'); return; }
+  epIdx = i;
+  epAudio.src = EP_TRACKS[i].file;
+  epAudio.play();
+  epPlaying = true;
+  // Show iPod
+  document.getElementById('ep-list-view').style.display = 'none';
+  document.getElementById('ep-ipod-view').classList.add('open');
+  // Update iPod UI
+  document.getElementById('ep-name').textContent = EP_TRACKS[i].title;
+  document.getElementById('ep-inner').textContent = EP_TRACKS[i].title;
+  document.getElementById('ep-num').textContent = String(i+1).padStart(2,'0') + ' / 06';
+  document.getElementById('ep-cover').src = EP_TRACKS[i].icon;
+  document.getElementById('ep-dl').href = EP_TRACKS[i].file;
+  document.getElementById('ep-dl').download = EP_TRACKS[i].title + '.mp3';
+  // Update mini player
+  document.getElementById('mini-title').textContent = EP_TRACKS[i].title;
+  document.getElementById('mini-player').classList.add('visible');
+  document.getElementById('mini-play-btn').textContent = '⏸';
+  // Highlight row
+  var rows = document.querySelectorAll('#ep-table tr');
+  for (var j = 0; j < rows.length; j++) rows[j].classList.toggle('active-tr', j === i);
+}
+
+function epTog() {
+  if (epIdx < 0) return;
+  if (epPlaying) { epAudio.pause(); epPlaying = false; document.getElementById('mini-play-btn').textContent = '▶'; }
+  else { epAudio.play(); epPlaying = true; document.getElementById('mini-play-btn').textContent = '⏸'; }
+}
+function epNextUnlocked(from, dir) {
+  var n = from + dir;
+  while (n >= 0 && n < EP_TRACKS.length) {
+    if (!EP_TRACKS[n].locked || hasNFC) return n;
+    n += dir;
+  }
+  return -1;
+}
+function epNext() { var n = epNextUnlocked(epIdx, 1); if (n >= 0) epPlay(n); }
+function epPrev() { var n = epNextUnlocked(epIdx, -1); if (n >= 0) epPlay(n); }
+function togPlay() { epTog(); }
+function prevT() { epPrev(); }
+function nextT() { epNext(); }
+
+epAudio.addEventListener('ended', function() { epNext(); });
+epAudio.addEventListener('timeupdate', function() {
+  if (!epAudio.duration) return;
+  var pct = (epAudio.currentTime / epAudio.duration) * 100;
+  document.getElementById('ep-prog').style.width = pct + '%';
+  document.getElementById('ep-elapsed').textContent = fmt(epAudio.currentTime);
+  document.getElementById('ep-left').textContent = fmt(epAudio.duration - epAudio.currentTime);
+});
+
+buildEpTable();
+
+// ═══════════════════════════════════════════
+// RELEASED PLAYER
+// ═══════════════════════════════════════════
+var relAudio = document.getElementById('rel-audio');
+var relIdx = -1, relPlaying = false;
+
+function buildRelTable() {
+  var t = document.getElementById('rel-table');
+  if (REL_TRACKS.length === 0) {
+    t.innerHTML = '<tr><td colspan="4" style="padding:16px;color:#808080;font-size:11px">Próximamente.</td></tr>';
+    return;
+  }
+  var rows = '';
+  for (var i = 0; i < REL_TRACKS.length; i++) {
+    var tr = REL_TRACKS[i];
+    rows += '<tr onclick="relPlay(' + i + ')">' +
+      '<td style="width:28px;font-size:10px;color:#808080">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td style="width:24px"><img src="' + tr.icon + '" style="width:18px;height:18px;object-fit:contain"></td>' +
+      '<td style="font-size:12px">' + tr.title + '</td>' +
+      '<td style="width:36px;font-size:10px;color:#808080;text-align:right">' + tr.dur + '</td>' +
+      '</tr>';
+  }
+  t.innerHTML = rows;
+}
+
+function relPlay(i) {
+  relIdx = i;
+  relAudio.src = REL_TRACKS[i].file;
+  relAudio.play();
+  relPlaying = true;
+  document.getElementById('rel-list-view').style.display = 'none';
+  document.getElementById('rel-ipod-view').classList.add('open');
+  document.getElementById('rel-name').textContent = REL_TRACKS[i].title;
+  document.getElementById('rel-inner').textContent = REL_TRACKS[i].title;
+  document.getElementById('rel-num').textContent = String(i+1).padStart(2,'0') + ' / ' + String(REL_TRACKS.length).padStart(2,'0');
+  document.getElementById('rel-cover').src = REL_TRACKS[i].icon;
+  document.getElementById('rel-dl').href = REL_TRACKS[i].file;
+  document.getElementById('rel-dl').download = REL_TRACKS[i].title + '.mp3';
+}
+function relTog() {
+  if (relIdx < 0) return;
+  if (relPlaying) { relAudio.pause(); relPlaying = false; }
+  else { relAudio.play(); relPlaying = true; }
+}
+function relNext() { if (relIdx < REL_TRACKS.length - 1) relPlay(relIdx + 1); }
+function relPrev() { if (relIdx > 0) relPlay(relIdx - 1); }
+relAudio.addEventListener('ended', function() { relNext(); });
+relAudio.addEventListener('timeupdate', function() {
+  if (!relAudio.duration) return;
+  var pct = (relAudio.currentTime / relAudio.duration) * 100;
+  document.getElementById('rel-prog').style.width = pct + '%';
+  document.getElementById('rel-elapsed').textContent = fmt(relAudio.currentTime);
+  document.getElementById('rel-left').textContent = fmt(relAudio.duration - relAudio.currentTime);
+});
+buildRelTable();
+
+// ═══════════════════════════════════════════
+// RECYCLE BIN
+// ═══════════════════════════════════════════
+function buildRecycle() {
+  var icons = { audio:'🎵', text:'📝', image:'🖼️' };
+  document.getElementById('rec-count').textContent = RECYCLE.length;
+  var rows = '';
+  for (var i = 0; i < RECYCLE.length; i++) {
+    var item = RECYCLE[i];
+    var locked = item.locked && !hasNFC;
+    var cls = '', oc = '';
+    if (!locked && item.playable) { cls = 'play-link'; oc = 'onclick="alert(\'▶ ' + item.name + '\')"'; }
+    else if (!item.playable) { cls = 'del'; }
+    rows += '<tr><td style="width:24px">' + (icons[item.type]||'📄') + '</td>' +
+      '<td class="' + cls + '" ' + oc + '>' + item.name + (locked ? ' 🔒' : '') + '</td>' +
+      '<td style="font-size:10px;color:#808080;text-align:right">' + item.date + '</td></tr>';
+  }
+  document.getElementById('rec-table').innerHTML = rows;
+}
+buildRecycle();
+
+// ═══════════════════════════════════════════
+// TUTORIALES
+// ═══════════════════════════════════════════
+function showTutContent() {
+  document.getElementById('tut-gate').style.display = 'none';
+  document.getElementById('tut-content').style.display = '';
+  var list = document.getElementById('tut-list');
+  if (TUTORIALES.length === 0) {
+    list.innerHTML = '<li style="color:#808080;font-size:11px">Próximamente.</li>';
+  } else {
+    var items = '';
+    for (var i = 0; i < TUTORIALES.length; i++) {
+      items += '<li><span>📄</span><a href="' + TUTORIALES[i].file + '" target="_blank" download>' + TUTORIALES[i].name + '</a></li>';
+    }
+    list.innerHTML = items;
+  }
+}
+function unlockTutEmail() {
+  var email = document.getElementById('tut-email').value.trim();
+  var msg = document.getElementById('tut-msg');
+  if (!email || !email.includes('@')) { msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'TUTORIALES'}) });
+  showTutContent();
+}
+function unlockTutPass() {
+  var pass = document.getElementById('tut-pass').value.trim();
+  if (pass === TUT_PASSWORD || pass === NFC_KEY) { showTutContent(); }
+  else { document.getElementById('tut-msg').textContent = 'Contraseña incorrecta.'; }
+}
+if (hasNFC) showTutContent();
+
+// ═══════════════════════════════════════════
+// COOKING
+// ═══════════════════════════════════════════
+function openCooking() {
+  openWin('cooking-win');
+  var grid = document.getElementById('cooking-grid');
+  var html = '';
+  for (var i = 0; i < COOKING.length; i++) {
+    var item = COOKING[i];
+    var cls = item.superLocked ? 'citem blur-all' : (item.nfcLocked && !hasNFC ? 'citem blur-nfc' : 'citem');
+    html += '<div class="' + cls + '">' +
+      '<div class="ctype">' + item.type + '</div>' +
+      '<div class="ctitle">' + item.title + '</div>' +
+      '<div class="cdate">' + item.date + '</div>' +
+      '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// ARTOYS EMAIL
+// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// ARTOYS GALLERY
+// ═══════════════════════════════════════════
+var ARTOYS_IMGS = [
+  'static/images/artoys_extra_1.jpg',
+  'static/images/artoys_extra_2.jpg',
+  'static/images/artoys_extra_3.jpg',
+  'static/images/artoys_extra_4.jpg',
+  'static/images/artoys_extra_5.PNG',
+  'static/images/artoys_extra_6.PNG',
+  'static/images/artoys_extra_7.PNG'
+];
+var artoysCurrent = 0;
+var artoysTimer = null;
+
+function buildArtoysGallery() {
+  var thumbs = document.getElementById('artoys-thumbs');
+  if (!thumbs) return;
+  var html = '';
+  for (var i = 0; i < ARTOYS_IMGS.length; i++) {
+    html += '<img class="artoys-thumb' + (i===0?' active':'') + '" src="' + ARTOYS_IMGS[i] + '" onclick="setArtoysImg(' + i + ')">';
+  }
+  thumbs.innerHTML = html;
+  startArtoysRotation();
+}
+
+function setArtoysImg(i) {
+  artoysCurrent = i;
+  document.getElementById('artoys-main').src = ARTOYS_IMGS[i];
+  var thumbEls = document.querySelectorAll('.artoys-thumb');
+  for (var j = 0; j < thumbEls.length; j++) {
+    thumbEls[j].classList.toggle('active', j === i);
+  }
+}
+
+function startArtoysRotation() {
+  if (artoysTimer) clearInterval(artoysTimer);
+  artoysTimer = setInterval(function() {
+    var next = (artoysCurrent + 1) % ARTOYS_IMGS.length;
+    setArtoysImg(next);
+  }, 3000);
+}
+
+// Build gallery when artoys window opens
+var origOpenWin = openWin;
+openWin = function(id) {
+  origOpenWin(id);
+  if (id === 'artoys-win') buildArtoysGallery();
+};
+
+function unlockMusicVIP() {
+  closePopup('readme-pop');
+  openWin('artoys-win');
+}
+
+function processBuy() {
+  var price = parseFloat(document.getElementById('buy-price').value);
+  if (!price || price < 7) {
+    document.getElementById('buy-price').value = 7;
+    return;
+  }
+  // When Stripe is ready, redirect here
+  document.getElementById('buy-msg').textContent = '→ Próximamente disponible. ¡Gracias por tu interés!';
+}
+
+function submitArtoys() {
+  var email = document.getElementById('artoys-email').value.trim();
+  var msg = document.getElementById('artoys-msg');
+  if (!email || !email.includes('@')) { msg.style.color = 'red'; msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'ARTOYS'}) });
+  closeWin('artoys-win');
+  openPopup('artoys-sent-pop');
+}
+
+function submitReadme() {
+  var email = document.getElementById('readme-email').value.trim();
+  var msg = document.getElementById('readme-msg');
+  if (!email || !email.includes('@')) { msg.style.color = 'red'; msg.textContent = 'Email inválido.'; return; }
+  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'README'}) });
+  msg.style.color = 'green';
+  msg.textContent = '¡Registrado!';
+  document.getElementById('readme-email').value = '';
+}
+
+// ═══════════════════════════════════════════
+// README POPUP ON LOAD
+// ═══════════════════════════════════════════
+window.addEventListener('load', function() {
+  setTimeout(function() { openPopup('readme-pop'); }, 800);
+});
+</script>
+</body>
+</html>
