@@ -266,6 +266,14 @@
     .pdfs { list-style:none; }
     .pdfs li { display:flex; align-items:center; gap:8px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
     .pdfs a { color:#000080; text-decoration:underline; font-size:12px; }
+    .artoys-thumb {
+      width:44px; height:44px; object-fit:contain;
+      border:2px solid; border-color:#808080 #fff #fff #808080;
+      cursor:pointer; background:#f5f5f5; display:block;
+    }
+    .artoys-thumb.active {
+      border-color:#000080 #000080 #000080 #000080;
+    }
     pre.readme { font-family:'W95FA','Courier New',monospace; font-size:12px; line-height:1.8; white-space:pre-wrap; }
   </style>
 </head>
@@ -420,13 +428,47 @@
       <div class="win-title">ARTOYS.exe</div>
       <button class="win-close" onclick="closeWin('artoys-win')"></button>
       <button class="win-min" onclick="closeWin('artoys-win')"></button>
-      <div class="win-content" style="text-align:center;padding-top:16px">
-        <p style="font-size:28px;margin-bottom:10px">🪆</p>
-        <p style="font-weight:bold;margin-bottom:6px">⚠ DROP PRÓXIMAMENTE</p>
-        <p style="font-size:11px;color:#666;margin-bottom:14px;line-height:1.5">Las figuras YONKO llegan pronto.<br>Deja tu correo para acceso anticipado.</p>
-        <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com">
-        <button class="push" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
-        <p id="artoys-msg" style="margin-top:8px;font-size:11px;color:green"></p>
+      <div class="win-content" style="padding:8px">
+
+        <!-- GALLERY -->
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <!-- Thumbnails -->
+          <div id="artoys-thumbs" style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
+          </div>
+          <!-- Main image -->
+          <div style="flex:1;min-width:0">
+            <img id="artoys-main" src="static/images/ep_ilustracion_1.PNG"
+              style="width:100%;aspect-ratio:1;object-fit:contain;border:2px solid;border-color:#808080 #fff #fff #808080;background:#f5f5f5;display:block">
+          </div>
+        </div>
+
+        <!-- PRODUCT INFO -->
+        <p style="font-weight:bold;font-size:13px;margin-bottom:2px">YONKO — MINICABEZA</p>
+        <p style="font-size:10px;color:#808080;margin-bottom:8px">Figura impresa en 3D · edición limitada · sin pintar</p>
+
+        <!-- PRICE -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:11px">Precio (min. 7€):</span>
+          <input id="artoys-price" type="number" min="7" value="7"
+            style="width:60px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:3px 6px;font-family:'W95FA','Courier New',monospace;font-size:12px;outline:none"
+            oninput="if(this.value<7&&this.value!='')this.value=7">
+          <span style="font-size:12px">€</span>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="push" onclick="openPopup('access-buy-pop')"
+          style="width:100%;font-size:13px;padding:6px;margin-bottom:12px">
+          OBTENER ACCESO
+        </button>
+
+        <!-- EMAIL PRE-DROP -->
+        <div style="border-top:1px solid #c0c0c0;padding-top:8px">
+          <p style="font-size:10px;color:#808080;margin-bottom:6px">¿No tienes el objeto todavía? Regístrate para el drop:</p>
+          <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com">
+          <button class="push" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+          <p id="artoys-msg" style="margin-top:6px;font-size:11px;color:green"></p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -597,6 +639,32 @@
     </div>
     <div class="popup-footer">
       <button class="push" onclick="closePopup('artoys-sent-pop')">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: OBTENER ACCESO -->
+<div class="popup" id="access-buy-pop">
+  <div class="popup-inner">
+    <div class="popup-title">
+      <span>🪆 Obtener acceso — YONKO</span>
+      <button class="xbtn" onclick="closePopup('access-buy-pop')">✕</button>
+    </div>
+    <div class="popup-body" style="text-align:center">
+      <p style="font-size:12px;margin-bottom:4px">Paga lo que quieras</p>
+      <p style="font-size:10px;color:#808080;margin-bottom:12px">Mínimo 7€ · sin límite superior</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
+        <input id="buy-price" type="number" min="7" value="7"
+          style="width:70px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 8px;font-family:'W95FA','Courier New',monospace;font-size:16px;text-align:center;outline:none"
+          oninput="if(this.value<7&&this.value!='')this.value=7">
+        <span style="font-size:16px;font-weight:bold">€</span>
+      </div>
+      <p style="font-size:10px;color:#808080;margin-bottom:12px">Recibirás la figura sin pintar.<br>Tú decides cómo terminarla.</p>
+      <button class="push" onclick="processBuy()" style="width:100%;font-size:13px;padding:6px">CONFIRMAR Y PAGAR</button>
+      <p id="buy-msg" style="font-size:10px;color:#808080;margin-top:8px">→ Próximamente disponible</p>
+    </div>
+    <div class="popup-footer">
+      <button class="push" onclick="closePopup('access-buy-pop')">Cancelar</button>
     </div>
   </div>
 </div>
@@ -921,6 +989,67 @@ function openCooking() {
 // ═══════════════════════════════════════════
 // ARTOYS EMAIL
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// ARTOYS GALLERY
+// ═══════════════════════════════════════════
+var ARTOYS_IMGS = [
+  'static/images/ep_ilustracion_1.PNG',
+  'static/images/ep_ilustracion_2.PNG',
+  'static/images/ep_ilustracion_3.PNG',
+  'static/images/ep_ilustracion_4.PNG',
+  'static/images/ep_ilustracion_5.PNG',
+  'static/images/ep_ilustracion_6.PNG',
+  'static/images/ep_ilustracion_1.PNG'
+  // Reemplaza con: 'static/images/artoys_1.PNG', etc.
+];
+var artoysCurrent = 0;
+var artoysTimer = null;
+
+function buildArtoysGallery() {
+  var thumbs = document.getElementById('artoys-thumbs');
+  if (!thumbs) return;
+  var html = '';
+  for (var i = 0; i < ARTOYS_IMGS.length; i++) {
+    html += '<img class="artoys-thumb' + (i===0?' active':'') + '" src="' + ARTOYS_IMGS[i] + '" onclick="setArtoysImg(' + i + ')">';
+  }
+  thumbs.innerHTML = html;
+  startArtoysRotation();
+}
+
+function setArtoysImg(i) {
+  artoysCurrent = i;
+  document.getElementById('artoys-main').src = ARTOYS_IMGS[i];
+  var thumbEls = document.querySelectorAll('.artoys-thumb');
+  for (var j = 0; j < thumbEls.length; j++) {
+    thumbEls[j].classList.toggle('active', j === i);
+  }
+}
+
+function startArtoysRotation() {
+  if (artoysTimer) clearInterval(artoysTimer);
+  artoysTimer = setInterval(function() {
+    var next = (artoysCurrent + 1) % ARTOYS_IMGS.length;
+    setArtoysImg(next);
+  }, 3000);
+}
+
+// Build gallery when artoys window opens
+var origOpenWin = openWin;
+openWin = function(id) {
+  origOpenWin(id);
+  if (id === 'artoys-win') buildArtoysGallery();
+};
+
+function processBuy() {
+  var price = parseFloat(document.getElementById('buy-price').value);
+  if (!price || price < 7) {
+    document.getElementById('buy-price').value = 7;
+    return;
+  }
+  // When Stripe is ready, redirect here
+  document.getElementById('buy-msg').textContent = '→ Próximamente disponible. ¡Gracias por tu interés!';
+}
+
 function submitArtoys() {
   var email = document.getElementById('artoys-email').value.trim();
   var msg = document.getElementById('artoys-msg');
