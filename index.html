@@ -31,7 +31,7 @@
     /* DESKTOP */
     #desktop {
       width:100%; height:100%;
-      background: #008080 url('static/images/fondo_escritorio.jpg') center/cover no-repeat;
+      background: #008080 url('static/images/fondo_escritorio.PNG') center/cover no-repeat;
       position:relative; overflow:hidden; padding-bottom:36px;
     }
 
@@ -319,12 +319,12 @@
       <span class="icon-label">links.txt</span>
     </div>
     <div class="desktop-icon" onclick="openWin('released-win')">
-      <img class="icon-img" src="static/images/icon_released.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
       <span class="icon-label">released</span>
     </div>
     <div class="desktop-icon" onclick="openPopup('virus-pop')">
       <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
-      <span class="icon-label">claro que es un virus confia en mi bro... soy un gato</span>
+      <span class="icon-label">claro que no soy un virus confía... soy un gato</span>
     </div>
   </div>
 </div>
@@ -390,7 +390,7 @@
   <div class="win-wrap">
     <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
-      <img class="win-icon" src="static/images/icon_released.PNG" onerror="this.style.display='none'">
+      <img class="win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
       <div class="win-title">released</div>
       <button class="win-close" onclick="closeWin('released-win')"></button>
       <button class="win-min" onclick="closeWin('released-win')"></button>
@@ -443,21 +443,12 @@
         <div style="display:flex;gap:6px;margin-bottom:10px">
           <div id="artoys-thumbs" style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"></div>
           <div style="flex:1;min-width:0">
-            <img id="artoys-main" src="static/images/artoys_1.jpg"
+            <img id="artoys-main" src="static/images/artoys_extra_1.jpg"
               style="width:100%;aspect-ratio:1;object-fit:contain;border:2px solid;border-color:#808080 #fff #fff #808080;background:#f5f5f5;display:block">
           </div>
         </div>
 
-        <!-- PRICE -->
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="font-size:11px">Precio (min. 7€):</span>
-          <input id="artoys-price" type="number" min="7" value="7"
-            style="width:60px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:3px 6px;font-family:'Inter',sans-serif;font-size:12px;outline:none"
-            oninput="if(this.value<7&&this.value!='')this.value=7">
-          <span style="font-size:12px">€</span>
-        </div>
-
-        <!-- BUTTON OBTENER ACCESO -->
+        <!-- BUTTON COMPRAR -->
         <button onclick="openPopup('access-buy-pop')"
           style="width:100%;font-size:13px;padding:8px;margin-bottom:12px;background:#c0392b;color:#fff;border:none;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer">
           COMPRAR
@@ -613,7 +604,7 @@
 <div class="popup" id="virus-pop">
   <div class="popup-inner">
     <div class="popup-title">
-      <span>🐱 claro que es un virus confia en mi bro... soy un gato</span>
+      <span>🐱 claro que no soy un virus confía... soy un gato</span>
       <button class="xbtn" onclick="closePopup('virus-pop')">✕</button>
     </div>
     <div class="popup-body" style="text-align:center">
@@ -1017,14 +1008,13 @@ function openCooking() {
 // ARTOYS GALLERY
 // ═══════════════════════════════════════════
 var ARTOYS_IMGS = [
-  'static/images/artoys_1.jpg',
-  'static/images/artoys_2.jpg',
-  'static/images/artoys_3.jpg',
-  'static/images/artoys_4.jpg',
-  'static/images/artoys_5.jpg',
-  'static/images/artoys_6.jpg',
-  'static/images/artoys_7.jpg'
-  // Cambia extensión a .PNG cuando tengas los archivos definitivos
+  'static/images/artoys_extra_1.jpg',
+  'static/images/artoys_extra_2.jpg',
+  'static/images/artoys_extra_3.jpg',
+  'static/images/artoys_extra_4.jpg',
+  'static/images/artoys_extra_5.PNG',
+  'static/images/artoys_extra_6.PNG',
+  'static/images/artoys_extra_7.PNG'
 ];
 var artoysCurrent = 0;
 var artoysTimer = null;
