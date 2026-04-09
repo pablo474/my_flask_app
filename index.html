@@ -681,13 +681,13 @@ var WIN_NAMES = {
 function openWin(id) {
   document.querySelectorAll('.win').forEach(function(w){ w.classList.remove('open'); });
   document.getElementById(id).classList.add('open');
-  document.getElementById('icons-grid').style.display = 'none';
+
   document.getElementById('tb-items').innerHTML =
     '<div class="taskbar-item" onclick="closeWin(\'' + id + '\')">' + (WIN_NAMES[id]||id) + '</div>';
 }
 function closeWin(id) {
   document.getElementById(id).classList.remove('open');
-  document.getElementById('icons-grid').style.display = '';
+
   document.getElementById('tb-items').innerHTML = '';
 }
 function openPopup(id) { document.getElementById(id).classList.add('open'); }
