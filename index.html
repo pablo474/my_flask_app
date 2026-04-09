@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>YONKO.ART</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
     @font-face {
       font-family: 'W95FA';
       src: url('https://fonts.cdnfonts.com/s/14984/W95FA.woff') format('woff');
@@ -266,6 +267,8 @@
     .pdfs { list-style:none; }
     .pdfs li { display:flex; align-items:center; gap:8px; padding:8px 4px; border-bottom:1px solid #e0e0e0; }
     .pdfs a { color:#000080; text-decoration:underline; font-size:12px; }
+    .artoys-font { font-family: 'Inter', sans-serif !important; }
+    .artoys-font * { font-family: 'Inter', sans-serif !important; }
     .artoys-thumb {
       width:44px; height:44px; object-fit:contain;
       border:2px solid; border-color:#808080 #fff #fff #808080;
@@ -428,44 +431,71 @@
       <div class="win-title">ARTOYS.exe</div>
       <button class="win-close" onclick="closeWin('artoys-win')"></button>
       <button class="win-min" onclick="closeWin('artoys-win')"></button>
-      <div class="win-content" style="padding:8px">
+      <div class="win-content artoys-font" style="padding:10px">
+
+        <!-- TITLE -->
+        <div style="margin-bottom:10px">
+          <div style="font-size:18px;font-weight:700;line-height:1.1">YONKO — EP Artoy</div>
+          <div style="font-size:12px;font-weight:400;color:#444;margin-top:2px">— Llave secreta BlindBox</div>
+        </div>
 
         <!-- GALLERY -->
         <div style="display:flex;gap:6px;margin-bottom:10px">
-          <!-- Thumbnails -->
-          <div id="artoys-thumbs" style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
-          </div>
-          <!-- Main image -->
+          <div id="artoys-thumbs" style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"></div>
           <div style="flex:1;min-width:0">
             <img id="artoys-main" src="static/images/ep_ilustracion_1.PNG"
               style="width:100%;aspect-ratio:1;object-fit:contain;border:2px solid;border-color:#808080 #fff #fff #808080;background:#f5f5f5;display:block">
           </div>
         </div>
 
-        <!-- PRODUCT INFO -->
-        <p style="font-weight:bold;font-size:13px;margin-bottom:2px">YONKO — MINICABEZA</p>
-        <p style="font-size:10px;color:#808080;margin-bottom:8px">Figura impresa en 3D · edición limitada · sin pintar</p>
-
         <!-- PRICE -->
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
           <span style="font-size:11px">Precio (min. 7€):</span>
           <input id="artoys-price" type="number" min="7" value="7"
-            style="width:60px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:3px 6px;font-family:'W95FA','Courier New',monospace;font-size:12px;outline:none"
+            style="width:60px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:3px 6px;font-family:'Inter',sans-serif;font-size:12px;outline:none"
             oninput="if(this.value<7&&this.value!='')this.value=7">
           <span style="font-size:12px">€</span>
         </div>
 
-        <!-- BUTTON -->
-        <button class="push" onclick="openPopup('access-buy-pop')"
-          style="width:100%;font-size:13px;padding:6px;margin-bottom:12px">
+        <!-- BUTTON OBTENER ACCESO -->
+        <button onclick="openPopup('access-buy-pop')"
+          style="width:100%;font-size:13px;padding:8px;margin-bottom:12px;background:#000;color:#fff;border:none;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer">
           OBTENER ACCESO
         </button>
 
+        <!-- REFERENCE IMAGE -->
+        <img src="static/images/artoys_ref.PNG" onerror="this.style.display='none'"
+          style="width:100%;display:block;margin-bottom:12px;border:1px solid #e0e0e0">
+
+        <!-- TWO COLUMN TEXT -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <p style="font-weight:600;font-size:12px;margin-bottom:4px">Para qué sirve</p>
+            <p style="font-size:11px;color:#444;line-height:1.5">Una figura en blanco lista para que tú la termines. Cada una es única porque la acabas tú.</p>
+          </div>
+          <div>
+            <p style="font-weight:600;font-size:12px;margin-bottom:4px">Cómo funciona</p>
+            <p style="font-size:11px;color:#444;line-height:1.5">Recibes la cabeza impresa en resina, lijada y con imprimación. El resto lo decides tú.</p>
+          </div>
+        </div>
+
+        <!-- EXTRA IMAGES -->
+        <div id="artoys-extra-imgs" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <img src="static/images/artoys_extra_1.PNG" onerror="this.style.display='none'" style="width:100%;display:block">
+          <img src="static/images/artoys_extra_2.PNG" onerror="this.style.display='none'" style="width:100%;display:block">
+          <img src="static/images/artoys_extra_3.PNG" onerror="this.style.display='none'" style="width:100%;display:block">
+          <img src="static/images/artoys_extra_4.PNG" onerror="this.style.display='none'" style="width:100%;display:block">
+          <img src="static/images/artoys_extra_5.PNG" onerror="this.style.display='none'" style="width:100%;display:block">
+        </div>
+
         <!-- EMAIL PRE-DROP -->
-        <div style="border-top:1px solid #c0c0c0;padding-top:8px">
+        <div style="border-top:1px solid #ddd;padding-top:10px">
           <p style="font-size:10px;color:#808080;margin-bottom:6px">¿No tienes el objeto todavía? Regístrate para el drop:</p>
-          <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com">
-          <button class="push" onclick="submitArtoys()" style="width:100%">REGISTRARME</button>
+          <input class="field" type="email" id="artoys-email" placeholder="tu@correo.com" style="font-family:'Inter',sans-serif">
+          <button onclick="submitArtoys()"
+            style="width:100%;padding:6px;background:#000;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer">
+            REGISTRARME
+          </button>
           <p id="artoys-msg" style="margin-top:6px;font-size:11px;color:green"></p>
         </div>
 
@@ -579,8 +609,9 @@
       <button class="push" onclick="submitReadme()" style="width:100%">SUSCRIBIRSE</button>
       <p id="readme-msg" style="font-size:11px;color:green;margin-top:4px"></p>
     </div>
-    <div class="popup-footer">
-      <button class="push" onclick="closePopup('readme-pop')">OK</button>
+    <div class="popup-footer" style="flex-direction:column;gap:6px;align-items:center">
+      <button class="push" onclick="unlockMusicVIP()" style="width:80%">MUSICVIP — Ver ARTOYS</button>
+      <button class="push" onclick="closePopup('readme-pop')" style="width:80%">OK</button>
     </div>
   </div>
 </div>
@@ -1039,6 +1070,11 @@ openWin = function(id) {
   origOpenWin(id);
   if (id === 'artoys-win') buildArtoysGallery();
 };
+
+function unlockMusicVIP() {
+  closePopup('readme-pop');
+  openWin('artoys-win');
+}
 
 function processBuy() {
   var price = parseFloat(document.getElementById('buy-price').value);
