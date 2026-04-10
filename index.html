@@ -346,7 +346,7 @@
 <!-- WINDOW: EP -->
 <div class="win" id="ep-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
       <div class="win-title">EP — 2026</div>
@@ -383,7 +383,7 @@
 <!-- WINDOW: RELEASED -->
 <div class="win" id="released-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
       <div class="win-title">released</div>
@@ -420,7 +420,7 @@
 <!-- WINDOW: ARTOYS -->
 <div class="win" id="artoys-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
       <div class="win-title">ARTOYS.exe</div>
@@ -495,7 +495,7 @@
 <!-- WINDOW: PAPELERA -->
 <div class="win" id="recycle-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
       <div class="win-title">Papelera de reciclaje</div>
@@ -514,7 +514,7 @@
 <!-- WINDOW: TUTORIALES -->
 <div class="win" id="tut-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
       <div class="win-title">tutoriales — gratis</div>
@@ -542,7 +542,7 @@
 <!-- WINDOW: COOKING -->
 <div class="win" id="cooking-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
       <div class="win-title">cooking... — en proceso</div>
@@ -558,7 +558,7 @@
 <!-- WINDOW: INFO -->
 <div class="win" id="info-win">
   <div class="win-wrap">
-    <img class="win-img" src="static/images/ventana.PNG" alt="">
+    <img class="win-img win-img-src" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
       <div class="win-title">links.txt</div>
@@ -1095,6 +1095,17 @@ function submitReadme() {
 // ═══════════════════════════════════════════
 // README POPUP ON LOAD
 // ═══════════════════════════════════════════
+// Switch window image based on screen size
+function updateWinImages() {
+  var isPC = window.innerWidth >= 768;
+  var imgs = document.querySelectorAll('.win-img-src');
+  for (var i = 0; i < imgs.length; i++) {
+    imgs[i].src = isPC ? 'static/images/ventana_pc.PNG' : 'static/images/ventana.PNG';
+  }
+}
+updateWinImages();
+window.addEventListener('resize', updateWinImages);
+
 window.addEventListener('load', function() {
   setTimeout(function() { openPopup('readme-pop'); }, 800);
 });
