@@ -117,38 +117,42 @@
       height:100%; width:auto; max-width:100%;
       object-fit:contain; object-position:top center;
       pointer-events:none; user-select:none; display:block; flex-shrink:0;
+      min-height:300px;
     }
-
     .win-icon {
-      position:absolute; top:1.1%; left:10.6%;
-      height:0.9%; width:auto; object-fit:contain;
+      position:absolute; top:0.77%; left:3%;
+      height:1.40%; width:auto; object-fit:contain;
       pointer-events:none;
     }
     .win-title {
-      position:absolute; top:1.1%; left:10.6%; right:11.2%; height:0.9%;
+      position:absolute; top:0.77%; left:2.74%; right:6.82%; height:1.40%;
       display:flex; align-items:center;
       font-size:clamp(10px,2vw,15px); font-weight:bold; color:#111;
       pointer-events:none; white-space:nowrap; overflow:hidden;
     }
     .win-close {
-      position:absolute; top:1.1%; right:0%;
-      width:11.2%; height:0.9%;
+      position:absolute; top:0%; right:0%;
+      width:6.82%; height:2.17%;
       background:transparent; border:none; cursor:pointer; z-index:10;
       -webkit-tap-highlight-color:transparent;
     }
     .win-min {
-      position:absolute; top:1.1%; right:11.2%;
-      width:10.6%; height:0.9%;
+      position:absolute; top:0%; right:6.82%;
+      width:6.88%; height:2.17%;
       background:transparent; border:none; cursor:pointer; z-index:10;
       -webkit-tap-highlight-color:transparent;
     }
     .win-content {
-      position:absolute; top:2.0%; left:10.6%; right:9.5%; bottom:1.1%;
-      overflow-y:auto; background:transparent; padding:12px 8px; font-size:12px;
+      position:absolute; top:5.08%; left:3.50%; right:1.05%; bottom:0%;
+      overflow-y:auto; background:transparent; padding:10px 8px; font-size:12px;
       min-height:100px;
     }
-    .win-wrap { min-height:300px; }
-    .win-img { min-height:300px; }
+    .win-overlay {
+      position:absolute; top:0; left:50%;
+      transform:translateX(-50%);
+      height:100%;
+      width:min(100%, calc(100vh * 1715 / 2719));
+    }
     .win-content::-webkit-scrollbar { width:16px; }
     .win-content::-webkit-scrollbar-track { background:#c0c0c0; }
     .win-content::-webkit-scrollbar-thumb { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; }
@@ -346,7 +350,7 @@
 <!-- WINDOW: EP -->
 <div class="win" id="ep-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
       <div class="win-title">EP — 2026</div>
@@ -383,7 +387,7 @@
 <!-- WINDOW: RELEASED -->
 <div class="win" id="released-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_music.PNG" onerror="this.style.display='none'">
       <div class="win-title">released</div>
@@ -420,7 +424,7 @@
 <!-- WINDOW: ARTOYS -->
 <div class="win" id="artoys-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_artoys.PNG" onerror="this.style.display='none'">
       <div class="win-title">ARTOYS.exe</div>
@@ -495,7 +499,7 @@
 <!-- WINDOW: PAPELERA -->
 <div class="win" id="recycle-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_recycle.PNG" onerror="this.style.display='none'">
       <div class="win-title">Papelera de reciclaje</div>
@@ -514,7 +518,7 @@
 <!-- WINDOW: TUTORIALES -->
 <div class="win" id="tut-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_tutoriales.PNG" onerror="this.style.display='none'">
       <div class="win-title">tutoriales — gratis</div>
@@ -542,7 +546,7 @@
 <!-- WINDOW: COOKING -->
 <div class="win" id="cooking-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_cooking.PNG" onerror="this.style.display='none'">
       <div class="win-title">cooking... — en proceso</div>
@@ -558,7 +562,7 @@
 <!-- WINDOW: INFO -->
 <div class="win" id="info-win">
   <div class="win-wrap">
-    <img class="win-img win-img-mobile" src="static/images/ventana.PNG" alt=""><img class="win-img win-img-pc" src="static/images/ventana_pc.PNG" alt="">
+    <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/icon_info.PNG" onerror="this.style.display='none'">
       <div class="win-title">links.txt</div>
