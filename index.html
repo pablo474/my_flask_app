@@ -679,7 +679,7 @@
       <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
         <input id="buy-price" type="number" min="7" value="7"
           style="width:70px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 8px;font-family:'W95FA','Courier New',monospace;font-size:16px;text-align:center;outline:none"
-          oninput="if(this.value<7&&this.value!='')this.value=7">
+          onblur="if(this.value&&this.value<7)this.value=7">
         <span style="font-size:16px;font-weight:bold">€</span>
       </div>
       <p style="font-size:10px;color:#808080;margin-bottom:12px">Recibirás la figura sin pintar.<br>Tú decides cómo terminarla.</p>
