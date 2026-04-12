@@ -673,18 +673,46 @@
       <span>🪆 Obtener acceso — YONKO</span>
       <button class="xbtn" onclick="closePopup('access-buy-pop')">✕</button>
     </div>
-    <div class="popup-body" style="text-align:center">
-      <p style="font-size:12px;margin-bottom:4px">Paga lo que quieras</p>
-      <p style="font-size:10px;color:#808080;margin-bottom:12px">Mínimo 7€ · sin límite superior</p>
-      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
-        <input id="buy-price" type="number" min="7" value="7"
-          style="width:70px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 8px;font-family:'W95FA','Courier New',monospace;font-size:16px;text-align:center;outline:none"
-          onblur="if(this.value&&this.value<7)this.value=7">
-        <span style="font-size:16px;font-weight:bold">€</span>
+    <div class="popup-body" style="text-align:left">
+      <!-- Precio objeto -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:12px">Precio objeto <span style="font-size:10px;color:#808080">(mín. 7€)</span></span>
+        <div style="display:flex;align-items:center;gap:4px">
+          <input id="buy-price" type="number" min="7" value="7"
+            style="width:60px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:3px 6px;font-family:'W95FA','Courier New',monospace;font-size:14px;text-align:center;outline:none"
+            onblur="if(this.value&&this.value<7)this.value=7" oninput="updateTotal()">
+          <span style="font-size:14px">€</span>
+        </div>
       </div>
-      <p style="font-size:10px;color:#808080;margin-bottom:12px">Recibirás la figura sin pintar.<br>Tú decides cómo terminarla.</p>
+
+      <!-- Zona de envío -->
+      <div style="margin-bottom:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:12px">Zona de envío</span>
+          <span id="shipping-price" style="font-size:12px;color:#808080">+6€</span>
+        </div>
+        <select id="shipping-zone" onchange="updateTotal()"
+          style="width:100%;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 6px;font-family:'W95FA','Courier New',monospace;font-size:11px;outline:none;background:#fff">
+          <option value="6">España Península y Baleares</option>
+          <option value="12">Canarias / Ceuta / Melilla</option>
+          <option value="10">Europa</option>
+          <option value="20">América Latina</option>
+          <option value="25">Resto del mundo</option>
+        </select>
+      </div>
+
+      <!-- Separador -->
+      <div style="border-top:1px solid #c0c0c0;margin-bottom:10px"></div>
+
+      <!-- Total -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:13px;font-weight:bold">Total</span>
+        <span id="buy-total" style="font-size:16px;font-weight:bold">13€</span>
+      </div>
+
+      <p style="font-size:10px;color:#808080;margin-bottom:10px;line-height:1.5">Recibirás la figura sin pintar.<br>Si el envío a tu zona varía mucho, te contactamos.</p>
       <button class="push" onclick="processBuy()" style="width:100%;font-size:13px;padding:6px">CONFIRMAR Y PAGAR</button>
-      <p id="buy-msg" style="font-size:10px;color:#808080;margin-top:8px">→ Próximamente disponible</p>
+      <p id="buy-msg" style="font-size:10px;color:#808080;margin-top:8px"></p>
     </div>
     <div class="popup-footer">
       <button class="push" onclick="closePopup('access-buy-pop')">Cancelar</button>
@@ -1085,20 +1113,38 @@ function unlockMusicVIP() {
   openWin('artoys-win');
 }
 
+var SHIPPING_ZONES = {
+  '6':  'España Península y Baleares',
+  '12': 'Canarias / Ceuta / Melilla',
+  '10': 'Europa',
+  '20': 'América Latina',
+  '25': 'Resto del mundo'
+};
+
+function updateTotal() {
+  var price = parseFloat(document.getElementById('buy-price').value) || 7;
+  var shipping = parseFloat(document.getElementById('shipping-zone').value) || 6;
+  document.getElementById('shipping-price').textContent = '+' + shipping + '€';
+  document.getElementById('buy-total').textContent = (price + shipping) + '€';
+}
+
 function processBuy() {
   var price = parseFloat(document.getElementById('buy-price').value);
   if (!price || price < 7) {
     document.getElementById('buy-price').value = 7;
+    updateTotal();
     return;
   }
-  var btn = document.querySelector('#access-buy-pop .push');
+  var shipping = parseFloat(document.getElementById('shipping-zone').value);
+  var zone = SHIPPING_ZONES[String(shipping)];
+  var total = price + shipping;
   var msg = document.getElementById('buy-msg');
   msg.textContent = '→ Redirigiendo al pago...';
 
   fetch('/api/create-checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount: price })
+    body: JSON.stringify({ amount: total, zone: zone, object_price: price, shipping: shipping })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
