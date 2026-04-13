@@ -560,6 +560,20 @@ var params = new URLSearchParams(window.location.search);
 var hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
 if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
 if (hasNFC) { var cl = document.getElementById('cooking-lock'); if (cl) cl.style.display = 'none'; }
+// Auto-open window from URL param
+var openParam = params.get('open');
+if (openParam) {
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (openParam === 'artoys') openWin('artoys-win');
+      else if (openParam === 'ep') openWin('ep-win');
+      else if (openParam === 'released') openWin('released-win');
+      else if (openParam === 'cooking') openCooking();
+      else if (openParam === 'links') openWin('info-win');
+      else if (openParam === 'tutoriales') openWin('tut-win');
+    }, 300);
+  });
+}
 function tick() {
   var n = new Date();
   document.getElementById('clock').textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
