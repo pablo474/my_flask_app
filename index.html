@@ -125,12 +125,16 @@
     </div>
     <div class="desktop-icon" onclick="openWin('ep-win')">
       <img class="icon-img" src="static/images/caratula_EP_1.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
-      <span class="icon-label">EP — 2026</span>
+      <span class="icon-label">EP NADIE — Yonko</span>
     </div>
     <div class="desktop-icon" onclick="openCooking()">
       <img class="icon-img" src="static/images/icon_cooking.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
       <span class="icon-label">cooking...</span>
       <span class="lock-badge" id="cooking-lock">🔒</span>
+    </div>
+    <div class="desktop-icon" onclick="openWin('released-win')">
+      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">released</span>
     </div>
   </div>
   <div class="icons-col-right">
@@ -149,10 +153,6 @@
     <div class="desktop-icon" onclick="openWin('info-win')">
       <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
       <span class="icon-label">links.txt</span>
-    </div>
-    <div class="desktop-icon" onclick="openWin('released-win')">
-      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
-      <span class="icon-label">released</span>
     </div>
     <div class="desktop-icon" onclick="openPopup('virus-pop')">
       <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
@@ -184,7 +184,7 @@
     <img class="win-img" src="static/images/ventana.PNG" alt="">
     <div class="win-overlay">
       <img class="win-icon" src="static/images/caratula_EP_1.PNG" onerror="this.style.display='none'">
-      <div class="win-title">EP — 2026</div>
+      <div class="win-title">EP NADIE — Yonko</div>
       <button class="win-close" onclick="closeWin('ep-win')"></button>
       <button class="win-min" onclick="closeWin('ep-win')"></button>
       <div class="win-content">
@@ -410,12 +410,12 @@
 <div class="popup" id="virus-pop">
   <div class="popup-inner">
     <div class="popup-title">
-      <span>🐱 claro que no soy un virus confía... soy un gato</span>
+      <span>claro que no soy un virus confía... soy un gato</span>
       <button class="xbtn" onclick="closePopup('virus-pop')">✕</button>
     </div>
     <div class="popup-body" style="text-align:center">
-      <div style="font-size:40px;margin-bottom:8px">🐱</div>
-      <p>era un gato. te pillé.</p>
+      <img src="static/images/icon_virus.PNG" style="width:80px;height:80px;object-fit:contain;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto">
+      <p>hay gente que solo quiere ver el mundo arder</p>
       <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
       <span class="discount">YONKO10</span>
       <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
@@ -559,7 +559,7 @@ function tick() {
   document.getElementById('clock').textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
 }
 tick(); setInterval(tick, 10000);
-var WIN_NAMES = { 'ep-win':'EP — 2026', 'released-win':'released', 'artoys-win':'ARTOYS.exe', 'recycle-win':'Papelera', 'tut-win':'tutoriales', 'cooking-win':'cooking...', 'info-win':'links.txt' };
+var WIN_NAMES = { 'ep-win':'EP NADIE — Yonko', 'released-win':'released', 'artoys-win':'ARTOYS.exe', 'recycle-win':'Papelera', 'tut-win':'tutoriales', 'cooking-win':'cooking...', 'info-win':'links.txt' };
 function openWin(id) {
   document.querySelectorAll('.win').forEach(function(w){ w.classList.remove('open'); });
   document.getElementById(id).classList.add('open');
