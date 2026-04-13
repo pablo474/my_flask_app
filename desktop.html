@@ -436,9 +436,15 @@
       <div style="font-size:40px;margin-bottom:8px">🔒</div>
       <p style="font-weight:bold">Access Denied</p>
       <p style="font-size:11px;color:#666;margin-top:6px">Necesitas el objeto físico YONKO<br>para acceder a este contenido.</p>
+      <p style="font-size:10px;color:#808080;margin-top:10px;cursor:pointer;text-decoration:underline" onclick="toggleAccessPass()">o accede por contraseña</p>
+      <div id="access-pass-area" style="display:none;margin-top:8px">
+        <input class="field" type="password" id="access-pass-input" placeholder="contraseña" style="margin-bottom:6px">
+        <button class="push" onclick="checkAccessPass()" style="width:100%">ENTRAR</button>
+        <p id="access-pass-err" style="font-size:10px;color:red;margin-top:4px"></p>
+      </div>
     </div>
     <div class="popup-footer">
-      <button class="push" onclick="closePopup('access-pop')">OK</button>
+      <button class="push" onclick="closePopup('access-pop')">Cancelar</button>
     </div>
   </div>
 </div>
@@ -523,9 +529,9 @@
 <audio id="ep-audio" preload="none"></audio>
 <audio id="rel-audio" preload="none"></audio>
 <script>
-var NFC_KEY = 'YONKO2026';
+var NFC_KEY = 'NADIE_SE_CALLA';
 var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYdIhl_JcSy_UfaQtMrp4fvOKwvvzrRQAgRzw0QwDApwgpNDbK7FyGipMvqUW5ffiq/exec';
-var TUT_PASSWORD = 'YONKO2026';
+var TUT_PASSWORD = 'NADIE_SE_CALLA';
 var DISCOUNT_CODE = 'YONKO10';
 var EP_TRACKS = [
   { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG', dur:'1:47', locked:false },
@@ -567,7 +573,41 @@ function openWin(id) {
 }
 function closeWin(id) { document.getElementById(id).classList.remove('open'); document.getElementById('tb-items').innerHTML = ''; }
 function openPopup(id) { document.getElementById(id).classList.add('open'); }
-function closePopup(id) { document.getElementById(id).classList.remove('open'); }
+function closePopup(id) {
+  document.getElementById(id).classList.remove('open');
+  // Reset access pass area when closing
+  var area = document.getElementById('access-pass-area');
+  if (area) { area.style.display = 'none'; }
+  var err = document.getElementById('access-pass-err');
+  if (err) err.textContent = '';
+  var inp = document.getElementById('access-pass-input');
+  if (inp) inp.value = '';
+}
+function toggleAccessPass() {
+  var area = document.getElementById('access-pass-area');
+  area.style.display = area.style.display === 'none' ? 'block' : 'none';
+  if (area.style.display === 'block') {
+    setTimeout(function() { document.getElementById('access-pass-input').focus(); }, 100);
+  }
+}
+function checkAccessPass() {
+  var pass = document.getElementById('access-pass-input').value.trim();
+  var err = document.getElementById('access-pass-err');
+  if (pass === NFC_KEY) {
+    sessionStorage.setItem('yonko_nfc', '1');
+    hasNFC = true;
+    closePopup('access-pop');
+    // Hide cooking lock badge
+    var cl = document.getElementById('cooking-lock');
+    if (cl) cl.style.display = 'none';
+    // Rebuild EP table with unlocked tracks
+    buildEpTable();
+    showTutContent();
+    alert('Acceso premium desbloqueado.');
+  } else {
+    err.textContent = 'Contraseña incorrecta.';
+  }
+}
 function fmt(s) { if (!s || isNaN(s)) return '0:00'; return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0'); }
 function showList(listId, ipodId) { document.getElementById(listId).style.display = ''; document.getElementById(ipodId).classList.remove('open'); }
 function seek(e, audioId, progId) { var a = document.getElementById(audioId); var w = e.currentTarget; var pct = Math.max(0, Math.min(1, (e.clientX - w.getBoundingClientRect().left) / w.offsetWidth)); if (a.duration) a.currentTime = pct * a.duration; }
