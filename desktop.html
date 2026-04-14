@@ -514,15 +514,16 @@
   <div class="popup-inner">
     <div class="popup-title">
       <span>✅ Pago completado</span>
-      <button class="xbtn" onclick="closePopup('pago-ok-pop')">✕</button>
+      <button class="xbtn" onclick="closePagoPopup()">✕</button>
     </div>
     <div class="popup-body" style="text-align:center">
       <div style="font-size:40px;margin-bottom:8px">🪆</div>
       <p style="font-weight:bold;margin-bottom:6px">¡Gracias por tu compra!</p>
-      <p style="font-size:11px;color:#666;line-height:1.6">Recibirás un email con los detalles.<br>Nos ponemos en contacto para gestionar el envío.</p>
+      <p style="font-size:11px;color:#444;line-height:1.6;margin-bottom:8px">Nos ponemos en contacto para gestionar el envío.</p>
+      <p style="font-size:10px;color:#808080;line-height:1.6">Tu llavero está desbloqueado.<br>Tienes acceso a todo el contenido.</p>
     </div>
     <div class="popup-footer">
-      <button class="push" onclick="closePopup('pago-ok-pop')">OK</button>
+      <button class="push" onclick="closePagoPopup()">ENTRAR</button>
     </div>
   </div>
 </div>
@@ -587,6 +588,10 @@ function openWin(id) {
 }
 function closeWin(id) { document.getElementById(id).classList.remove('open'); document.getElementById('tb-items').innerHTML = ''; }
 function openPopup(id) { document.getElementById(id).classList.add('open'); }
+function closePagoPopup() {
+  closePopup('pago-ok-pop');
+  buildEpTable();
+}
 function closePopup(id) {
   document.getElementById(id).classList.remove('open');
   // Reset access pass area when closing
@@ -726,7 +731,20 @@ function processBuy() {
   .then(function(data) { if (data.url) { window.location.href = data.url; } else { msg.textContent = '→ Error al iniciar el pago. Inténtalo de nuevo.'; } })
   .catch(function() { msg.textContent = '→ Error de conexión. Inténtalo de nuevo.'; });
 }
-(function() { var p = new URLSearchParams(window.location.search); if (p.get('pago') === 'ok') { setTimeout(function() { openPopup('pago-ok-pop'); }, 500); } })();
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('pago') === 'ok') {
+    // Unlock everything after purchase
+    sessionStorage.setItem('yonko_nfc', '1');
+    hasNFC = true;
+    var cl = document.getElementById('cooking-lock');
+    if (cl) cl.style.display = 'none';
+    setTimeout(function() {
+      openWin('artoys-win');
+      setTimeout(function() { openPopup('pago-ok-pop'); }, 300);
+    }, 500);
+  }
+})();
 function submitArtoys() { var email = document.getElementById('artoys-email').value.trim(); var msg = document.getElementById('artoys-msg'); if (!email || !email.includes('@')) { msg.style.color='red'; msg.textContent='Email inválido.'; return; } fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'ARTOYS'}) }); closeWin('artoys-win'); openPopup('artoys-sent-pop'); }
 function submitReadme() { var email = document.getElementById('readme-email').value.trim(); var msg = document.getElementById('readme-msg'); if (!email || !email.includes('@')) { msg.style.color='red'; msg.textContent='Email inválido.'; return; } fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'README'}) }); msg.style.color='green'; msg.textContent='¡Registrado!'; document.getElementById('readme-email').value=''; }
 window.addEventListener('load', function() { setTimeout(function() { openPopup('readme-pop'); }, 800); });
