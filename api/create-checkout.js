@@ -45,8 +45,8 @@ module.exports = async (req, res) => {
       shipping_address_collection: {
         allowed_countries: ['ES', 'FR', 'DE', 'IT', 'PT', 'GB', 'US', 'MX', 'AR', 'CL', 'CO', 'PE', 'EC', 'UY', 'PY', 'BO', 'VE', 'CR', 'PA', 'DO'],
       },
-      success_url: 'https://yonko.art?pago=ok',
-      cancel_url: 'https://yonko.art?pago=cancelado',
+      success_url: 'https://yonko.art/desktop.html?pago=ok',
+      cancel_url: 'https://yonko.art/desktop.html?open=artoys',
     });
 
     res.status(200).json({ url: session.url });
