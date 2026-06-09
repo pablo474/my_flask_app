@@ -7,102 +7,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #000; color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      min-height: 100vh; display: flex; flex-direction: column;
-      overflow-x: hidden;
-    }
-    header {
-      display: flex; flex-direction: column; align-items: center;
-      padding: 24px 16px 0;
-    }
-    .password-access {
-      font-size: 0.65rem; letter-spacing: 3px; margin-bottom: 16px;
-    }
-    .password-access a {
-      color: #fff; text-decoration: none; opacity: 0.6;
-      transition: opacity 0.2s;
-    }
+    body { background: #000; color: #fff; font-family: 'Montserrat', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+    header { display: flex; flex-direction: column; align-items: center; padding: 24px 16px 0; }
+    .password-access { font-size: 0.65rem; letter-spacing: 3px; margin-bottom: 16px; }
+    .password-access a { color: #fff; text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
     .password-access a:hover { opacity: 1; }
     .logo-main { width: min(280px, 80vw); display: block; }
-    .main-container {
-      flex: 1; display: flex; align-items: center; justify-content: center;
-      position: relative; padding: 24px 16px;
-    }
-    .diablo-bg {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(320px, 90vw); opacity: 0.18; pointer-events: none;
-    }
-    .content-box {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 16px; width: 100%; max-width: 340px; text-align: center;
-    }
-    .content-box h2 {
-      font-size: 0.75rem; letter-spacing: 4px; font-weight: 700; opacity: 0.8;
-    }
-    .email-section {
-      display: flex; flex-direction: column; gap: 0; width: 100%;
-    }
-    .email-section input {
-      background: transparent; border: 1px solid #fff;
-      color: #fff; padding: 14px 16px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem; letter-spacing: 2px; outline: none; width: 100%;
-    }
+    .main-container { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 24px 16px; }
+    .diablo-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(320px, 90vw); opacity: 0.18; pointer-events: none; }
+    .content-box { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; max-width: 340px; text-align: center; }
+    .content-box h2 { font-size: 0.75rem; letter-spacing: 4px; font-weight: 700; opacity: 0.8; }
+    .email-section { display: flex; flex-direction: column; gap: 0; width: 100%; }
+    .email-section input { background: transparent; border: 1px solid #fff; color: #fff; padding: 14px 16px; font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 2px; outline: none; width: 100%; }
     .email-section input::placeholder { color: rgba(255,255,255,0.4); }
-    .email-section button {
-      background: #fff; color: #000; border: none;
-      padding: 14px; width: 100%; cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem; letter-spacing: 4px; font-weight: 700;
-      transition: opacity 0.2s;
-    }
+    .email-section button { background: #fff; color: #000; border: none; padding: 14px; width: 100%; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 4px; font-weight: 700; transition: opacity 0.2s; }
     .email-section button:hover { opacity: 0.85; }
-    #responseMessage {
-      font-size: 0.6rem; letter-spacing: 2px; color: rgba(255,255,255,0.6);
-      display: none;
-    }
-    footer {
-      display: flex; justify-content: center; gap: 24px;
-      padding: 20px 16px;
-    }
+    #responseMessage { font-size: 0.6rem; letter-spacing: 2px; color: rgba(255,255,255,0.6); display: none; }
+    footer { display: flex; justify-content: center; gap: 24px; padding: 20px 16px; }
     footer a img { width: 32px; height: 32px; object-fit: contain; filter: invert(1); opacity: 0.7; }
     footer a:hover img { opacity: 1; }
-
-    /* MODAL */
-    .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85); z-index: 1000;
-      align-items: center; justify-content: center; padding: 16px;
-    }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
     .modal.open { display: flex; }
-    .modal-content {
-      background: #000; border: 1px solid #fff;
-      padding: 32px 24px; width: 100%; max-width: 300px;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .modal-close {
-      font-size: 0.6rem; letter-spacing: 2px; cursor: pointer;
-      opacity: 0.5; background: none; border: none; color: #fff;
-      font-family: 'Montserrat', sans-serif; align-self: flex-start;
-    }
+    .modal-content { background: #000; border: 1px solid #fff; padding: 32px 24px; width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 12px; }
+    .modal-close { font-size: 0.6rem; letter-spacing: 2px; cursor: pointer; opacity: 0.5; background: none; border: none; color: #fff; font-family: 'Montserrat', sans-serif; align-self: flex-start; }
     .modal-close:hover { opacity: 1; }
-    .modal-content input[type="password"] {
-      background: transparent; border: 1px solid #fff;
-      color: #fff; padding: 14px 16px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem; letter-spacing: 4px; outline: none; width: 100%;
-    }
+    .modal-content input[type="password"] { background: transparent; border: 1px solid #fff; color: #fff; padding: 14px 16px; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 4px; outline: none; width: 100%; }
     .modal-content input[type="password"]::placeholder { color: rgba(255,255,255,0.3); letter-spacing: 2px; }
-    .modal-enter {
-      padding: 14px; background: #fff; color: #000; border: none;
-      width: 100%; cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 4px; font-weight: 700; font-size: 0.7rem;
-    }
+    .modal-enter { padding: 14px; background: #fff; color: #000; border: none; width: 100%; cursor: pointer; font-family: 'Montserrat', sans-serif; letter-spacing: 4px; font-weight: 700; font-size: 0.7rem; }
     #passErr { color: #ff4444; font-size: 0.6rem; letter-spacing: 1px; min-height: 16px; }
   </style>
 </head>
@@ -113,7 +44,6 @@
     </div>
     <img src="static/images/web-nombre-anim.gif" alt="YONKO" class="logo-main">
   </header>
-
   <div class="main-container">
     <img src="static/images/web-diablo-anim.gif" class="diablo-bg">
     <div class="content-box">
@@ -125,20 +55,11 @@
       <p id="responseMessage"></p>
     </div>
   </div>
-
   <footer>
-    <a href="https://www.youtube.com/@yonkoalter" target="_blank">
-      <img src="static/images/Capa13.png" alt="YouTube">
-    </a>
-    <a href="https://open.spotify.com/intl-es/artist/27hGZtnh8GnGI7lc6r6eHN?nd=1&dlsi=53207171b66d494a" target="_blank">
-      <img src="static/images/Capa15.png" alt="Spotify">
-    </a>
-    <a href="https://www.instagram.com/alter_yonko" target="_blank">
-      <img src="static/images/Capa20.png" alt="Instagram">
-    </a>
+    <a href="https://www.youtube.com/@yonkoalter" target="_blank"><img src="static/images/Capa13.png" alt="YouTube"></a>
+    <a href="https://open.spotify.com/intl-es/artist/27hGZtnh8GnGI7lc6r6eHN?nd=1&dlsi=53207171b66d494a" target="_blank"><img src="static/images/Capa15.png" alt="Spotify"></a>
+    <a href="https://www.instagram.com/alter_yonko" target="_blank"><img src="static/images/Capa20.png" alt="Instagram"></a>
   </footer>
-
-  <!-- MODAL CONTRASEÑA -->
   <div id="passModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal()">CLOSE</button>
@@ -147,54 +68,27 @@
       <p id="passErr"></p>
     </div>
   </div>
-
   <script>
     var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYdIhl_JcSy_UfaQtMrp4fvOKwvvzrRQAgRzw0QwDApwgpNDbK7FyGipMvqUW5ffiq/exec';
-    var ACCESS_PASSWORD = 'YONKOBASIC';
-
-    function showModal() {
-      document.getElementById('passModal').classList.add('open');
-      setTimeout(function() { document.getElementById('passInput').focus(); }, 100);
-    }
-    function closeModal() {
-      document.getElementById('passModal').classList.remove('open');
-      document.getElementById('passErr').textContent = '';
-      document.getElementById('passInput').value = '';
-    }
-
-    // Enter key in password field
+    var ACCESS_PASSWORD = 'YONKOVIP';
+    function showModal() { document.getElementById('passModal').classList.add('open'); setTimeout(function() { document.getElementById('passInput').focus(); }, 100); }
+    function closeModal() { document.getElementById('passModal').classList.remove('open'); document.getElementById('passErr').textContent = ''; document.getElementById('passInput').value = ''; }
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('passInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') checkPass();
-      });
+      document.getElementById('passInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPass(); });
     });
-
     function checkPass() {
       var pass = document.getElementById('passInput').value.trim();
-      if (pass === ACCESS_PASSWORD) {
-        window.location.href = 'desktop.html';
-      } else {
-        document.getElementById('passErr').textContent = 'INCORRECT PASSWORD';
-      }
+      if (pass === ACCESS_PASSWORD) { window.location.href = 'desktop.html'; }
+      else { document.getElementById('passErr').textContent = 'INCORRECT PASSWORD'; }
     }
-
     function submitEmail(e) {
       e.preventDefault();
       var email = e.target.email.value.trim();
       var msg = document.getElementById('responseMessage');
-      if (!email || !email.includes('@')) {
-        msg.style.display = 'block';
-        msg.textContent = 'INVALID EMAIL';
-        return;
-      }
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, source: 'LANDING' })
-      });
+      if (!email || !email.includes('@')) { msg.style.display = 'block'; msg.textContent = 'INVALID EMAIL'; return; }
+      fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email:email, source:'LANDING' }) });
       msg.style.display = 'block';
-      msg.textContent = 'YOU\'RE IN. WE\'LL BE IN TOUCH.';
+      msg.textContent = "YOU'RE IN. WE'LL BE IN TOUCH.";
       e.target.email.value = '';
     }
   </script>

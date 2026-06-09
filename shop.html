@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YONKO — Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #fff; color: #111; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* HEADER */
+    header {
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px 24px; border-bottom: 1px solid #eee;
+      position: sticky; top: 0; background: #fff; z-index: 100;
+    }
+    .logo-link { display: block; }
+    .logo-link img { height: 32px; width: auto; display: block; }
+    .back-desktop {
+      position: absolute; left: 24px;
+      font-size: 11px; letter-spacing: 2px; color: #888;
+      text-decoration: none; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-desktop:hover { color: #111; }
+
+    /* MAIN */
+    main { flex: 1; max-width: 480px; margin: 0 auto; width: 100%; padding: 32px 24px 48px; }
+
+    /* TITLE */
+    .product-title { font-size: 28px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .product-subtitle { font-size: 16px; font-weight: 400; color: #666; margin-bottom: 24px; }
+
+    /* GALLERY */
+    .gallery { display: flex; gap: 8px; margin-bottom: 24px; }
+    .gallery-thumbs {
+      display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; width: 56px;
+    }
+    .gallery-thumb {
+      width: 56px; height: 56px; object-fit: contain;
+      border: 1px solid #e0e0e0; cursor: pointer; background: #f8f8f8;
+      transition: border-color 0.15s;
+    }
+    .gallery-thumb.active { border-color: #111; }
+    .gallery-main-wrap { flex: 1; min-width: 0; }
+    .gallery-main {
+      width: 100%; aspect-ratio: 1; object-fit: contain;
+      border: 1px solid #e0e0e0; background: #f8f8f8; display: block;
+    }
+
+    /* DESCRIPTION */
+    .product-desc { font-size: 13px; line-height: 1.7; color: #444; margin-bottom: 20px; }
+
+    /* BUY BUTTON */
+    .btn-buy {
+      display: block; width: 100%; background: #c0392b; color: #fff;
+      border: none; padding: 14px 24px; font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 700; letter-spacing: 1px;
+      cursor: pointer; text-align: center; margin-bottom: 32px;
+      transition: opacity 0.2s;
+    }
+    .btn-buy:hover { opacity: 0.88; }
+
+    /* REF IMAGE */
+    .ref-img { width: 100%; display: block; margin-bottom: 24px; }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .two-col h3 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .two-col p { font-size: 12px; color: #555; line-height: 1.6; }
+
+    /* INFO IMAGES */
+    .info-imgs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .info-imgs img { width: 100%; display: block; }
+
+    /* PRE-DROP */
+    .pre-drop { border-top: 1px solid #eee; padding-top: 24px; }
+    .pre-drop p { font-size: 12px; color: #888; margin-bottom: 10px; }
+    .pre-drop input {
+      width: 100%; border: 1px solid #ddd; padding: 10px 12px;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      outline: none; margin-bottom: 8px; color: #111;
+    }
+    .pre-drop input:focus { border-color: #111; }
+    .btn-register {
+      width: 100%; background: #111; color: #fff; border: none;
+      padding: 12px; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-register:hover { opacity: 0.85; }
+    #shop-msg { font-size: 12px; color: #22a05a; margin-top: 6px; }
+
+    /* MODAL COMPRA */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
+    .modal.open { display: flex; }
+    .modal-inner { background: #fff; max-width: 340px; width: 100%; padding: 28px 24px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .modal-header h2 { font-size: 16px; font-weight: 700; }
+    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: #888; line-height: 1; }
+    .modal-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .modal-label { font-size: 13px; color: #444; }
+    .modal-price-input {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .modal-price-input input {
+      width: 64px; border: 1px solid #ddd; padding: 6px 8px;
+      font-family: 'Inter', sans-serif; font-size: 15px;
+      text-align: center; outline: none;
+    }
+    .modal-price-input input:focus { border-color: #111; }
+    .modal-select {
+      width: 100%; border: 1px solid #ddd; padding: 8px 10px;
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      outline: none; background: #fff; color: #111;
+    }
+    .modal-divider { border: none; border-top: 1px solid #eee; margin: 16px 0; }
+    .modal-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .modal-total-label { font-size: 14px; font-weight: 600; }
+    .modal-total-val { font-size: 20px; font-weight: 700; }
+    .modal-note { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 16px; }
+    .btn-confirm {
+      width: 100%; background: #111; color: #fff; border: none;
+      padding: 13px; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+    }
+    .btn-confirm:hover { opacity: 0.85; }
+    #modal-msg { font-size: 11px; color: #888; margin-top: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="desktop.html" class="back-desktop">← Volver</a>
+  <a href="desktop.html" class="logo-link">
+    <img src="static/images/web-nombre-anim.gif" alt="YONKO">
+  </a>
+</header>
+
+<main>
+  <div class="product-title">YONKO — EP Artoy</div>
+  <div class="product-subtitle">— Llave secreta BlindBox</div>
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-thumbs" id="shop-thumbs"></div>
+    <div class="gallery-main-wrap">
+      <img class="gallery-main" id="shop-main" src="static/images/artoys_extra_1.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- DESC + BUY -->
+  <p class="product-desc">Única forma de cambiar las cosas. Píntalo tú mismo y activa la llave única al universo de Yonko.</p>
+  <button class="btn-buy" onclick="openBuyModal()">COMPRAR AHORA</button>
+
+  <!-- REF IMAGE -->
+  <img class="ref-img" src="static/images/artoys_ref.PNG" onerror="this.style.display='none'" alt="">
+
+  <!-- TWO COL -->
+  <div class="two-col">
+    <div>
+      <h3>Para qué sirve</h3>
+      <p>Una figura en blanco lista para que tú la termines. Cada una es única porque la acabas tú.</p>
+    </div>
+    <div>
+      <h3>Cómo funciona</h3>
+      <p>Recibes la cabeza impresa en resina, lijada y con imprimación. El resto lo decides tú.</p>
+    </div>
+  </div>
+
+  <!-- INFO IMAGES -->
+  <div class="info-imgs">
+    <img src="static/images/artoys_info_1.PNG" onerror="this.style.display='none'" alt="">
+    <img src="static/images/artoys_info_2.PNG" onerror="this.style.display='none'" alt="">
+  </div>
+
+  <!-- PRE-DROP -->
+  <div class="pre-drop">
+    <p>¿No tienes el objeto todavía? Regístrate para el drop:</p>
+    <input type="email" id="shop-email" placeholder="tu@correo.com">
+    <button class="btn-register" onclick="submitShopEmail()">REGISTRARME</button>
+    <p id="shop-msg"></p>
+  </div>
+</main>
+
+<!-- MODAL COMPRA -->
+<div class="modal" id="buy-modal">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <h2>Finalizar compra</h2>
+      <button class="modal-close" onclick="closeBuyModal()">×</button>
+    </div>
+    <div class="modal-row">
+      <span class="modal-label">Precio objeto <span style="font-size:10px;color:#aaa">(mín. 7€)</span></span>
+      <div class="modal-price-input">
+        <input type="number" id="shop-price" min="7" value="7"
+          onblur="if(this.value&&this.value<7)this.value=7"
+          oninput="shopUpdateTotal()">
+        <span>€</span>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div class="modal-row" style="margin-bottom:6px">
+        <span class="modal-label">Zona de envío</span>
+        <span id="shop-shipping-label" style="font-size:13px;color:#888">+6€</span>
+      </div>
+      <select class="modal-select" id="shop-zone" onchange="shopUpdateTotal()">
+        <option value="6">España Península y Baleares</option>
+        <option value="12">Canarias / Ceuta / Melilla</option>
+        <option value="10">Europa</option>
+        <option value="20">América Latina</option>
+        <option value="25">Resto del mundo</option>
+      </select>
+    </div>
+    <hr class="modal-divider">
+    <div class="modal-total-row">
+      <span class="modal-total-label">Total</span>
+      <span class="modal-total-val" id="shop-total">13€</span>
+    </div>
+    <p class="modal-note">Recibirás la figura sin pintar. Si el envío a tu zona varía mucho, te contactamos.</p>
+    <button class="btn-confirm" onclick="shopProcessBuy()">CONFIRMAR Y PAGAR</button>
+    <p id="modal-msg"></p>
+  </div>
+</div>
+
+<script>
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYdIhl_JcSy_UfaQtMrp4fvOKwvvzrRQAgRzw0QwDApwgpNDbK7FyGipMvqUW5ffiq/exec';
+  var ARTOYS_IMGS = [
+    'static/images/artoys_extra_1.jpg',
+    'static/images/artoys_extra_2.jpg',
+    'static/images/artoys_extra_3.jpg',
+    'static/images/artoys_extra_4.jpg',
+    'static/images/artoys_extra_5.PNG',
+    'static/images/artoys_extra_6.PNG',
+    'static/images/artoys_extra_7.PNG'
+  ];
+  var SHIPPING_ZONES = { '6':'España Península y Baleares', '12':'Canarias / Ceuta / Melilla', '10':'Europa', '20':'América Latina', '25':'Resto del mundo' };
+  var shopCurrent = 0, shopTimer = null;
+
+  // Build gallery
+  (function() {
+    var thumbs = document.getElementById('shop-thumbs');
+    var html = '';
+    for (var i = 0; i < ARTOYS_IMGS.length; i++) {
+      html += '<img class="gallery-thumb' + (i===0?' active':'') + '" src="' + ARTOYS_IMGS[i] + '" onclick="setShopImg(' + i + ')" alt="">';
+    }
+    thumbs.innerHTML = html;
+    shopTimer = setInterval(function() { setShopImg((shopCurrent + 1) % ARTOYS_IMGS.length); }, 3000);
+  })();
+
+  function setShopImg(i) {
+    shopCurrent = i;
+    document.getElementById('shop-main').src = ARTOYS_IMGS[i];
+    var els = document.querySelectorAll('.gallery-thumb');
+    for (var j = 0; j < els.length; j++) els[j].classList.toggle('active', j === i);
+  }
+
+  function openBuyModal() { document.getElementById('buy-modal').classList.add('open'); }
+  function closeBuyModal() { document.getElementById('buy-modal').classList.remove('open'); document.getElementById('modal-msg').textContent = ''; }
+
+  function shopUpdateTotal() {
+    var price = parseFloat(document.getElementById('shop-price').value) || 7;
+    var shipping = parseFloat(document.getElementById('shop-zone').value) || 6;
+    document.getElementById('shop-shipping-label').textContent = '+' + shipping + '€';
+    document.getElementById('shop-total').textContent = (price + shipping) + '€';
+  }
+
+  function shopProcessBuy() {
+    var price = parseFloat(document.getElementById('shop-price').value);
+    if (!price || price < 7) { document.getElementById('shop-price').value = 7; shopUpdateTotal(); return; }
+    var shipping = parseFloat(document.getElementById('shop-zone').value);
+    var zone = SHIPPING_ZONES[String(shipping)];
+    var total = price + shipping;
+    var msg = document.getElementById('modal-msg');
+    msg.textContent = '→ Redirigiendo al pago...';
+    fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: total, zone: zone, object_price: price, shipping: shipping })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.url) { window.location.href = data.url; } else { msg.textContent = '→ Error al iniciar el pago.'; } })
+    .catch(function() { msg.textContent = '→ Error de conexión.'; });
+  }
+
+  function submitShopEmail() {
+    var email = document.getElementById('shop-email').value.trim();
+    var msg = document.getElementById('shop-msg');
+    if (!email || !email.includes('@')) { msg.style.color = '#c0392b'; msg.textContent = 'Email inválido.'; return; }
+    fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'SHOP' }) });
+    msg.style.color = '#22a05a';
+    msg.textContent = '¡Registrado!';
+    document.getElementById('shop-email').value = '';
+  }
+</script>
+</body>
+</html>
