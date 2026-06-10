@@ -330,7 +330,7 @@
 
 <!-- TASKBAR -->
 <div id="taskbar">
-  <button id="start-btn" onclick="openWin('artoys-win')">
+  <button id="start-btn" onclick="window.location.href='tienda.html'">
     <img src="static/images/web-nombre-anim.gif" onerror="this.style.display='none'" style="width:24px;height:24px">
     Start
   </button>
@@ -525,16 +525,17 @@
       <button class="win-close" onclick="closeWin('tut-win')"></button>
       <button class="win-min" onclick="closeWin('tut-win')"></button>
       <div class="win-content">
-        <div id="tut-gate" style="text-align:center;padding:12px">
-          <p style="font-weight:bold;margin-bottom:8px">🔒 Desbloquea el contenido</p>
-          <p style="font-size:11px;color:#666;margin-bottom:12px">Con tu correo o con la contraseña si la tienes.</p>
-          <input class="field" type="email" id="tut-email" placeholder="tu@correo.com">
-          <button class="push" onclick="unlockTutEmail()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
-          <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
-        </div>
-        <div id="tut-content" style="display:none">
-          <ul class="pdfs" id="tut-list"></ul>
-          <p style="margin-top:12px;font-size:11px;color:#808080">Más próximamente.</p>
+        <div style="padding:4px 0">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
+            <span>🔒</span>
+            <span style="font-size:12px">Como hacer una web gratis</span>
+            <span style="font-size:10px;color:#808080;margin-left:auto">Próximamente</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
+            <span>🔒</span>
+            <span style="font-size:12px">Como hacer seguidores con tu arte gratis</span>
+            <span style="font-size:10px;color:#808080;margin-left:auto">Próximamente</span>
+          </div>
         </div>
       </div>
     </div>
@@ -571,7 +572,6 @@
           <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
           <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
           <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
-          <li><span>🎧</span><a href="https://tidal.com/TU_TIDAL" target="_blank">Tidal</a></li>
           <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
         </ul>
       </div>
