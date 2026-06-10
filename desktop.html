@@ -299,6 +299,10 @@
       <span class="icon-label">cooking...</span>
       <span class="lock-badge" id="cooking-lock">🔒</span>
     </div>
+    <div class="desktop-icon" onclick="openWin('released-win')">
+      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
+      <span class="icon-label">released</span>
+    </div>
   </div>
   <div class="icons-col-right">
     <div class="desktop-icon" onclick="openWin('recycle-win')">
@@ -316,10 +320,6 @@
     <div class="desktop-icon" onclick="openWin('info-win')">
       <img class="icon-img" src="static/images/icon_info.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
       <span class="icon-label">links.txt</span>
-    </div>
-    <div class="desktop-icon" onclick="openWin('released-win')">
-      <img class="icon-img" src="static/images/icon_music.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
-      <span class="icon-label">released</span>
     </div>
     <div class="desktop-icon" onclick="openPopup('virus-pop')">
       <img class="icon-img" src="static/images/icon_virus.PNG" style="width:56px;height:56px" onerror="this.style.display='none'">
@@ -525,17 +525,18 @@
       <button class="win-close" onclick="closeWin('tut-win')"></button>
       <button class="win-min" onclick="closeWin('tut-win')"></button>
       <div class="win-content">
-        <div style="padding:4px 0">
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
-            <span>🔒</span>
-            <span style="font-size:12px">Como hacer una web gratis</span>
-            <span style="font-size:10px;color:#808080;margin-left:auto">Próximamente</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
-            <span>🔒</span>
-            <span style="font-size:12px">Como hacer seguidores con tu arte gratis</span>
-            <span style="font-size:10px;color:#808080;margin-left:auto">Próximamente</span>
-          </div>
+        <div id="tut-gate" style="text-align:center;padding:12px">
+          <p style="font-weight:bold;margin-bottom:8px">🔒 Desbloquea el contenido</p>
+          <p style="font-size:11px;color:#666;margin-bottom:12px">Con tu correo o con la contraseña si la tienes.</p>
+          <input class="field" type="email" id="tut-email" placeholder="tu@correo.com">
+          <button class="push" onclick="unlockTutEmail()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
+          <input class="field" type="password" id="tut-pass" placeholder="contraseña">
+          <button class="push" onclick="unlockTutPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
+          <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
+        </div>
+        <div id="tut-content" style="display:none">
+          <ul class="pdfs" id="tut-list"></ul>
+          <p style="margin-top:12px;font-size:11px;color:#808080">Más próximamente.</p>
         </div>
       </div>
     </div>
@@ -569,9 +570,9 @@
       <button class="win-min" onclick="closeWin('info-win')"></button>
       <div class="win-content">
         <ul class="ilinks">
-          <li><span>📷</span><a href="https://instagram.com/TU_INSTAGRAM" target="_blank">Instagram</a></li>
-          <li><span>▶️</span><a href="https://youtube.com/TU_YOUTUBE" target="_blank">YouTube</a></li>
-          <li><span>🎵</span><a href="https://open.spotify.com/TU_SPOTIFY" target="_blank">Spotify</a></li>
+          <li><span>📷</span><a href="https://www.instagram.com/alter_yonko" target="_blank">Instagram</a></li>
+          <li><span>▶️</span><a href="https://youtube.com/@yonkoalter" target="_blank">YouTube</a></li>
+          <li><span>🎵</span><a href="https://open.spotify.com/intl-es/artist/27hGZtnh8GnGI7lc6r6eHN?nd=1&dlsi=53207171b66d494a" target="_blank">Spotify</a></li>
           <li><span>🏷️</span><a href="https://yonko.bandcamp.com" target="_blank">Bandcamp</a></li>
         </ul>
       </div>
@@ -600,7 +601,6 @@
       <p id="readme-msg" style="font-size:11px;color:green;margin-top:4px"></p>
     </div>
     <div class="popup-footer" style="flex-direction:column;gap:6px;align-items:center">
-      <button class="push" onclick="unlockMusicVIP()" style="width:80%">MUSICVIP — Ver ARTOYS</button>
       <button class="push" onclick="closePopup('readme-pop')" style="width:80%">OK</button>
     </div>
   </div>
@@ -610,12 +610,12 @@
 <div class="popup" id="virus-pop">
   <div class="popup-inner">
     <div class="popup-title">
-      <span>🐱 claro que no soy un virus confía... soy un gato</span>
+      <span>claro que no soy un virus confía... soy un gato</span>
       <button class="xbtn" onclick="closePopup('virus-pop')">✕</button>
     </div>
     <div class="popup-body" style="text-align:center">
-      <div style="font-size:40px;margin-bottom:8px">🐱</div>
-      <p>era un gato. te pillé.</p>
+      <img src="static/images/icon_virus.PNG" style="width:80px;height:80px;object-fit:contain;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto">
+      <p>hay gente que solo quiere ver el mundo arder</p>
       <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
       <span class="discount">YONKO10</span>
       <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
@@ -715,9 +715,8 @@
 // ═══════════════════════════════════════════
 // CONFIG — edita aquí
 // ═══════════════════════════════════════════
-var NFC_KEY = 'YONKO2026';
-var GOOGLE_SCRIPT_URL = 'TU_GOOGLE_APPS_SCRIPT_URL';
-var TUT_PASSWORD = 'YONKO2026';
+var NFC_KEY = 'NADIE_SE_CALLA';
+var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYdIhl_JcSy_UfaQtMrp4fvOKwvvzrRQAgRzw0QwDApwgpNDbK7FyGipMvqUW5ffiq/exec';
 var DISCOUNT_CODE = 'YONKO10';
 
 var EP_TRACKS = [
@@ -762,6 +761,23 @@ if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc','1');
 if (hasNFC) {
   var cl = document.getElementById('cooking-lock');
   if (cl) cl.style.display = 'none';
+}
+var openParam = params.get('open');
+var autoplay = params.get('autoplay') === '1';
+if (openParam) {
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (openParam === 'artoys') window.location.href = 'tienda.html';
+      else if (openParam === 'ep') {
+        openWin('ep-win');
+        if (autoplay) setTimeout(function() { epPlay(0); }, 600);
+      }
+      else if (openParam === 'released') openWin('released-win');
+      else if (openParam === 'cooking') openCooking();
+      else if (openParam === 'links') openWin('info-win');
+      else if (openParam === 'tutoriales') openWin('tut-win');
+    }, 400);
+  });
 }
 
 // ═══════════════════════════════════════════
@@ -976,33 +992,6 @@ function buildRecycle() {
 buildRecycle();
 
 // ═══════════════════════════════════════════
-// TUTORIALES
-// ═══════════════════════════════════════════
-function showTutContent() {
-  document.getElementById('tut-gate').style.display = 'none';
-  document.getElementById('tut-content').style.display = '';
-  var list = document.getElementById('tut-list');
-  if (TUTORIALES.length === 0) {
-    list.innerHTML = '<li style="color:#808080;font-size:11px">Próximamente.</li>';
-  } else {
-    var items = '';
-    for (var i = 0; i < TUTORIALES.length; i++) {
-      items += '<li><span>📄</span><a href="' + TUTORIALES[i].file + '" target="_blank" download>' + TUTORIALES[i].name + '</a></li>';
-    }
-    list.innerHTML = items;
-  }
-}
-function unlockTutEmail() {
-  var email = document.getElementById('tut-email').value.trim();
-  var msg = document.getElementById('tut-msg');
-  if (!email || !email.includes('@')) { msg.textContent = 'Email inválido.'; return; }
-  fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, source:'TUTORIALES'}) });
-  showTutContent();
-}
-
-if (hasNFC) showTutContent();
-
-// ═══════════════════════════════════════════
 // COOKING
 // ═══════════════════════════════════════════
 function openCooking() {
@@ -1074,10 +1063,6 @@ openWin = function(id) {
   if (id === 'artoys-win') buildArtoysGallery();
 };
 
-function unlockMusicVIP() {
-  closePopup('readme-pop');
-  openWin('artoys-win');
-}
 
 function processBuy() {
   var price = parseFloat(document.getElementById('buy-price').value);
@@ -1107,13 +1092,16 @@ function processBuy() {
   });
 }
 
-// Mostrar mensaje si viene de pago completado o cancelado
 (function() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('pago') === 'ok') {
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('pago') === 'ok') {
+    sessionStorage.setItem('yonko_nfc', '1');
+    hasNFC = true;
+    var cl = document.getElementById('cooking-lock');
+    if (cl) cl.style.display = 'none';
     setTimeout(function() {
-      openPopup('pago-ok-pop');
-    }, 500);
+      window.location.href = 'tienda.html?pago=ok';
+    }, 300);
   }
 })();
 
