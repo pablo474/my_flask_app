@@ -9,7 +9,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #fff;
+      background: #000;
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
@@ -21,7 +21,7 @@
       flex-direction: column;
       align-items: center;
       padding: 20px 16px 16px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #222;
       position: relative;
     }
 
@@ -61,17 +61,19 @@
       max-width: 480px;
       margin: 0 auto;
       padding: 36px 20px 80px;
+      background: #000;
     }
 
     .lore-text {
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       line-height: 1.7;
-      color: #333;
+      color: #eee;
       margin-top: 18px;
     }
 
     .spacer { height: 40px; }
+    .inv { filter: invert(1); }
     .spacer-lg { height: 64px; }
   </style>
 </head>
@@ -81,7 +83,7 @@
 <div id="ipod-section">
   <a class="back-btn" href="desktop.html">← volver</a>
   <div class="ipod-wrap">
-    <img class="ipod-img" src="static/images/Ipod_dibujo.PNG" alt="">
+    <img class="ipod-img inv" src="static/images/Ipod_dibujo.PNG" alt="">
     <div class="ipod-screen"><img id="bix-cover" src="" alt=""></div>
     <div class="ipod-inner-title" id="bix-inner">—</div>
     <div class="ipod-prog-area">
@@ -212,7 +214,7 @@
 
   <!-- espacio + texto -->
   <div class="spacer-lg"></div>
-  <p class="lore-text" style="text-align:center; font-size:16px">Ah! y por cierto</p>
+  <p class="lore-text" style="text-align:center; font-size:16px; color:#ddd">Ah! y por cierto</p>
   <div class="spacer"></div>
 
   <!-- 17: 15% más grande -->
@@ -222,7 +224,7 @@
   </div>
 
   <!-- FIN -->
-  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; margin-bottom:32px">FIN</p>
+  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; margin-bottom:32px; color:#fff">FIN</p>
 
   <!-- 18: 20% más pequeña, centrada -->
   <div style="text-align:center; padding-bottom:60px">
