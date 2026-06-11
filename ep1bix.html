@@ -61,20 +61,22 @@
       max-width: 480px;
       margin: 0 auto;
       padding: 36px 20px 80px;
-      background: #000;
     }
 
     .lore-text {
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       line-height: 1.7;
-      color: #eee;
+      color: #ddd;
       margin-top: 18px;
     }
 
     .spacer { height: 40px; }
-    .inv { filter: invert(1); }
     .spacer-lg { height: 64px; }
+
+    /* dark mode image inversion */
+    #lore img { filter: invert(1); }
+    #lore img.no-inv { filter: none; }
   </style>
 </head>
 <body>
@@ -83,7 +85,7 @@
 <div id="ipod-section">
   <a class="back-btn" href="desktop.html">← volver</a>
   <div class="ipod-wrap">
-    <img class="ipod-img inv" src="static/images/Ipod_dibujo.PNG" alt="">
+    <img class="ipod-img" src="static/images/Ipod_dibujo.PNG" alt="">
     <div class="ipod-screen"><img id="bix-cover" src="" alt=""></div>
     <div class="ipod-inner-title" id="bix-inner">—</div>
     <div class="ipod-prog-area">
@@ -116,7 +118,7 @@
 
   <!-- 2: El ángel — 10% más pequeña -->
   <div style="margin-bottom:32px">
-    <img src="static/images/lore/Imagen insertada 2.png" alt=""
+    <img src="static/images/lore/Imagen insertada 2.png" alt="" class="no-inv"
       style="width:90%; display:block; margin:0 auto">
   </div>
 
@@ -224,7 +226,7 @@
   </div>
 
   <!-- FIN -->
-  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; margin-bottom:32px; color:#fff">FIN</p>
+  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; color:#fff; margin-bottom:32px">FIN</p>
 
   <!-- 18: 20% más pequeña, centrada -->
   <div style="text-align:center; padding-bottom:60px">
