@@ -6,16 +6,19 @@
     { "src": "desktop.html", "use": "@vercel/static" },
     { "src": "tienda.html", "use": "@vercel/static" },
     { "src": "nfc.html", "use": "@vercel/static" },
+    { "src": "ep1bix.html", "use": "@vercel/static" },
     { "src": "static/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/create-checkout", "dest": "/api/create-checkout.js" },
     { "src": "/tienda", "dest": "/tienda.html" },
     { "src": "/nfc", "dest": "/nfc.html" },
+    { "src": "/ep1bix", "dest": "/ep1bix.html" },
     { "src": "/desktop", "dest": "/desktop.html" },
     { "src": "/desktop.html", "dest": "/desktop.html" },
     { "src": "/tienda.html", "dest": "/tienda.html" },
     { "src": "/nfc.html", "dest": "/nfc.html" },
+    { "src": "/ep1bix.html", "dest": "/ep1bix.html" },
     { "src": "/static/(.*)", "dest": "/static/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]

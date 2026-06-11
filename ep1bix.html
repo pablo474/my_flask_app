@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>YONKO — EP1BIX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f5f0e8;
+      background-image:
+        linear-gradient(rgba(100,100,200,0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100,100,200,0.09) 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: 'Caveat', cursive;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── IPOD STICKY ── */
+    #ipod-section {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px 16px 14px;
+      background: rgba(245,240,232,0.95);
+      backdrop-filter: blur(4px);
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(100,100,200,0.18);
+    }
+
+    .back-btn {
+      position: absolute; top: 16px; left: 16px;
+      font-family: 'Caveat', cursive; font-size: 15px;
+      color: #666; text-decoration: none;
+    }
+
+    .ipod-wrap { position:relative; width:min(220px,75vw); margin:0 auto; }
+    .ipod-img { width:100%; height:auto; display:block; pointer-events:none; user-select:none; }
+    .ipod-screen {
+      position:absolute; top:6.93%; left:32.15%; width:37.69%; height:23.44%;
+      overflow:hidden; border-radius:3px; background:#000; z-index:1;
+    }
+    .ipod-screen img { width:100%; height:100%; object-fit:contain; }
+    .ipod-inner-title {
+      position:absolute; top:32%; left:15%; width:70%;
+      text-align:center; font-size:7px; color:#333;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .ipod-prog-area { position:absolute; top:34%; left:32%; width:38%; }
+    .prog-wrap { height:3px; background:rgba(0,0,0,0.15); border-radius:2px; cursor:pointer; margin-bottom:3px; }
+    .prog-fill { height:100%; background:#333; border-radius:2px; width:0%; transition:width 0.4s linear; }
+    .prog-times { display:flex; justify-content:space-between; font-size:7px; color:#666; }
+    .ibtn { position:absolute; background:transparent; border:none; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; }
+    .ibtn-top  { top:51.51%; left:42.04%; width:15.84%; height:7.81%; }
+    .ibtn-prev { top:63.48%; left:22.41%; width:16.15%; height:13.62%; }
+    .ibtn-play { top:77.83%; left:38.56%; width:19.00%; height:11.72%; border-radius:50%; }
+    .ibtn-next { top:62.84%; left:62.07%; width:16.15%; height:13.62%; }
+
+    .track-num { font-size:12px; color:#888; margin-top:8px; letter-spacing:2px; }
+    .track-name { font-size:15px; color:#333; margin-top:2px; letter-spacing:1px; }
+
+    /* ── LORE ── */
+    #lore { max-width: 560px; margin: 0 auto; padding: 36px 20px 80px; }
+
+    .block { margin-bottom: 36px; }
+
+    .img-small  { width:38%; display:block; margin:0 auto; }
+    .img-medium { width:72%; display:block; margin:0 auto; }
+    .img-large  { width:100%; display:block; }
+
+    .lore-text {
+      font-family:'Caveat',cursive; font-size:19px; line-height:1.65;
+      color:#2a2a3a; margin-top:16px; padding:0 2px;
+    }
+    .lore-text + .lore-text { margin-top:12px; }
+
+    .chapter {
+      font-family:'Caveat',cursive; font-size:30px; font-weight:600;
+      color:#333; text-align:center; letter-spacing:3px;
+      margin:4px 0 28px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="ipod-section">
+  <a class="back-btn" href="desktop.html">← volver</a>
+  <div class="ipod-wrap">
+    <img class="ipod-img" src="static/images/Ipod_dibujo.PNG" alt="">
+    <div class="ipod-screen"><img id="bix-cover" src="" alt=""></div>
+    <div class="ipod-inner-title" id="bix-inner">—</div>
+    <div class="ipod-prog-area">
+      <div class="prog-wrap" onclick="bixSeek(event)"><div class="prog-fill" id="bix-prog"></div></div>
+      <div class="prog-times"><span id="bix-el">0:00</span><span id="bix-lf">0:00</span></div>
+    </div>
+    <button class="ibtn ibtn-top" onclick="window.location.href='tienda.html'"></button>
+    <button class="ibtn ibtn-prev" onclick="bixPrev()"></button>
+    <button class="ibtn ibtn-play" onclick="bixTog()"></button>
+    <button class="ibtn ibtn-next" onclick="bixNext()"></button>
+  </div>
+  <div class="track-num" id="bix-num">01 / 06</div>
+  <div class="track-name" id="bix-name">—</div>
+</div>
+
+<div id="lore">
+
+  <!-- 0: Logo apertura -->
+  <div class="block" style="text-align:center;padding-top:4px">
+    <img class="img-small" src="static/images/lore/Imagen insertada 0.png" alt="">
+  </div>
+
+  <!-- 1: Capítulo 1 -->
+  <div class="block">
+    <div class="chapter">Capítulo 1</div>
+    <img class="img-small" src="static/images/lore/Imagen insertada 1.png" alt="" onerror="this.style.display='none'">
+  </div>
+
+  <!-- 2: El ángel -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 2.png" alt="">
+    <p class="lore-text">Hace miles de años se juntaron los hechiceros de todos los reinos para llevar a cabo una misión que cambiaría el curso del mundo. Querían invocar al ángel del miedo, al que ellos acusaban de todos los problemas que acechaban a los 7 reinos.</p>
+  </div>
+
+  <!-- 3: Music box -->
+  <div class="block">
+    <img class="img-medium" src="static/images/lore/Imagen insertada 3.png" alt="">
+    <p class="lore-text">Juntaron los textos más prohibidos de cada reino y clan de brujos para encontrar la fórmula que trajera al ángel y poder matarle.</p>
+  </div>
+
+  <!-- 4: Planetas -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 4.png" alt="">
+    <p class="lore-text">Esperaron pacientes cientos de años hasta que la línea entre todos los planetas fuera recta y realizaron su locura con palabras de un idioma extraño delante de una lumbre roja.</p>
+  </div>
+
+  <!-- 5: Brujos al fuego — pausa visual -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 5.png" alt="">
+  </div>
+
+  <!-- 6: Tres cabezas -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 6.png" alt="">
+    <p class="lore-text">No se esperaron lo que ocurrió. Del fuego salieron tres cabezas con cuernos y cuchillos en vez de dientes.</p>
+  </div>
+
+  <!-- 7: Cabeza mordiendo al gato -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 7.png" alt="">
+    <p class="lore-text">No les dio tiempo a los asustados brujos a huir cuando una de las cabezas arrancó tripas y brazos del encapuchado más cercano. Esto mientras otra cabeza apuñalaba con su boca al gato de mala suerte que pasaba por ahí.</p>
+  </div>
+
+  <!-- 8: Cabeza mordiendo brazo — pausa visual -->
+  <div class="block">
+    <img class="img-medium" src="static/images/lore/Imagen insertada 8.png" alt="">
+  </div>
+
+  <!-- 9: El infiltrado -->
+  <div class="block">
+    <img class="img-medium" src="static/images/lore/Imagen insertada 9.png" alt="">
+    <p class="lore-text">Había otra sorpresa, esta vez entre el público de esta sangrienta escena. Uno de los brujos era un infiltrado. Un calvo enorme que pretendía acabar con el resto de sus compañeros y llevarse al ángel con vida. Venía preparado para dar buenas ostias. Lo que no sabía era si las balas serían suficientes o si solo le harían cosquillas a ese triple bicho. Aun así dispararía igual.</p>
+  </div>
+
+  <!-- 10: Apuntando -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 10.png" alt="">
+    <p class="lore-text">Y eso hizo. Aprovechó el momento de distracción para atacar la tercera e inocente cabeza y disparó sin pensar.</p>
+  </div>
+
+  <!-- 11: La cabeza en el frasco — climax -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 11.png" alt="">
+    <p class="lore-text">La cabeza no se inmutó. Ni se movió. Ni parpadeó. El disparo había sonado y la cosa seguía ahí, mirándole, como si le estuviera esperando.</p>
+    <p class="lore-text">El calvo no lo pensó. No había tiempo para pensar. Sacó el frasquito del bolsillo interior, el que llevaba cosido desde hacía años para un momento que no sabía si llegaría, y empezó a cantar. No era una canción. Era algo anterior a las canciones. Palabras de una lengua que no había aprendido sino recordado.</p>
+    <p class="lore-text">La bestia entró. No supo cómo. Solo que el frasquito pesaba más que antes.</p>
+  </div>
+
+  <!-- 12: El gato muerto -->
+  <div class="block">
+    <img class="img-small" src="static/images/lore/Imagen insertada 12.png" alt="">
+    <p class="lore-text">Se quedó un momento mirándolo en la mano. Frío. Húmedo, por alguna razón que prefirió no investigar. Lo guardó. Recogió al gato del suelo casi sin mirar y se fue.</p>
+  </div>
+
+  <!-- 13: El cinturón -->
+  <div class="block">
+    <img class="img-small" src="static/images/lore/Imagen insertada 13.png" alt="">
+    <p class="lore-text">En sus manos quedaron nuevas misiones hiladas. Descubrir si eso era realmente un ángel. Si lo era, lo protegería. Si no, lo mataría.</p>
+  </div>
+
+  <!-- 14: Martillazos -->
+  <div class="block">
+    <img class="img-medium" src="static/images/lore/Imagen insertada 14.png" alt="">
+    <p class="lore-text">En cualquier caso, una de sus normas como brujo ante entes de este tipo era — como explicarlo — congelarlo, unirlo en un objeto físico. Si era demonio sería más fácil de atrapar. Si fuera ángel sería más fácil de esconder y proteger.</p>
+  </div>
+
+  <!-- 15: Martillazo a la máscara -->
+  <div class="block">
+    <img class="img-large" src="static/images/lore/Imagen insertada 15.png" alt="">
+    <p class="lore-text">Con los restos de la cara de una de las tres cabezas y la sangre infectada del gato, el brujo forjó una máscara.</p>
+  </div>
+
+  <!-- 16: La máscara en una caja -->
+  <div class="block">
+    <img class="img-medium" src="static/images/lore/Imagen insertada 16.png" alt="">
+    <p class="lore-text">La guardó y protegió hasta su muerte, 500 años después.</p>
+  </div>
+
+  <!-- 17: El gato sonriente -->
+  <div class="block" style="text-align:center">
+    <img class="img-small" src="static/images/lore/Imagen insertada 17.png" alt="">
+    <p class="lore-text" style="text-align:center">Actualmente nadie sabe de la existencia de este objeto, ni siquiera de esta historia. Solo tú. Ahora tendré que x|||x</p>
+  </div>
+
+  <!-- 18: Logo cierre -->
+  <div class="block" style="text-align:center; padding-bottom:48px">
+    <img class="img-small" src="static/images/lore/Imagen insertada 18.png" alt="">
+  </div>
+
+</div>
+
+<audio id="bix-audio" preload="none"></audio>
+
+<script>
+var NFC_KEY = 'NADIE_SE_CALLA';
+var params = new URLSearchParams(window.location.search);
+var hasNFC = params.get('key') === NFC_KEY || sessionStorage.getItem('yonko_nfc') === '1';
+if (!hasNFC) { window.location.replace('desktop.html'); }
+if (params.get('key') === NFC_KEY) sessionStorage.setItem('yonko_nfc', '1');
+
+var EP_TRACKS = [
+  { title:'BEAST VIDEOGAME',        file:'static/music/beast videogame.mp3',         icon:'static/images/ep_ilustracion_1.PNG' },
+  { title:'DESTRUCTOR2',            file:'static/music/destructor2.mp3',              icon:'static/images/ep_ilustracion_2.PNG' },
+  { title:'DNB SMOOTH',             file:'static/music/dnb smooth.mp3',               icon:'static/images/ep_ilustracion_3.PNG' },
+  { title:'ELECTRONIC EXP MINIMAL', file:'static/music/electronic_exp_minimal_3.mp3', icon:'static/images/ep_ilustracion_4.PNG' },
+  { title:'METAL SKKRRR',           file:'static/music/METAL_SKKRRR.mp3',             icon:'static/images/ep_ilustracion_5.PNG' },
+  { title:'NU METAL',               file:'static/music/nu_metal.mp3',                 icon:'static/images/ep_ilustracion_6.PNG' }
+];
+
+var bixAudio = document.getElementById('bix-audio');
+var bixIdx = 0, bixPlaying = false;
+
+function fmt(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+
+function bixLoad(i, play) {
+  bixIdx = i;
+  var t = EP_TRACKS[i];
+  bixAudio.src = t.file;
+  document.getElementById('bix-name').textContent = t.title;
+  document.getElementById('bix-inner').textContent = t.title;
+  document.getElementById('bix-num').textContent = String(i+1).padStart(2,'0') + ' / 0' + EP_TRACKS.length;
+  document.getElementById('bix-cover').src = t.icon;
+  if (play) { bixAudio.play(); bixPlaying = true; }
+}
+
+function bixTog() {
+  if (bixPlaying) { bixAudio.pause(); bixPlaying = false; }
+  else { bixAudio.play(); bixPlaying = true; }
+}
+function bixNext() { bixLoad((bixIdx + 1) % EP_TRACKS.length, true); }
+function bixPrev() { bixLoad((bixIdx - 1 + EP_TRACKS.length) % EP_TRACKS.length, true); }
+function bixSeek(e) {
+  var pct = Math.max(0, Math.min(1, (e.clientX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth));
+  if (bixAudio.duration) bixAudio.currentTime = pct * bixAudio.duration;
+}
+
+bixAudio.addEventListener('ended', bixNext);
+bixAudio.addEventListener('timeupdate', function() {
+  if (!bixAudio.duration) return;
+  var pct = (bixAudio.currentTime / bixAudio.duration) * 100;
+  document.getElementById('bix-prog').style.width = pct + '%';
+  document.getElementById('bix-el').textContent = fmt(bixAudio.currentTime);
+  document.getElementById('bix-lf').textContent = fmt(bixAudio.duration - bixAudio.currentTime);
+});
+
+var trackParam = parseInt(params.get('track') || '0');
+if (isNaN(trackParam) || trackParam < 0 || trackParam >= EP_TRACKS.length) trackParam = 0;
+bixLoad(trackParam, true);
+</script>
+</body>
+</html>
