@@ -9,7 +9,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #000;
+      background: #fff;
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
@@ -21,7 +21,7 @@
       flex-direction: column;
       align-items: center;
       padding: 20px 16px 16px;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #eee;
       position: relative;
     }
 
@@ -67,16 +67,12 @@
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       line-height: 1.7;
-      color: #ddd;
+      color: #333;
       margin-top: 18px;
     }
 
     .spacer { height: 40px; }
     .spacer-lg { height: 64px; }
-
-    /* dark mode image inversion */
-    #lore img { filter: invert(1); }
-    #lore img.no-inv { filter: none; }
   </style>
 </head>
 <body>
@@ -118,7 +114,7 @@
 
   <!-- 2: El ángel — 10% más pequeña -->
   <div style="margin-bottom:32px">
-    <img src="static/images/lore/Imagen insertada 2.png" alt="" class="no-inv"
+    <img src="static/images/lore/Imagen insertada 2.png" alt=""
       style="width:90%; display:block; margin:0 auto">
   </div>
 
@@ -216,7 +212,7 @@
 
   <!-- espacio + texto -->
   <div class="spacer-lg"></div>
-  <p class="lore-text" style="text-align:center; font-size:16px; color:#ddd">Ah! y por cierto</p>
+  <p class="lore-text" style="text-align:center; font-size:16px">Ah! y por cierto</p>
   <div class="spacer"></div>
 
   <!-- 17: 15% más grande -->
@@ -226,7 +222,7 @@
   </div>
 
   <!-- FIN -->
-  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; color:#fff; margin-bottom:32px">FIN</p>
+  <p class="lore-text" style="text-align:center; font-size:22px; font-weight:700; margin-bottom:32px">FIN</p>
 
   <!-- 18: 20% más pequeña, centrada -->
   <div style="text-align:center; padding-bottom:60px">
