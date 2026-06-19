@@ -525,18 +525,17 @@
       <button class="win-close" onclick="closeWin('tut-win')"></button>
       <button class="win-min" onclick="closeWin('tut-win')"></button>
       <div class="win-content">
-        <div id="tut-gate" style="text-align:center;padding:12px">
-          <p style="font-weight:bold;margin-bottom:8px">🔒 Desbloquea el contenido</p>
-          <p style="font-size:11px;color:#666;margin-bottom:12px">Con tu correo o con la contraseña si la tienes.</p>
-          <input class="field" type="email" id="tut-email" placeholder="tu@correo.com">
-          <button class="push" onclick="unlockTutEmail()" style="width:100%;margin-bottom:8px">DESBLOQUEAR CON CORREO</button>
-          <input class="field" type="password" id="tut-pass" placeholder="contraseña">
-          <button class="push" onclick="unlockTutPass()" style="width:100%">ENTRAR CON CONTRASEÑA</button>
-          <p id="tut-msg" style="font-size:11px;color:red;margin-top:6px"></p>
-        </div>
-        <div id="tut-content" style="display:none">
-          <ul class="pdfs" id="tut-list"></ul>
-          <p style="margin-top:12px;font-size:11px;color:#808080">Más próximamente.</p>
+        <div style="padding:4px 0">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
+            <span>🔒</span>
+            <span style="font-size:12px">Como crear una web como esta gratis</span>
+            <span style="font-size:10px;color:#808080;margin-left:auto">En proceso</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e0e0e0;opacity:0.5">
+            <span>🔒</span>
+            <span style="font-size:12px">Como conseguir seguidores gratis</span>
+            <span style="font-size:10px;color:#808080;margin-left:auto">En proceso</span>
+          </div>
         </div>
       </div>
     </div>
@@ -742,9 +741,6 @@ var RECYCLE = [
   { name:'demo_destructor_v1.mp3',   date:'22/02/2026', type:'audio', locked:true,  playable:true  }
 ];
 
-var TUTORIALES = [
-  // { name:'Tutorial NFC', file:'static/pdfs/tutorial_nfc.pdf' }
-];
 
 var COOKING = [
   { type:'música',  title:'sin título #7',    date:'marzo 2026', nfcLocked:false, superLocked:false },
