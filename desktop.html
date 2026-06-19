@@ -591,7 +591,7 @@
       <pre class="readme">YONKO — README.txt
 ==================
 
-[Tu texto aquí.]
+Bienvenido a mi cueva, aqui guardo mis tesoros. Date una vuelta y pase lo que pase no toques el gato.
 </pre>
     </div>
     <div style="padding:0 14px 14px">
@@ -618,10 +618,11 @@
       <p>hay gente que solo quiere ver el mundo arder</p>
       <p style="font-size:11px;color:#666;margin:6px 0">pero ya que estás aquí...</p>
       <span class="discount">YONKO10</span>
-      <p style="font-size:11px;color:#808080">10% descuento en ARTOYS</p>
+      <p style="font-size:11px;color:#808080">Precio especial: 7€ en vez de 10€</p>
     </div>
-    <div class="popup-footer">
-      <button class="push" onclick="closePopup('virus-pop')">Guardar y salir</button>
+    <div class="popup-footer" style="flex-direction:column;gap:6px;align-items:center">
+      <button class="push" onclick="window.location.href='tienda.html?coupon=YONKO10'" style="width:80%">USAR CUPÓN — IR A LA TIENDA</button>
+      <button class="push" onclick="closePopup('virus-pop')" style="width:80%">Guardar y salir</button>
     </div>
   </div>
 </div>
@@ -673,11 +674,11 @@
     </div>
     <div class="popup-body" style="text-align:center">
       <p style="font-size:12px;margin-bottom:4px">Paga lo que quieras</p>
-      <p style="font-size:10px;color:#808080;margin-bottom:12px">Mínimo 7€ · sin límite superior</p>
+      <p style="font-size:10px;color:#808080;margin-bottom:12px">Mínimo 10€ · sin límite superior</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
-        <input id="buy-price" type="number" min="7" value="7"
+        <input id="buy-price" type="number" min="10" value="10"
           style="width:70px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:4px 8px;font-family:'W95FA','Courier New',monospace;font-size:16px;text-align:center;outline:none"
-          oninput="if(this.value<7&&this.value!='')this.value=7">
+          oninput="if(this.value<10&&this.value!='')this.value=10">
         <span style="font-size:16px;font-weight:bold">€</span>
       </div>
       <p style="font-size:10px;color:#808080;margin-bottom:12px">Recibirás la figura sin pintar.<br>Tú decides cómo terminarla.</p>
@@ -1071,8 +1072,8 @@ openWin = function(id) {
 
 function processBuy() {
   var price = parseFloat(document.getElementById('buy-price').value);
-  if (!price || price < 7) {
-    document.getElementById('buy-price').value = 7;
+  if (!price || price < 10) {
+    document.getElementById('buy-price').value = 10;
     return;
   }
   var btn = document.querySelector('#access-buy-pop .push');
@@ -1133,7 +1134,10 @@ function submitReadme() {
 // README POPUP ON LOAD
 // ═══════════════════════════════════════════
 window.addEventListener('load', function() {
-  setTimeout(function() { openPopup('readme-pop'); }, 800);
+  if (!sessionStorage.getItem('yonko_readme_seen')) {
+    sessionStorage.setItem('yonko_readme_seen', '1');
+    setTimeout(function() { openPopup('readme-pop'); }, 800);
+  }
 });
 </script>
 </body>

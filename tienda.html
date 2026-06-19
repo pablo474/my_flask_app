@@ -198,10 +198,10 @@
 
     <!-- PRICE -->
     <div class="price-row">
-      <span class="price-label">Precio objeto <span style="color:#aaa">(mín. 7€)</span></span>
+      <span class="price-label">Precio objeto <span style="color:#aaa" id="tienda-price-note">(mín. 10€)</span></span>
       <div class="price-input-wrap">
-        <input type="number" class="price-input" id="tienda-price" min="7" value="7"
-          onblur="if(this.value&&this.value<7)this.value=7"
+        <input type="number" class="price-input" id="tienda-price" min="10" value="10"
+          onblur="tiendaValidatePrice()"
           oninput="tiendaUpdateTotal()">
         <span style="font-size:15px;font-weight:600">€</span>
       </div>
@@ -282,14 +282,14 @@
   }
 
   function tiendaUpdateTotal() {
-    var price = parseFloat(document.getElementById('tienda-price').value) || 7;
+    var price = parseFloat(document.getElementById('tienda-price').value) || tiendaMinPrice;
     var shipping = parseFloat(document.getElementById('tienda-zone').value) || 6;
     document.getElementById('tienda-total').textContent = (price + shipping) + '€';
   }
 
   function tiendaBuy() {
     var price = parseFloat(document.getElementById('tienda-price').value);
-    if (!price || price < 7) { document.getElementById('tienda-price').value = 7; tiendaUpdateTotal(); return; }
+    if (!price || price < tiendaMinPrice) { document.getElementById('tienda-price').value = tiendaMinPrice; tiendaUpdateTotal(); return; }
     var shipping = parseFloat(document.getElementById('tienda-zone').value);
     var zone = SHIPPING_ZONES[String(shipping)];
     var total = price + shipping;
@@ -314,6 +314,29 @@
     msg.textContent = '¡Registrado!';
     document.getElementById('tienda-email').value = '';
   }
+
+  // Cupón del gato — código YONKO10 baja el mínimo de 10€ a 7€
+  var tiendaMinPrice = 10;
+  var COUPON_CODE = 'YONKO10';
+
+  function tiendaValidatePrice() {
+    var input = document.getElementById('tienda-price');
+    if (input.value && parseFloat(input.value) < tiendaMinPrice) input.value = tiendaMinPrice;
+    tiendaUpdateTotal();
+  }
+
+  // Check for coupon in URL (?coupon=YONKO10) set by the cat icon
+  (function() {
+    var p = new URLSearchParams(window.location.search);
+    if (p.get('coupon') === COUPON_CODE) {
+      tiendaMinPrice = 7;
+      document.getElementById('tienda-price').min = 7;
+      document.getElementById('tienda-price').value = 7;
+      document.getElementById('tienda-price-note').textContent = '(mín. 7€ · cupón aplicado)';
+      document.getElementById('tienda-price-note').style.color = '#22a05a';
+      tiendaUpdateTotal();
+    }
+  })();
 </script>
 </body>
 </html>
