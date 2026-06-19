@@ -409,12 +409,11 @@
               <div class="prog-wrap" onclick="seek(event,'rel-audio','rel-prog')"><div class="prog-fill" id="rel-prog"></div></div>
               <div class="prog-times"><span id="rel-elapsed">0:00</span><span id="rel-left">0:00</span></div>
             </div>
-            <button class="ibtn ibtn-top" onclick="openWin('artoys-win')"></button>
+            <button class="ibtn ibtn-top" onclick="window.location.href='tienda.html'"></button>
             <button class="ibtn ibtn-prev" onclick="relPrev()"></button>
             <button class="ibtn ibtn-play" onclick="relTog()"></button>
             <button class="ibtn ibtn-next" onclick="relNext()"></button>
           </div>
-          <a class="ipod-dl" id="rel-dl" href="#" download>↓ Descargar</a>
         </div>
       </div>
     </div>
@@ -730,7 +729,11 @@ var EP_TRACKS = [
 
 // Añade canciones aquí cuando las tengas:
 var REL_TRACKS = [
-  // { title:'NOMBRE', file:'static/music/archivo.mp3', icon:'static/images/imagen.PNG', dur:'0:00' }
+  { title:'TODOS ZOMBIES',       file:'static/music/released/Todos-Zombies-YONKO_MP3.mp3',         icon:'static/images/caratula_EP_1.PNG' },
+  { title:'HE INTENTADO',        file:'static/music/released/Yonko-He-Intentado-_YONKO_MP3.mp3',    icon:'static/images/caratula_EP_1.PNG' },
+  { title:'FALLING',             file:'static/music/released/falling_mp3 - YONKO_MP3.mp3',          icon:'static/images/caratula_EP_1.PNG' },
+  { title:'TERCERA DOSIS',       file:'static/music/released/Tercera Dosis-YONKO_MP3.mp3',          icon:'static/images/caratula_EP_1.PNG' },
+  { title:'DEMO — LOUGGI MANGIONI', file:'static/music/released/DEMO_louggiMangioni.mp3',           icon:'static/images/caratula_EP_1.PNG' }
 ];
 
 var RECYCLE = [
@@ -952,8 +955,6 @@ function relPlay(i) {
   document.getElementById('rel-inner').textContent = REL_TRACKS[i].title;
   document.getElementById('rel-num').textContent = String(i+1).padStart(2,'0') + ' / ' + String(REL_TRACKS.length).padStart(2,'0');
   document.getElementById('rel-cover').src = REL_TRACKS[i].icon;
-  document.getElementById('rel-dl').href = REL_TRACKS[i].file;
-  document.getElementById('rel-dl').download = REL_TRACKS[i].title + '.mp3';
 }
 function relTog() {
   if (relIdx < 0) return;
